@@ -1,9 +1,8 @@
 import Field from "./components/Field/Field";
+import generateBoard from "./utils/generateBoard";
 
-const App = (): JSX.Element => (
-  <>
-    <Field height={4} width={4} obstacles={[[2, 2]]} />
-  </>
-);
+const boardSize = 4;
+
+const App = (): JSX.Element => <Field board={generateBoard(boardSize)} />;
 
 export default App;

@@ -1,23 +1,14 @@
-import { useEffect, useState } from "react";
 import CellTypes from "../../types/CellTypes";
 
 type CellProps = {
   cellType: CellTypes;
-  position: [number, number];
+  position: string;
 };
 
-const Cell = ({ cellType, position }: CellProps): JSX.Element => {
-  const [cellState, setCellState] = useState<CellTypes>();
-
-  useEffect(() => {
-    setCellState(cellType);
-  }, [cellType]);
-
-  return (
-    <div>
-      {cellState} {position}
-    </div>
-  );
-};
+const Cell = ({ cellType, position }: CellProps): JSX.Element => (
+  <div>
+    {cellType} {position}
+  </div>
+);
 
 export default Cell;

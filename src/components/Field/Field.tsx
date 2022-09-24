@@ -1,27 +1,23 @@
+import CellTypes from "../../types/CellTypes";
+import Position from "../../types/Position";
 import Cell from "../Cell/Cell";
 
 type FieldProps = {
-  height: number;
-  width: number;
-  obstacles: [number, number][];
+  board: Map<Position, CellTypes>;
 };
 
-const Field = ({ height, width, obstacles }: FieldProps): JSX.Element => {
-  const board = new Array(height).fill("").map((_, indexX) =>
-    new Array(width).fill("").map((_, indexY) => {
-      if (
-        obstacles.find(
-          (obstacle) => obstacle[0] === indexX && obstacle[1] === indexY
-        )
-      ) {
-        return <Cell cellType="obstacle" position={[indexX, indexY]} />;
-      }
+const Field = ({ board }: FieldProps): JSX.Element => {
+  const renderBoard: JSX.Element[] = [];
 
-      return <Cell cellType="blank" position={[indexX, indexY]} />;
-    })
-  );
+  board.set("0-0", "player");
 
-  return <div>{board}</div>;
+  board.forEach((type, position) => {
+    renderBoard.push(
+      <Cell cellType={type} position={position} key={position} />
+    );
+  });
+
+  return <div>{renderBoard}</div>;
 };
 
 export default Field;
