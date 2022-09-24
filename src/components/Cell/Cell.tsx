@@ -1,4 +1,5 @@
 import CellTypes from "../../types/CellTypes";
+import { BlankCell, ObstacleCell, PlayerCell } from "./Cell.styled";
 
 type CellProps = {
   cellType: CellTypes;
@@ -6,9 +7,11 @@ type CellProps = {
 };
 
 const Cell = ({ cellType, position }: CellProps): JSX.Element => (
-  <div>
-    {cellType} {position}
-  </div>
+  <>
+    {cellType === "blank" && <BlankCell />}
+    {cellType === "player" && <PlayerCell />}
+    {cellType === "obstacle" && <ObstacleCell />}
+  </>
 );
 
 export default Cell;
