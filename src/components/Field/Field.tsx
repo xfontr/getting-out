@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useDirections from "../../hooks/useDirections";
 import CellTypes from "../../types/CellTypes";
 import Position from "../../types/Position";
 import Cell from "../Cell/Cell";
 import FieldStyled from "./Field.styled";
 
 type FieldProps = {
-  board: Map<Position, CellTypes>;
+  initialBoard: Map<Position, CellTypes>;
 };
 
-const Field = ({ board }: FieldProps): JSX.Element => {
-  const [player] = useState<Position>("0-0");
+const Field = ({ initialBoard }: FieldProps): JSX.Element => {
+  const [player, setPlayer] = useState<Position>("1-1");
+  const [currentBoard, setCurrentBoard] =
+    useState<typeof initialBoard>(initialBoard);
+
+  useDirections(setCurrentBoard, setPlayer, player);
   const renderBoard: JSX.Element[] = [];
 
-  board.set(player, "player");
-
-  board.forEach((type, position) => {
+  currentBoard.forEach((type, position) => {
     renderBoard.push(
       <Cell cellType={type} position={position} key={position} />
     );

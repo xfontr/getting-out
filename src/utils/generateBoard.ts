@@ -12,6 +12,7 @@ const generateBoard = (size: number): Map<Position, CellTypes> => {
         .forEach((_, indexY) => cells.set(`${indexX}-${indexY}`, "blank"))
     );
 
+  cells.set("1-1", "player");
   return cells;
 };
 
