@@ -12,7 +12,6 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
   const [player, setPlayer] = useState<Position>("1-1");
   const [currentBoard, setCurrentBoard] =
     useState<typeof initialBoard>(initialBoard);
-
   useDirections(setCurrentBoard, setPlayer, player, currentBoard);
   const renderBoard: JSX.Element[] = [];
 
