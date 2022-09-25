@@ -20,6 +20,26 @@ const App = (): JSX.Element => {
       >
         Toggle edit mode
       </button>
+      <button
+        onClick={() => {
+          setGameStatus((gameStatus) => ({
+            ...gameStatus,
+            editTool: "blank",
+          }));
+        }}
+      >
+        Blanks
+      </button>
+      <button
+        onClick={() => {
+          setGameStatus((gameStatus) => ({
+            ...gameStatus,
+            editTool: "obstacle",
+          }));
+        }}
+      >
+        Obstacles
+      </button>
       <Field initialBoard={generateBoard(boardSize)} />
     </>
   );
