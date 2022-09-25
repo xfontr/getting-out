@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useRef } from "react";
-import CellTypes from "../types/CellTypes";
+import { useCallback, useEffect } from "react";
 import Directions from "../types/Directions";
-import Position from "../types/Position";
+import { Board, Position } from "../types/gameBoard";
 
 const keys: Record<string, Directions> = {
   w: "up",
@@ -25,12 +24,10 @@ const directionValues = {
 };
 
 const useDirections = (
-  setCurrentBoard: React.Dispatch<
-    React.SetStateAction<Map<Position, CellTypes>>
-  >,
+  setCurrentBoard: React.Dispatch<React.SetStateAction<Board>>,
   setPlayer: React.Dispatch<React.SetStateAction<Position>>,
   player: Position,
-  boardSize: number
+  board: Board
 ) => {
   const setNewPositions = useCallback(
     (newPosition: Position) => {
@@ -41,25 +38,29 @@ const useDirections = (
     [player, setCurrentBoard, setPlayer]
   );
 
-  const validateNewPosition = (
-    row: number,
-    column: number,
-    size: number
-  ): boolean => row < 0 || column < 0 || row >= size || column >= size;
+  const checkLimits = (row: number, column: number, size: number): boolean =>
+    row < 0 || column < 0 || row >= size || column >= size;
+
+  const checkObstacles = (position: Position, board: Board): boolean =>
+    board.get(position) === "obstacle";
+
+  const getPosition = (player: Position, key: string) => ({
+    row: +Array.from(player)[0] + directionValues[keys[key]][0],
+    column: +Array.from(player)[2] + directionValues[keys[key]][1],
+  });
 
   const handleKeyPress = useCallback(
     ({ key }: KeyboardEvent) => {
-      const row = +Array.from(player)[0] + directionValues[keys[key]][0];
-      const column = +Array.from(player)[2] + directionValues[keys[key]][1];
+      const { row, column } = getPosition(player, key);
 
-      console.log(row, column, boardSize);
-
-      if (validateNewPosition(row, column, boardSize)) {
-        return;
+      if (
+        !checkLimits(row, column, board.size / 10) &&
+        !checkObstacles(`${row}-${column}`, board)
+      ) {
+        setNewPositions(`${row}-${column}`);
       }
-      setNewPositions(`${row}-${column}`);
     },
-    [player, setNewPositions, boardSize]
+    [player, setNewPositions, board]
   );
 
   useEffect(() => {

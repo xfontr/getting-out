@@ -1,12 +1,11 @@
 import { useState } from "react";
 import useDirections from "../../hooks/useDirections";
-import CellTypes from "../../types/CellTypes";
-import Position from "../../types/Position";
+import { Board, Position } from "../../types/gameBoard";
 import Cell from "../Cell/Cell";
 import FieldStyled from "./Field.styled";
 
 type FieldProps = {
-  initialBoard: Map<Position, CellTypes>;
+  initialBoard: Board;
 };
 
 const Field = ({ initialBoard }: FieldProps): JSX.Element => {
@@ -14,7 +13,7 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
   const [currentBoard, setCurrentBoard] =
     useState<typeof initialBoard>(initialBoard);
 
-  useDirections(setCurrentBoard, setPlayer, player, initialBoard.size / 10);
+  useDirections(setCurrentBoard, setPlayer, player, currentBoard);
   const renderBoard: JSX.Element[] = [];
 
   currentBoard.forEach((type, position) => {
