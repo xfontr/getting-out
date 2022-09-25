@@ -12,7 +12,9 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
   const [player, setPlayer] = useState<Position>("1-1");
   const [currentBoard, setCurrentBoard] =
     useState<typeof initialBoard>(initialBoard);
+
   useDirections(setCurrentBoard, setPlayer, player, currentBoard);
+
   const renderBoard: JSX.Element[] = [];
 
   currentBoard.forEach((type, position) => {
@@ -21,6 +23,7 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
         cellType={type}
         position={position}
         setBoard={setCurrentBoard}
+        player={player}
         key={position}
       />
     );

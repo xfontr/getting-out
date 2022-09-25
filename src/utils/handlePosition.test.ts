@@ -2,8 +2,10 @@ import { Board, Position } from "../types/gameBoard";
 import {
   checkLimits,
   checkObstacles,
+  columnOf,
   getPosition,
   positionOf,
+  rowOf,
 } from "./handlePosition";
 
 describe("Given a checkLimits function", () => {
@@ -193,6 +195,32 @@ describe("Given a positionOf function", () => {
       const result = positionOf(row, column);
 
       expect(result).toBe(expectedResult);
+    });
+  });
+});
+
+describe("Given a rowOf function", () => {
+  describe("When called with a position", () => {
+    test("Then it should return the row number of the position", () => {
+      const row = 1;
+      const position: Position = `${row}-2`;
+
+      const result = rowOf(position);
+
+      expect(result).toBe(row);
+    });
+  });
+});
+
+describe("Given a columnOf function", () => {
+  describe("When called with a position", () => {
+    test("Then it should return the column number of the position", () => {
+      const column = 2;
+      const position: Position = `1-${2}`;
+
+      const result = columnOf(position);
+
+      expect(result).toBe(column);
     });
   });
 });

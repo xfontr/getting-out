@@ -3,7 +3,7 @@ import { CellProps } from "../components/Cell/Cell";
 import { GameContext } from "../Store/CallStatusContext/GameContext";
 import { CellTypes } from "../types/gameBoard";
 
-const useCell = ({ cellType, position, setBoard }: CellProps) => {
+const useCell = ({ cellType, position, setBoard, player }: CellProps) => {
   const [currentCellType, setCurrentCellType] = useState<CellTypes>(cellType);
   const { isEditMode, editTool } = useContext(GameContext);
 

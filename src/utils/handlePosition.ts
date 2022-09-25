@@ -38,3 +38,6 @@ export const getPosition = (player: Position, key: KeyboardEvent["key"]) => ({
 
 export const positionOf = (row: number, column: number): Position =>
   `${row}-${column}`;
+
+export const rowOf = (position: Position) => +Array.from(position)[0];
+export const columnOf = (position: Position) => +Array.from(position)[2];
