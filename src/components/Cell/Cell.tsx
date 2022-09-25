@@ -1,18 +1,17 @@
-import CellTypes from "../../types/CellTypes";
-import Position from "../../types/Position";
-import { BlankCell, ObstacleCell, PlayerCell } from "./Cell.styled";
+import useCell from "../../hooks/useCell";
+import { Board, CellTypes, Position } from "../../types/gameBoard";
+import { CellStyled } from "./Cell.styled";
 
-type CellProps = {
+export type CellProps = {
   cellType: CellTypes;
   position: Position;
+  setBoard: React.Dispatch<React.SetStateAction<Board>>;
 };
 
-const Cell = ({ cellType, position }: CellProps): JSX.Element => (
-  <>
-    {cellType === "blank" && <BlankCell data-testid="blank" />}
-    {cellType === "player" && <PlayerCell data-testid="player" />}
-    {cellType === "obstacle" && <ObstacleCell data-testid="obstacle" />}
-  </>
-);
+const Cell = ({ cellType, position, setBoard }: CellProps): JSX.Element => {
+  const { attributes } = useCell({ cellType, position, setBoard });
+
+  return <CellStyled {...attributes} />;
+};
 
 export default Cell;
