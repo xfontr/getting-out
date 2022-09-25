@@ -11,7 +11,7 @@ describe("Given a Field component", () => {
       const expectedCells = 3;
       const expectedPlayerCells = 1;
 
-      render(<Field board={board} />);
+      render(<Field initialBoard={board} />);
 
       const cells = screen.getAllByTestId("blank");
       const player = screen.getAllByTestId("player");
