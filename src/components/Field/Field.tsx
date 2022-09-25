@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useDirections from "../../hooks/useDirections";
 import CellTypes from "../../types/CellTypes";
 import Position from "../../types/Position";
@@ -14,7 +14,7 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
   const [currentBoard, setCurrentBoard] =
     useState<typeof initialBoard>(initialBoard);
 
-  useDirections(setCurrentBoard, setPlayer, player);
+  useDirections(setCurrentBoard, setPlayer, player, initialBoard.size / 10);
   const renderBoard: JSX.Element[] = [];
 
   currentBoard.forEach((type, position) => {

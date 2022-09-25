@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import CellTypes from "../types/CellTypes";
 import Directions from "../types/Directions";
 import Position from "../types/Position";
@@ -29,7 +29,8 @@ const useDirections = (
     React.SetStateAction<Map<Position, CellTypes>>
   >,
   setPlayer: React.Dispatch<React.SetStateAction<Position>>,
-  player: Position
+  player: Position,
+  boardSize: number
 ) => {
   const setNewPositions = useCallback(
     (newPosition: Position) => {
@@ -40,13 +41,25 @@ const useDirections = (
     [player, setCurrentBoard, setPlayer]
   );
 
+  const validateNewPosition = (
+    row: number,
+    column: number,
+    size: number
+  ): boolean => row < 0 || column < 0 || row >= size || column >= size;
+
   const handleKeyPress = useCallback(
     ({ key }: KeyboardEvent) => {
       const row = +Array.from(player)[0] + directionValues[keys[key]][0];
       const column = +Array.from(player)[2] + directionValues[keys[key]][1];
+
+      console.log(row, column, boardSize);
+
+      if (validateNewPosition(row, column, boardSize)) {
+        return;
+      }
       setNewPositions(`${row}-${column}`);
     },
-    [player, setNewPositions]
+    [player, setNewPositions, boardSize]
   );
 
   useEffect(() => {
