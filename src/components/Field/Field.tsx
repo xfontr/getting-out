@@ -17,7 +17,12 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
 
   currentBoard.forEach((type, position) => {
     renderBoard.push(
-      <Cell cellType={type} position={position} key={position} />
+      <Cell
+        cellType={type}
+        position={position}
+        setBoard={setCurrentBoard}
+        key={position}
+      />
     );
   });
 
