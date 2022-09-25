@@ -22,6 +22,7 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
       <Cell
         cellType={type}
         position={position}
+        board={currentBoard}
         setBoard={setCurrentBoard}
         player={player}
         key={position}

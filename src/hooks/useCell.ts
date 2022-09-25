@@ -2,8 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { CellProps } from "../components/Cell/Cell";
 import { GameContext } from "../Store/CallStatusContext/GameContext";
 import { CellTypes } from "../types/gameBoard";
+import neighbourCells from "../utils/neighbourCells";
 
-const useCell = ({ cellType, position, setBoard, player }: CellProps) => {
+const useCell = ({
+  cellType,
+  position,
+  player,
+  board,
+  setBoard,
+}: CellProps) => {
   const [currentCellType, setCurrentCellType] = useState<CellTypes>(cellType);
   const { isEditMode, editTool } = useContext(GameContext);
 
@@ -11,8 +18,16 @@ const useCell = ({ cellType, position, setBoard, player }: CellProps) => {
     setCurrentCellType(cellType);
   }, [setCurrentCellType, cellType]);
 
+  const shoot = () => {
+    const neighbours = neighbourCells(player, board);
+    if (neighbours.includes(position) && player !== position) {
+      setCurrentCellType("blank");
+      setBoard((board) => board.set(position, "blank"));
+    }
+  };
+
   const handleClick = () => {
-    if (!isEditMode) {
+    if (!isEditMode || player === position) {
       return;
     }
 
@@ -22,6 +37,7 @@ const useCell = ({ cellType, position, setBoard, player }: CellProps) => {
 
   const attributes = {
     onClick: handleClick,
+    onDoubleClick: shoot,
     className: currentCellType,
     "data-testid": cellType,
   };
