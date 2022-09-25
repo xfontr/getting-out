@@ -31,7 +31,10 @@ export const checkLimits = (
 export const checkObstacles = (position: Position, board: Board): boolean =>
   board.get(position) === "obstacle";
 
-export const getPosition = (player: Position, key: string) => ({
+export const getPosition = (player: Position, key: KeyboardEvent["key"]) => ({
   row: +Array.from(player)[0] + keyValue[keys[key]][0],
   column: +Array.from(player)[2] + keyValue[keys[key]][1],
 });
+
+export const positionOf = (row: number, column: number): Position =>
+  `${row}-${column}`;

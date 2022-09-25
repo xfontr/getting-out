@@ -1,5 +1,10 @@
 import { Board, Position } from "../types/gameBoard";
-import { checkLimits, checkObstacles } from "./handlePosition";
+import {
+  checkLimits,
+  checkObstacles,
+  getPosition,
+  positionOf,
+} from "./handlePosition";
 
 describe("Given a checkLimits function", () => {
   describe("When called with a row, a column and a board size", () => {
@@ -92,6 +97,102 @@ describe("Given a checkObstacles function", () => {
 
         expect(result).toBe(false);
       });
+    });
+  });
+});
+
+describe("Given a getPosition function", () => {
+  describe("When called with a position and a keyboard key of 'ArrowUp' or 'w'", () => {
+    test("Then it should return an object with a row and a column that are one position up", () => {
+      const position: Position = "1-1";
+      const arrowKey = "ArrowUp";
+
+      const expectedResult = {
+        row: 0,
+        column: 1,
+      };
+      const resultWithArrows = getPosition(position, arrowKey);
+
+      expect(resultWithArrows).toStrictEqual(expectedResult);
+
+      const key = "w";
+      const resultWithLetters = getPosition(position, key);
+
+      expect(resultWithLetters).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe("When called with a position and a keyboard key of 'ArrowRight' or 'd'", () => {
+    test("Then it should return an object with a row and a column that are one position to the right", () => {
+      const position: Position = "1-1";
+      const arrowKey = "ArrowRight";
+
+      const expectedResult = {
+        row: 1,
+        column: 2,
+      };
+      const resultWithArrows = getPosition(position, arrowKey);
+
+      expect(resultWithArrows).toStrictEqual(expectedResult);
+
+      const key = "d";
+      const resultWithLetters = getPosition(position, key);
+
+      expect(resultWithLetters).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe("When called with a position and a keyboard key of 'ArrowDown' or 's'", () => {
+    test("Then it should return an object with a row and a column that are one position down", () => {
+      const position: Position = "1-1";
+      const arrowKey = "ArrowDown";
+
+      const expectedResult = {
+        row: 2,
+        column: 1,
+      };
+      const resultWithArrows = getPosition(position, arrowKey);
+
+      expect(resultWithArrows).toStrictEqual(expectedResult);
+
+      const key = "s";
+      const resultWithLetters = getPosition(position, key);
+
+      expect(resultWithLetters).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe("When called with a position and a keyboard key of 'ArrowLeft' or 'a'", () => {
+    test("Then it should return an object with a row and a column that are one position to the left", () => {
+      const position: Position = "1-1";
+      const arrowKey = "ArrowLeft";
+
+      const expectedResult = {
+        row: 1,
+        column: 0,
+      };
+      const resultWithArrows = getPosition(position, arrowKey);
+
+      expect(resultWithArrows).toStrictEqual(expectedResult);
+
+      const key = "a";
+      const resultWithLetters = getPosition(position, key);
+
+      expect(resultWithLetters).toStrictEqual(expectedResult);
+    });
+  });
+});
+
+describe("Given a positionOf function", () => {
+  describe("When called with a row '1' and a column '2'", () => {
+    test("Then it should return a position '1-2'", () => {
+      const row = 1;
+      const column = 2;
+
+      const expectedResult = "1-2";
+      const result = positionOf(row, column);
+
+      expect(result).toBe(expectedResult);
     });
   });
 });

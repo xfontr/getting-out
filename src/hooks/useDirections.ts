@@ -4,6 +4,7 @@ import {
   checkLimits,
   checkObstacles,
   getPosition,
+  positionOf,
 } from "../utils/handlePosition";
 
 const useDirections = (
@@ -27,9 +28,9 @@ const useDirections = (
 
       if (
         !checkLimits(row, column, board.size / 10) &&
-        !checkObstacles(`${row}-${column}`, board)
+        !checkObstacles(positionOf(row, column), board)
       ) {
-        setNewPositions(`${row}-${column}`);
+        setNewPositions(positionOf(row, column));
       }
     },
     [player, setNewPositions, board]
