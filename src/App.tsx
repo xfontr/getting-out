@@ -6,10 +6,13 @@ import generateBoard from "./utils/generateBoard";
 const boardSize = 10;
 
 const App = (): JSX.Element => {
-  const { setGameStatus } = useContext(GameContext);
+  const { setGameStatus, shootsLeft } = useContext(GameContext);
 
   return (
     <>
+      <span>
+        Shoots left: {shootsLeft} (double click neighbour cell to shoot)
+      </span>
       <button
         onClick={() => {
           setGameStatus((gameStatus) => ({

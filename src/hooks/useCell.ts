@@ -12,7 +12,8 @@ const useCell = ({
   setBoard,
 }: CellProps) => {
   const [currentCellType, setCurrentCellType] = useState<CellTypes>(cellType);
-  const { isEditMode, editTool } = useContext(GameContext);
+  const { isEditMode, editTool, shootsLeft, setGameStatus } =
+    useContext(GameContext);
 
   useEffect(() => {
     setCurrentCellType(cellType);
@@ -20,9 +21,18 @@ const useCell = ({
 
   const shoot = () => {
     const neighbours = neighbourCells(player, board);
-    if (neighbours.includes(position) && player !== position) {
+
+    if (
+      isEditMode ||
+      (neighbours.includes(position) && player !== position && shootsLeft)
+    ) {
       setCurrentCellType("blank");
       setBoard((board) => board.set(position, "blank"));
+      isEditMode ||
+        setGameStatus((gameStatus) => ({
+          ...gameStatus,
+          shootsLeft: shootsLeft - 1,
+        }));
     }
   };
 

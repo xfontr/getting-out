@@ -4,12 +4,14 @@ import {
   GameContext,
   IGameContext,
 } from "../../Store/CallStatusContext/GameContext";
-import { Board, CellTypes } from "../../types/gameBoard";
+import { Board, CellTypes, Position } from "../../types/gameBoard";
+import generateBoard from "../../utils/generateBoard";
 import Cell from "./Cell";
 
 describe("Given a Cell component", () => {
   const editTool: CellTypes = "obstacle";
   const isEditMode: boolean = true;
+  const shootsLeft = 3;
   const setGameStatus = jest.fn() as React.Dispatch<
     React.SetStateAction<IGameContext>
   >;
@@ -18,13 +20,23 @@ describe("Given a Cell component", () => {
   const mockContextProvider: IGameContext = {
     isEditMode,
     editTool,
+    shootsLeft,
     setGameStatus,
   };
+  const player: Position = "1-1";
+  const board = generateBoard(10);
+
   describe("When instantiated with a cell type 'player'", () => {
     test("Then it should render a player cell", () => {
       render(
         <GameContext.Provider value={mockContextProvider}>
-          <Cell cellType="player" position="0-0" setBoard={setBoard} />
+          <Cell
+            cellType="player"
+            position="0-0"
+            setBoard={setBoard}
+            player={player}
+            board={board}
+          />
         </GameContext.Provider>
       );
 
@@ -38,13 +50,19 @@ describe("Given a Cell component", () => {
     test("Then it should render a obstacle cell", () => {
       render(
         <GameContext.Provider value={mockContextProvider}>
-          <Cell cellType="obstacle" position="0-0" setBoard={setBoard} />
+          <Cell
+            cellType="obstacle"
+            position="0-0"
+            setBoard={setBoard}
+            player={player}
+            board={board}
+          />
         </GameContext.Provider>
       );
 
-      const cellPlayer = screen.getByTestId("obstacle");
+      const cellObstacle = screen.getByTestId("obstacle");
 
-      expect(cellPlayer).toBeInTheDocument();
+      expect(cellObstacle).toBeInTheDocument();
     });
   });
 
@@ -52,13 +70,19 @@ describe("Given a Cell component", () => {
     test("Then it should render a blank cell", () => {
       render(
         <GameContext.Provider value={mockContextProvider}>
-          <Cell cellType="blank" position="0-0" setBoard={setBoard} />
+          <Cell
+            cellType="blank"
+            position="0-0"
+            setBoard={setBoard}
+            player={player}
+            board={board}
+          />
         </GameContext.Provider>
       );
 
-      const cellPlayer = screen.getByTestId("blank");
+      const cellBlank = screen.getByTestId("blank");
 
-      expect(cellPlayer).toBeInTheDocument();
+      expect(cellBlank).toBeInTheDocument();
     });
   });
 
@@ -66,15 +90,21 @@ describe("Given a Cell component", () => {
     test("Then it should convert the cell type to obstacle, on click", async () => {
       render(
         <GameContext.Provider value={mockContextProvider}>
-          <Cell cellType="blank" position="0-0" setBoard={setBoard} />
+          <Cell
+            cellType="blank"
+            position="0-0"
+            setBoard={setBoard}
+            player={player}
+            board={board}
+          />
         </GameContext.Provider>
       );
 
-      const cellPlayer = screen.getByTestId("blank");
-      await userEvent.click(cellPlayer);
+      const cellBlank = screen.getByTestId("blank");
+      await userEvent.click(cellBlank);
 
-      expect(cellPlayer.className.includes(editTool)).toBe(true);
-      expect(cellPlayer.className.includes("blank")).toBe(false);
+      expect(cellBlank.className.includes(editTool)).toBe(true);
+      expect(cellBlank.className.includes("blank")).toBe(false);
 
       expect(setBoard).toHaveBeenCalled();
     });
@@ -86,15 +116,21 @@ describe("Given a Cell component", () => {
         <GameContext.Provider
           value={{ ...mockContextProvider, editTool: "blank" }}
         >
-          <Cell cellType="obstacle" position="1-0" setBoard={setBoard} />
+          <Cell
+            cellType="obstacle"
+            position="1-0"
+            setBoard={setBoard}
+            player={player}
+            board={board}
+          />
         </GameContext.Provider>
       );
 
-      const cellPlayer = screen.getByTestId("obstacle");
-      await userEvent.click(cellPlayer);
+      const cellObstacle = screen.getByTestId("obstacle");
+      await userEvent.click(cellObstacle);
 
-      expect(cellPlayer.className.includes("blank")).toBe(true);
-      expect(cellPlayer.className.includes("obstacle")).toBe(false);
+      expect(cellObstacle.className.includes("blank")).toBe(true);
+      expect(cellObstacle.className.includes("obstacle")).toBe(false);
     });
   });
 
@@ -104,17 +140,206 @@ describe("Given a Cell component", () => {
         <GameContext.Provider
           value={{ ...mockContextProvider, isEditMode: false }}
         >
-          <Cell cellType="blank" position="0-1" setBoard={setBoard} />
+          <Cell
+            cellType="blank"
+            position="0-1"
+            setBoard={setBoard}
+            player={player}
+            board={board}
+          />
         </GameContext.Provider>
       );
 
-      const cellPlayer = screen.getByTestId("blank");
-      await userEvent.click(cellPlayer);
+      const cell = screen.getByTestId("blank");
+      await userEvent.click(cell);
 
-      expect(cellPlayer.className.includes(editTool)).toBe(false);
-      expect(cellPlayer.className.includes("blank")).toBe(true);
+      expect(cell.className.includes(editTool)).toBe(false);
+      expect(cell.className.includes("blank")).toBe(true);
 
       expect(setBoard).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("When instantiated as edit mode and the user clicks a cell", () => {
+    test("Then it should do nothing if the cell is the same as te player's one", async () => {
+      render(
+        <GameContext.Provider
+          value={{ ...mockContextProvider, isEditMode: true }}
+        >
+          <Cell
+            cellType="blank"
+            position="0-1"
+            setBoard={setBoard}
+            player={"0-1"}
+            board={board}
+          />
+        </GameContext.Provider>
+      );
+
+      const cellBlank = screen.getByTestId("blank");
+      await userEvent.click(cellBlank);
+
+      expect(cellBlank.className.includes(editTool)).toBe(false);
+      expect(cellBlank.className.includes("blank")).toBe(true);
+
+      expect(setBoard).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("When instantiated as an obstacle with edit mode off and double clicked", () => {
+    test("Then it should be converted to 'blank' if it's a neighbour of the player", async () => {
+      render(
+        <GameContext.Provider
+          value={{ ...mockContextProvider, isEditMode: false }}
+        >
+          <Cell
+            cellType="obstacle"
+            position="0-1"
+            setBoard={setBoard}
+            player={"1-1"}
+            board={board}
+          />
+        </GameContext.Provider>
+      );
+
+      const cellObstacle = screen.getByTestId("obstacle");
+      await userEvent.dblClick(cellObstacle);
+
+      expect(cellObstacle.className.includes("blank")).toBe(true);
+      expect(cellObstacle.className.includes("obstacle")).toBe(false);
+
+      expect(setBoard).toHaveBeenCalled();
+    });
+
+    test("Then it should do nothing if it's not a neighbour of the player", async () => {
+      render(
+        <GameContext.Provider
+          value={{ ...mockContextProvider, isEditMode: false }}
+        >
+          <Cell
+            cellType="obstacle"
+            position="4-4"
+            setBoard={setBoard}
+            player={"1-1"}
+            board={board}
+          />
+        </GameContext.Provider>
+      );
+
+      const cellObstacle = screen.getByTestId("obstacle");
+      await userEvent.dblClick(cellObstacle);
+
+      expect(cellObstacle.className.includes("blank")).toBe(false);
+      expect(cellObstacle.className.includes("obstacle")).toBe(true);
+
+      expect(setBoard).not.toHaveBeenCalled();
+    });
+
+    test("Then it should do nothing if it's the same position as the player's", async () => {
+      render(
+        <GameContext.Provider
+          value={{ ...mockContextProvider, isEditMode: false }}
+        >
+          <Cell
+            cellType="player"
+            position="1-1"
+            setBoard={setBoard}
+            player={"1-1"}
+            board={board}
+          />
+        </GameContext.Provider>
+      );
+
+      const cellPlayer = screen.getByTestId("player");
+      await userEvent.dblClick(cellPlayer);
+
+      expect(cellPlayer.className.includes("player")).toBe(true);
+
+      expect(setBoard).not.toHaveBeenCalled();
+    });
+
+    test("Then it should do nothing if the player has no shoots left", async () => {
+      render(
+        <GameContext.Provider
+          value={{ ...mockContextProvider, isEditMode: false, shootsLeft: 0 }}
+        >
+          <Cell
+            cellType="obstacle"
+            position="0-1"
+            setBoard={setBoard}
+            player={"1-1"}
+            board={board}
+          />
+        </GameContext.Provider>
+      );
+
+      const cellObstacle = screen.getByTestId("obstacle");
+      await userEvent.dblClick(cellObstacle);
+
+      expect(cellObstacle.className.includes("blank")).toBe(false);
+      expect(cellObstacle.className.includes("obstacle")).toBe(true);
+
+      expect(setBoard).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("When instantiated as an obstacle with edit mode on and double clicked", () => {
+    test("Then it should be converted to 'blank'", async () => {
+      render(
+        <GameContext.Provider
+          value={{ ...mockContextProvider, isEditMode: true }}
+        >
+          <Cell
+            cellType="obstacle"
+            position="4-4"
+            setBoard={setBoard}
+            player={"1-1"}
+            board={board}
+          />
+        </GameContext.Provider>
+      );
+
+      const cellObstacle = screen.getByTestId("obstacle");
+      await userEvent.dblClick(cellObstacle);
+
+      expect(cellObstacle.className.includes("blank")).toBe(true);
+      expect(cellObstacle.className.includes("obstacle")).toBe(false);
+
+      expect(setBoard).toHaveBeenCalled();
+    });
+
+    test("Then the user should be able to shoot as many cells as wanted", async () => {
+      const cells = new Array(4).fill(null);
+
+      render(
+        <GameContext.Provider
+          value={{ ...mockContextProvider, isEditMode: true }}
+        >
+          {cells.map((cell, index) => (
+            <Cell
+              cellType="obstacle"
+              position={`4-${index}`}
+              setBoard={setBoard}
+              player={"1-1"}
+              board={board}
+            />
+          ))}
+        </GameContext.Provider>
+      );
+
+      const cellObstacles = screen.getAllByTestId("obstacle");
+
+      await userEvent.dblClick(cellObstacles[0]);
+      await userEvent.dblClick(cellObstacles[1]);
+      await userEvent.dblClick(cellObstacles[2]);
+      await userEvent.dblClick(cellObstacles[3]);
+
+      cellObstacles.forEach((cellObstacle) => {
+        expect(cellObstacle.className.includes("blank")).toBe(true);
+        expect(cellObstacle.className.includes("obstacle")).toBe(false);
+      });
+
+      expect(setBoard).toHaveBeenCalledTimes(12);
     });
   });
 });
