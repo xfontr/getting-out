@@ -4,6 +4,7 @@ import { IGameContext, GameContext } from "./GameContext";
 const gameInitialState: IGameContext = {
   isEditMode: true,
   editTool: "obstacle",
+  shootsLeft: 3,
   setGameStatus: () => {},
 };
 

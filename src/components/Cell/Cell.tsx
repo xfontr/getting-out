@@ -5,11 +5,25 @@ import { CellStyled } from "./Cell.styled";
 export type CellProps = {
   cellType: CellTypes;
   position: Position;
+  player: Position;
+  board: Board;
   setBoard: React.Dispatch<React.SetStateAction<Board>>;
 };
 
-const Cell = ({ cellType, position, setBoard }: CellProps): JSX.Element => {
-  const { attributes } = useCell({ cellType, position, setBoard });
+const Cell = ({
+  cellType,
+  position,
+  player,
+  board,
+  setBoard,
+}: CellProps): JSX.Element => {
+  const { attributes } = useCell({
+    cellType,
+    position,
+    player,
+    board,
+    setBoard,
+  });
 
   return <CellStyled {...attributes} />;
 };

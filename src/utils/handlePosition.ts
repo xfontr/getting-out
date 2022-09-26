@@ -22,6 +22,12 @@ const keyValue = {
   left: [0, -1],
 };
 
+export const positionOf = (row: number, column: number): Position =>
+  `${row}-${column}`;
+
+export const rowOf = (position: Position) => +Array.from(position)[0];
+export const columnOf = (position: Position) => +Array.from(position)[2];
+
 export const checkLimits = (
   row: number,
   column: number,
@@ -32,9 +38,6 @@ export const checkObstacles = (position: Position, board: Board): boolean =>
   board.get(position) === "obstacle";
 
 export const getPosition = (player: Position, key: KeyboardEvent["key"]) => ({
-  row: +Array.from(player)[0] + keyValue[keys[key]][0],
-  column: +Array.from(player)[2] + keyValue[keys[key]][1],
+  row: rowOf(player) + keyValue[keys[key]][0],
+  column: columnOf(player) + keyValue[keys[key]][1],
 });
-
-export const positionOf = (row: number, column: number): Position =>
-  `${row}-${column}`;
