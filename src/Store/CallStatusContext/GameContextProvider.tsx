@@ -1,10 +1,15 @@
 import { PropsWithChildren, useState } from "react";
 import { IGameContext, GameContext } from "./GameContext";
 
-const gameInitialState: IGameContext = {
+export const gameInitialState: IGameContext = {
   isEditMode: true,
+  isPlaying: false,
   editTool: "obstacle",
-  shootsLeft: 3,
+  game: {
+    score: 0,
+    shootsLeft: 3,
+    timeLeft: 30000,
+  },
   setGameStatus: () => {},
 };
 

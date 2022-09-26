@@ -3,8 +3,14 @@ import { CellTypes } from "../../types/gameBoard";
 
 export interface IGameContext {
   isEditMode: boolean;
+  isPlaying: boolean;
   editTool: CellTypes;
-  shootsLeft: number;
+  game: {
+    shootsLeft: number;
+    score: number;
+    timeLeft: number;
+  };
+
   setGameStatus: React.Dispatch<React.SetStateAction<IGameContext>>;
 }
 

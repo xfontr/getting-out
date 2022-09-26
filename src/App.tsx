@@ -1,49 +1,81 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Field from "./components/Field/Field";
+import usePlaying from "./hooks/usePlaying";
 import { GameContext } from "./Store/CallStatusContext/GameContext";
+import { Board } from "./types/gameBoard";
 import generateBoard from "./utils/generateBoard";
 
 const boardSize = 10;
 
 const App = (): JSX.Element => {
-  const { setGameStatus, shootsLeft } = useContext(GameContext);
+  const {
+    isEditMode,
+    setGameStatus,
+    game: { shootsLeft, timeLeft },
+  } = useContext(GameContext);
+  const { startGame, editMode, restartGame } = usePlaying();
+  const [gameBoard, setGameBoard] = useState<Board>(generateBoard(boardSize));
 
   return (
     <>
-      <span>
-        Shoots left: {shootsLeft} (double click neighbour cell to shoot)
-      </span>
+      {isEditMode || (
+        <>
+          <p>
+            Shoots left: {shootsLeft} (double click neighbour cell to shoot)
+          </p>
+
+          <p>Time left: {timeLeft}</p>
+        </>
+      )}
+
       <button
         onClick={() => {
-          setGameStatus((gameStatus) => ({
-            ...gameStatus,
-            isEditMode: !gameStatus.isEditMode,
-          }));
+          editMode();
         }}
       >
-        Toggle edit mode
+        Edit mode
       </button>
+
       <button
         onClick={() => {
-          setGameStatus((gameStatus) => ({
-            ...gameStatus,
-            editTool: "blank",
-          }));
+          restartGame(setGameBoard);
         }}
       >
-        Blanks
+        Restart
       </button>
-      <button
-        onClick={() => {
-          setGameStatus((gameStatus) => ({
-            ...gameStatus,
-            editTool: "obstacle",
-          }));
-        }}
-      >
-        Obstacles
-      </button>
-      <Field initialBoard={generateBoard(boardSize)} />
+
+      {isEditMode && (
+        <>
+          <button
+            onClick={() => {
+              startGame();
+            }}
+          >
+            Start game
+          </button>
+          <button
+            onClick={() => {
+              setGameStatus((gameStatus) => ({
+                ...gameStatus,
+                editTool: "blank",
+              }));
+            }}
+          >
+            Blanks
+          </button>
+          <button
+            onClick={() => {
+              setGameStatus((gameStatus) => ({
+                ...gameStatus,
+                editTool: "obstacle",
+              }));
+            }}
+          >
+            Obstacles
+          </button>
+        </>
+      )}
+      <Field initialBoard={gameBoard} />
     </>
   );
 };
