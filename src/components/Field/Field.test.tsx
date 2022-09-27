@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import Wrapper from "../../test-utils/mock/Wrapper";
 import generateBoard from "../../utils/generateBoard";
 import Field from "./Field";
 
@@ -11,7 +12,7 @@ describe("Given a Field component", () => {
       const expectedCells = 3;
       const expectedPlayerCells = 1;
 
-      render(<Field initialBoard={board} />);
+      render(<Field initialBoard={board} />, { wrapper: Wrapper });
 
       const cells = screen.getAllByTestId("blank");
       const player = screen.getAllByTestId("player");

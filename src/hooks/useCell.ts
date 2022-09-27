@@ -12,8 +12,12 @@ const useCell = ({
   setBoard,
 }: CellProps) => {
   const [currentCellType, setCurrentCellType] = useState<CellTypes>(cellType);
-  const { isEditMode, editTool, shootsLeft, setGameStatus } =
-    useContext(GameContext);
+  const {
+    isEditMode,
+    editTool,
+    game: { shootsLeft },
+    setGameStatus,
+  } = useContext(GameContext);
 
   useEffect(() => {
     setCurrentCellType(cellType);
@@ -31,7 +35,10 @@ const useCell = ({
       isEditMode ||
         setGameStatus((gameStatus) => ({
           ...gameStatus,
-          shootsLeft: shootsLeft - 1,
+          game: {
+            ...gameStatus.game,
+            shootsLeft: gameStatus.game.shootsLeft - 1,
+          },
         }));
     }
   };

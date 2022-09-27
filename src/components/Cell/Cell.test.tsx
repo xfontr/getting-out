@@ -10,17 +10,20 @@ import Cell from "./Cell";
 
 describe("Given a Cell component", () => {
   const editTool: CellTypes = "obstacle";
-  const isEditMode: boolean = true;
-  const shootsLeft = 3;
   const setGameStatus = jest.fn() as React.Dispatch<
     React.SetStateAction<IGameContext>
   >;
 
   const setBoard = jest.fn() as React.Dispatch<React.SetStateAction<Board>>;
   const mockContextProvider: IGameContext = {
-    isEditMode,
+    isEditMode: true,
     editTool,
-    shootsLeft,
+    isPlaying: false,
+    game: {
+      timeLeft: 0,
+      score: 0,
+      shootsLeft: 3,
+    },
     setGameStatus,
   };
   const player: Position = "1-1";
@@ -261,7 +264,11 @@ describe("Given a Cell component", () => {
     test("Then it should do nothing if the player has no shoots left", async () => {
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: false, shootsLeft: 0 }}
+          value={{
+            ...mockContextProvider,
+            isEditMode: false,
+            game: { ...mockContextProvider.game, shootsLeft: 0 },
+          }}
         >
           <Cell
             cellType="obstacle"
