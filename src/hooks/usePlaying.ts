@@ -18,7 +18,7 @@ const usePlaying = () => {
     }, 1000);
   }, [setGameStatus]);
 
-  const startGame = () => {
+  const startGame = (): void => {
     setGameStatus((gameStatus) => ({
       ...gameStatus,
       isEditMode: false,
@@ -30,21 +30,21 @@ const usePlaying = () => {
 
   const restartGame = (
     setGameBoard: React.Dispatch<React.SetStateAction<Board>>
-  ) => {
+  ): void => {
     setGameStatus(gameInitialState);
     setGameBoard(generateBoard(10));
 
-    clearTimeout(timer);
+    clearInterval(timer);
   };
 
-  const editMode = () => {
+  const editMode = (): void => {
     setGameStatus((gameStatus) => ({
       ...gameStatus,
       isEditMode: true,
       isPlaying: false,
     }));
 
-    clearTimeout(timer);
+    clearInterval(timer);
   };
 
   return { editMode, startGame, restartGame };
