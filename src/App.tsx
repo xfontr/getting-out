@@ -13,7 +13,7 @@ const App = (): JSX.Element => {
     setGameStatus,
     game: { shootsLeft, timeLeft },
   } = useContext(GameContext);
-  const { startGame, editMode, restartGame } = usePlaying();
+  const { startGame, editMode: setEditMode, restartGame } = usePlaying();
   const [gameBoard, setGameBoard] = useState<Board>(generateBoard(boardSize));
 
   return (
@@ -30,7 +30,7 @@ const App = (): JSX.Element => {
 
       <button
         onClick={() => {
-          editMode();
+          setEditMode();
         }}
       >
         Edit mode
@@ -57,7 +57,10 @@ const App = (): JSX.Element => {
             onClick={() => {
               setGameStatus((gameStatus) => ({
                 ...gameStatus,
-                editTool: "blank",
+                editMode: {
+                  ...gameStatus.editMode,
+                  editTool: "blank",
+                },
               }));
             }}
           >
@@ -67,7 +70,10 @@ const App = (): JSX.Element => {
             onClick={() => {
               setGameStatus((gameStatus) => ({
                 ...gameStatus,
-                editTool: "obstacle",
+                editMode: {
+                  ...gameStatus.editMode,
+                  editTool: "obstacle",
+                },
               }));
             }}
           >

@@ -4,7 +4,9 @@ import { CellTypes } from "../../types/gameBoard";
 export interface IGameContext {
   isEditMode: boolean;
   isPlaying: boolean;
-  editTool: CellTypes;
+  editMode: {
+    editTool: CellTypes;
+  };
   game: {
     shootsLeft: number;
     score: number;

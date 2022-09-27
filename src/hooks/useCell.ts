@@ -14,7 +14,7 @@ const useCell = ({
   const [currentCellType, setCurrentCellType] = useState<CellTypes>(cellType);
   const {
     isEditMode,
-    editTool,
+    editMode: { editTool },
     game: { shootsLeft },
     setGameStatus,
   } = useContext(GameContext);

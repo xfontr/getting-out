@@ -1,8 +1,9 @@
 import { useCallback, useEffect } from "react";
-import { Board, Position } from "../types/gameBoard";
+import { Board, CellTypes, Position } from "../types/gameBoard";
 import {
   checkLimits,
   checkObstacles,
+  checkPlatforms,
   getPosition,
   positionOf,
 } from "../utils/handlePosition";
@@ -22,16 +23,28 @@ const useDirections = (
     [player, setCurrentBoard, setPlayer]
   );
 
+  const handlePlatform = (expectedCell: CellTypes) => {
+    console.log("Win");
+  };
+
   const handleKeyPress = useCallback(
     ({ key }: KeyboardEvent) => {
       const { row, column } = getPosition(player, key);
 
       if (
-        !checkLimits(row, column, board.size / 10) &&
-        !checkObstacles(positionOf(row, column), board)
+        checkLimits(row, column, board.size / 10) ||
+        checkObstacles(positionOf(row, column), board)
       ) {
-        setNewPositions(positionOf(row, column));
+        return;
       }
+
+      const expectedCell = checkPlatforms(positionOf(row, column), board);
+
+      if (expectedCell) {
+        handlePlatform(expectedCell);
+      }
+
+      setNewPositions(positionOf(row, column));
     },
     [player, setNewPositions, board]
   );

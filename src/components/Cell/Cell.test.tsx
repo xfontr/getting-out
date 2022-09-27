@@ -17,8 +17,10 @@ describe("Given a Cell component", () => {
   const setBoard = jest.fn() as React.Dispatch<React.SetStateAction<Board>>;
   const mockContextProvider: IGameContext = {
     isEditMode: true,
-    editTool,
     isPlaying: false,
+    editMode: {
+      editTool,
+    },
     game: {
       timeLeft: 0,
       score: 0,
@@ -117,7 +119,10 @@ describe("Given a Cell component", () => {
     test("Then it should convert the cell type to blank, on click", async () => {
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, editTool: "blank" }}
+          value={{
+            ...mockContextProvider,
+            editMode: { ...mockContextProvider.editMode, editTool: "blank" },
+          }}
         >
           <Cell
             cellType="obstacle"
