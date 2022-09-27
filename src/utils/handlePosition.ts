@@ -1,5 +1,5 @@
 import Directions from "../types/Directions";
-import { Board, Position } from "../types/gameBoard";
+import { Board, CellTypes, Position } from "../types/gameBoard";
 
 const keys: Record<string, Directions> = {
   w: "up",
@@ -36,6 +36,17 @@ export const checkLimits = (
 
 export const checkObstacles = (position: Position, board: Board): boolean =>
   board.get(position) === "obstacle";
+
+export const checkPlatforms = (
+  position: Position,
+  board: Board
+): CellTypes | null => {
+  const cell = board.get(position);
+  if (cell === "obstacle" || cell === "blank") {
+    return null;
+  }
+  return cell!;
+};
 
 export const getPosition = (player: Position, key: KeyboardEvent["key"]) => ({
   row: rowOf(player) + keyValue[keys[key]][0],
