@@ -1,8 +1,10 @@
-import { useCallback, useEffect } from "react";
-import { Board, Position } from "../types/gameBoard";
+import { useCallback, useContext, useEffect } from "react";
+import { GameContext } from "../Store/CallStatusContext/GameContext";
+import { Board, CellTypes, Position } from "../types/gameBoard";
 import {
   checkLimits,
   checkObstacles,
+  checkPlatforms,
   getPosition,
   positionOf,
 } from "../utils/handlePosition";
@@ -13,6 +15,8 @@ const useDirections = (
   player: Position,
   board: Board
 ) => {
+  // const {} = useContext(GameContext);
+
   const setNewPositions = useCallback(
     (newPosition: Position) => {
       setCurrentBoard((board) => board.set(player, "blank"));
@@ -22,16 +26,29 @@ const useDirections = (
     [player, setCurrentBoard, setPlayer]
   );
 
+  const handlePlatform = (expectedCell: CellTypes) => {
+    console.log("fuck yeah brother", expectedCell);
+  };
+
   const handleKeyPress = useCallback(
     ({ key }: KeyboardEvent) => {
       const { row, column } = getPosition(player, key);
 
       if (
-        !checkLimits(row, column, board.size / 10) &&
-        !checkObstacles(positionOf(row, column), board)
+        checkLimits(row, column, board.size / 10) &&
+        checkObstacles(positionOf(row, column), board)
       ) {
-        setNewPositions(positionOf(row, column));
+        return;
       }
+
+      const expectedCell = checkPlatforms(positionOf(row, column), board);
+
+      if (expectedCell) {
+        console.log("puta");
+        handlePlatform(expectedCell);
+      }
+
+      setNewPositions(positionOf(row, column));
     },
     [player, setNewPositions, board]
   );

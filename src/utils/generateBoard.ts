@@ -12,6 +12,7 @@ const generateBoard = (size: number): Map<Position, CellTypes> => {
     );
 
   cells.set("1-1", "player");
+  cells.set("6-6", "exit");
   return cells;
 };
 

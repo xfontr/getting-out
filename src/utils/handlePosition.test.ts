@@ -2,6 +2,7 @@ import { Board, Position } from "../types/gameBoard";
 import {
   checkLimits,
   checkObstacles,
+  checkPlatforms,
   columnOf,
   getPosition,
   positionOf,
@@ -221,6 +222,37 @@ describe("Given a columnOf function", () => {
       const result = columnOf(position);
 
       expect(result).toBe(column);
+    });
+  });
+});
+
+describe("Given a checkPlatforms function", () => {
+  describe("When called with a position and a map of cells", () => {
+    const mockBoard: Board = new Map([
+      ["0-0", "blank"],
+      ["0-1", "blank"],
+      ["1-0", "obstacle"],
+      ["1-1", "exit"],
+    ]);
+
+    test("Then it should return null if the position has an 'obstacle' cell", () => {
+      const result = checkPlatforms("1-0", mockBoard);
+
+      expect(result).toBeNull();
+    });
+
+    test("Then it should return null if the position has an 'blank' cell", () => {
+      const result = checkPlatforms("0-0", mockBoard);
+
+      expect(result).toBeNull();
+    });
+
+    test("Then it should return the cell type if the position has an 'exit' cell", () => {
+      const expectedCell = "exit";
+
+      const result = checkPlatforms("1-1", mockBoard);
+
+      expect(result).toBe(expectedCell);
     });
   });
 });

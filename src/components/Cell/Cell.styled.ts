@@ -15,4 +15,8 @@ export const CellStyled = styled.div`
   &.obstacle {
     background-color: brown;
   }
+
+  &.exit {
+    background-color: gray;
+  }
 `;

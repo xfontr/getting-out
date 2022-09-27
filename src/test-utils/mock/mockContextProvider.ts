@@ -6,8 +6,10 @@ export const mockSetGameStatus = jest.fn() as React.Dispatch<
 
 const mockContextProvider: IGameContext = {
   isEditMode: true,
-  editTool: "obstacle",
   isPlaying: false,
+  editMode: {
+    editTool: "obstacle",
+  },
   game: {
     timeLeft: 3000,
     score: 0,
