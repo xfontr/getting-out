@@ -6,9 +6,10 @@ import FieldStyled from "./Field.styled";
 
 type FieldProps = {
   initialBoard: Board;
+  onClick?: () => void;
 };
 
-const Field = ({ initialBoard }: FieldProps): JSX.Element => {
+const Field = ({ initialBoard, ...rest }: FieldProps): JSX.Element => {
   const [player, setPlayer] = useState<Position>("1-1");
   const [currentBoard, setCurrentBoard] = useState<Board>(initialBoard);
 
@@ -33,7 +34,11 @@ const Field = ({ initialBoard }: FieldProps): JSX.Element => {
     );
   });
 
-  return <FieldStyled>{renderBoard}</FieldStyled>;
+  return (
+    <div {...rest}>
+      <FieldStyled>{renderBoard}</FieldStyled>
+    </div>
+  );
 };
 
 export default Field;
