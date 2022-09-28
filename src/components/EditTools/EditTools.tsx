@@ -14,8 +14,9 @@ const EditTools = ({
   switchEditTool,
 }: EditToolsProps): JSX.Element => {
   const handleClick = (event: SyntheticEvent) => {
+    debugger;
     limitedCells
-      .map((cell) => cells[cell] === 0 && editTool === cell)
+      .map((cell) => cells[cell] === 1 && editTool === cell)
       .includes(true) || switchEditTool(event);
   };
 
@@ -23,7 +24,7 @@ const EditTools = ({
     <>
       {Object.entries(cells).map(([cell]) => (
         <button onClick={handleClick} id={cell} key={`tool-${cell}`}>
-          {`${cell.charAt(0)}${cell.slice(1)}`}
+          {`${cell.charAt(0).toUpperCase()}${cell.slice(1)}`}
         </button>
       ))}
     </>
