@@ -1,4 +1,4 @@
-import { CellTypes, Position } from "../types/gameBoard";
+import { CellTypes, Position } from "../../types/gameBoard";
 
 const generateBoard = (size: number): Map<Position, CellTypes> => {
   const cells = new Map<Position, CellTypes>();

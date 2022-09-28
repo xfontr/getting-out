@@ -1,5 +1,5 @@
-import limitedCells from "../data/limitedCells";
-import { Board, CellTypes } from "../types/gameBoard";
+import limitedCells from "../../data/limitedCells";
+import { Board, CellTypes } from "../../types/gameBoard";
 
 export const readBoard = (board: Board): Record<CellTypes, number> => {
   const updatedCells: Record<CellTypes, number> = {

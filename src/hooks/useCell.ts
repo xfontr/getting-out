@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CellProps } from "../components/Cell/Cell";
 import { GameContext } from "../Store/CallStatusContext/GameContext";
 import { CellTypes } from "../types/gameBoard";
-import neighbourCells from "../utils/neighbourCells";
+import neighbourCells from "../utils/neighbourCells/neighbourCells";
 
 const useCell = ({
   cellType,

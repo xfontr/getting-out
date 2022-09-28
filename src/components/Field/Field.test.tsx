@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Wrapper from "../../test-utils/mock/Wrapper";
-import generateBoard from "../../utils/generateBoard";
+import generateBoard from "../../utils/generateBoard/generateBoard";
 import Field from "./Field";
 
 describe("Given a Field component", () => {

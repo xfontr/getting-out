@@ -1,55 +1,17 @@
-import { SyntheticEvent } from "react";
 import Field from "../Field/Field";
-import { CellTypes } from "../../types/gameBoard";
-import { checkIfBoardMaximum, readBoard } from "../../utils/readBoard";
-
+import { readBoard } from "../../utils/readBoard/readBoard";
 import EditTools from "../EditTools/EditTools";
-import limitedCells from "../../data/limitedCells";
-import {
-  cellsInitialState,
-  FieldProps,
-} from "../../containers/FieldContainer/FieldContainer";
+import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
+import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
+import { useEffect } from "react";
 
-const FieldEditor = ({
-  board,
-  cells,
-  editTool,
-  setGameStatus,
-  restartGame,
-  setBoard,
-  setCells,
-}: FieldProps): JSX.Element => {
-  const resetBoard = (): void => {
-    restartGame(setBoard);
-    setCells(cellsInitialState);
-  };
+const FieldEditor = (props: FieldProps): JSX.Element => {
+  const { switchEditTool, resetBoard, disableTools } = fieldEditorUtils(props);
+  const { editTool, cells, board, setCells } = props;
 
-  const switchEditTool = (event: SyntheticEvent): void => {
-    const requestedCell = event.currentTarget.id as CellTypes;
-
-    if (checkIfBoardMaximum(requestedCell, board)) {
-      return;
-    }
-
-    setCells(readBoard(board));
-    setGameStatus((gameStatus) => ({
-      ...gameStatus,
-      editMode: { ...gameStatus, editTool: requestedCell },
-    }));
-  };
-
-  const disableTools = (): void => {
-    if (
-      limitedCells
-        .map((cell) => cells[cell] === 0 && editTool === cell)
-        .includes(true)
-    ) {
-      setGameStatus((gameStatus) => ({
-        ...gameStatus,
-        editMode: { ...gameStatus, editTool: "blank" },
-      }));
-    }
-  };
+  useEffect(() => {
+    disableTools();
+  }, [cells, disableTools]);
 
   return (
     <>
@@ -74,7 +36,6 @@ const FieldEditor = ({
       <Field
         onClick={() => {
           setCells(readBoard(board));
-          disableTools();
         }}
         initialBoard={board}
       />

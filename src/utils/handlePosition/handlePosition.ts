@@ -1,5 +1,5 @@
-import Directions from "../types/Directions";
-import { Board, CellTypes, Position } from "../types/gameBoard";
+import Directions from "../../types/Directions";
+import { Board, CellTypes, Position } from "../../types/gameBoard";
 
 const keys: Record<string, Directions> = {
   w: "up",

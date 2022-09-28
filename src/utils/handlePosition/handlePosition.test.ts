@@ -1,4 +1,4 @@
-import { Board, Position } from "../types/gameBoard";
+import { Board, Position } from "../../types/gameBoard";
 import {
   checkLimits,
   checkObstacles,
