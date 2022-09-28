@@ -1,8 +1,8 @@
 import { useCallback, useContext } from "react";
-import { GameContext } from "../Store/CallStatusContext/GameContext";
-import { gameInitialState } from "../Store/CallStatusContext/GameContextProvider";
-import { Board } from "../types/gameBoard";
-import generateBoard from "../utils/generateBoard/generateBoard";
+import { GameContext } from "../../Store/CallStatusContext/GameContext";
+import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
+import { Board } from "../../types/gameBoard";
+import generateBoard from "../../utils/generateBoard/generateBoard";
 
 let timer: NodeJS.Timer;
 

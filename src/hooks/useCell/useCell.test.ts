@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react";
-import Wrapper from "../test-utils/mock/Wrapper";
-import { Board, CellTypes, Position } from "../types/gameBoard";
-import generateBoard from "../utils/generateBoard/generateBoard";
+import Wrapper from "../../test-utils/mock/Wrapper";
+import { Board, CellTypes, Position } from "../../types/gameBoard";
+import generateBoard from "../../utils/generateBoard/generateBoard";
 import useCell from "./useCell";
 
 describe("Given a useCell function", () => {

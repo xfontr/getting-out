@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from "react";
-import { Board, CellTypes, Position } from "../types/gameBoard";
+import { Board, CellTypes, Position } from "../../types/gameBoard";
 import {
   checkLimits,
   checkObstacles,
   checkPlatforms,
   getPosition,
   positionOf,
-} from "../utils/handlePosition/handlePosition";
+} from "../../utils/handlePosition/handlePosition";
 
 const useDirections = (
   setCurrentBoard: React.Dispatch<React.SetStateAction<Board>>,

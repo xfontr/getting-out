@@ -14,7 +14,6 @@ const EditTools = ({
   switchEditTool,
 }: EditToolsProps): JSX.Element => {
   const handleClick = (event: SyntheticEvent) => {
-    debugger;
     limitedCells
       .map((cell) => cells[cell] === 1 && editTool === cell)
       .includes(true) || switchEditTool(event);

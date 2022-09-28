@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import FieldEditor from "./components/FieldEditor/FieldEditor";
 import FieldContainer from "./containers/FieldContainer/FieldContainer";
-import usePlaying from "./hooks/usePlaying";
+import usePlaying from "./hooks/usePlaying/usePlaying";
 import { GameContext } from "./Store/CallStatusContext/GameContext";
 
 const App = (): JSX.Element => {

@@ -1,9 +1,9 @@
 import { renderHook } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { gameInitialState } from "../Store/CallStatusContext/GameContextProvider";
-import { mockSetGameStatus } from "../test-utils/mock/mockContextProvider";
-import Wrapper from "../test-utils/mock/Wrapper";
-import { Board } from "../types/gameBoard";
+import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
+import { mockSetGameStatus } from "../../test-utils/mock/mockContextProvider";
+import Wrapper from "../../test-utils/mock/Wrapper";
+import { Board } from "../../types/gameBoard";
 import usePlaying from "./usePlaying";
 
 jest.useFakeTimers();
@@ -11,7 +11,7 @@ jest.useFakeTimers();
 const mockGenerateBoard = jest.fn();
 
 jest.mock(
-  "../utils/generateBoard/generateBoard",
+  "../../utils/generateBoard/generateBoard",
   () => () => mockGenerateBoard
 );
 
