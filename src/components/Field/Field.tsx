@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import useDirections from "../../hooks/useDirections/useDirections";
+import useMovements from "../../hooks/useMovements/useMovements";
 import { Board, Position } from "../../types/gameBoard";
 import Cell from "../Cell/Cell";
 import FieldStyled from "./Field.styled";
 
 type FieldProps = {
   initialBoard: Board;
+  isEditMode?: boolean;
   onClick?: () => void;
 };
 
-const Field = ({ initialBoard, ...rest }: FieldProps): JSX.Element => {
+const Field = ({
+  initialBoard,
+  isEditMode = false,
+  ...rest
+}: FieldProps): JSX.Element => {
   const [player, setPlayer] = useState<Position>("1-1");
   const [currentBoard, setCurrentBoard] = useState<Board>(initialBoard);
 
@@ -17,7 +22,7 @@ const Field = ({ initialBoard, ...rest }: FieldProps): JSX.Element => {
     setCurrentBoard(initialBoard);
   }, [initialBoard]);
 
-  useDirections(setCurrentBoard, setPlayer, player, currentBoard);
+  useMovements(setCurrentBoard, setPlayer, player, currentBoard, isEditMode);
 
   const renderBoard: JSX.Element[] = [];
 

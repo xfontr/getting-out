@@ -6,9 +6,9 @@ import {
   getPosition,
   positionOf,
 } from "../../utils/handlePosition/handlePosition";
-import useDirections from "./useDirections";
+import useMovements from "./useMovements";
 
-describe("Given a useDirections function", () => {
+describe("Given a useMovements function", () => {
   const mockSetCurrentBoard = jest.fn() as React.Dispatch<
     React.SetStateAction<Board>
   >;
@@ -26,7 +26,7 @@ describe("Given a useDirections function", () => {
         const newPosition = positionOf(row, column);
 
         renderHook(() =>
-          useDirections(mockSetCurrentBoard, mockSetPlayer, player, board)
+          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);
@@ -50,7 +50,7 @@ describe("Given a useDirections function", () => {
         const keyboardPress = "w";
 
         renderHook(() =>
-          useDirections(mockSetCurrentBoard, mockSetPlayer, player, board)
+          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);
@@ -67,7 +67,7 @@ describe("Given a useDirections function", () => {
         board.set("0-1", "obstacle");
 
         renderHook(() =>
-          useDirections(mockSetCurrentBoard, mockSetPlayer, player, board)
+          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);

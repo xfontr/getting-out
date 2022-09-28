@@ -38,6 +38,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
           setCells(readBoard(board));
         }}
         initialBoard={board}
+        isEditMode={true}
       />
     </>
   );

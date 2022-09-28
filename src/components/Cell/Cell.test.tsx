@@ -168,32 +168,6 @@ describe("Given a Cell component", () => {
     });
   });
 
-  describe("When instantiated as edit mode and the user clicks a cell", () => {
-    test("Then it should do nothing if the cell is the same as te player's one", async () => {
-      render(
-        <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: true }}
-        >
-          <Cell
-            cellType="blank"
-            position="0-1"
-            setBoard={setBoard}
-            player={"0-1"}
-            board={board}
-          />
-        </GameContext.Provider>
-      );
-
-      const cellBlank = screen.getByTestId("blank");
-      await userEvent.click(cellBlank);
-
-      expect(cellBlank.className.includes(editTool)).toBe(false);
-      expect(cellBlank.className.includes("blank")).toBe(true);
-
-      expect(setBoard).not.toHaveBeenCalled();
-    });
-  });
-
   describe("When instantiated as an obstacle with edit mode off and double clicked", () => {
     test("Then it should be converted to 'blank' if it's a neighbour of the player", async () => {
       render(

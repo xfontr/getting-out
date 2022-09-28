@@ -44,7 +44,7 @@ const useCell = ({
   };
 
   const handleClick = () => {
-    if (!isEditMode || player === position) {
+    if (!isEditMode) {
       return;
     }
 
