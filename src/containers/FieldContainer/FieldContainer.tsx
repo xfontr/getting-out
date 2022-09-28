@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import usePlaying from "../hooks/usePlaying";
+import usePlaying from "../../hooks/usePlaying";
 import {
   GameContext,
   IGameContext,
-} from "../Store/CallStatusContext/GameContext";
-import { Board, CellTypes } from "../types/gameBoard";
-import generateBoard from "../utils/generateBoard";
+} from "../../Store/CallStatusContext/GameContext";
+import { Board, CellTypes } from "../../types/gameBoard";
+import generateBoard from "../../utils/generateBoard";
 
 export const cellsInitialState: Record<CellTypes, number> = {
   player: 1,
