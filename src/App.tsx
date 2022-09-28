@@ -1,20 +1,15 @@
-import { useContext, useState } from "react";
-import Field from "./components/Field/Field";
+import { useContext } from "react";
+import FieldEditor from "./components/FieldEditor/FieldEditor";
+import FieldContainer from "./FieldContainer/FieldContainer";
 import usePlaying from "./hooks/usePlaying";
 import { GameContext } from "./Store/CallStatusContext/GameContext";
-import { Board } from "./types/gameBoard";
-import generateBoard from "./utils/generateBoard";
-
-const boardSize = 10;
 
 const App = (): JSX.Element => {
   const {
     isEditMode,
-    setGameStatus,
     game: { shootsLeft, timeLeft },
   } = useContext(GameContext);
-  const { startGame, editMode: setEditMode, restartGame } = usePlaying();
-  const [gameBoard, setGameBoard] = useState<Board>(generateBoard(boardSize));
+  const { editMode: setEditMode } = usePlaying();
 
   return (
     <>
@@ -27,7 +22,6 @@ const App = (): JSX.Element => {
           <p>Time left: {timeLeft}</p>
         </>
       )}
-
       <button
         onClick={() => {
           setEditMode();
@@ -35,53 +29,7 @@ const App = (): JSX.Element => {
       >
         Edit mode
       </button>
-
-      <button
-        onClick={() => {
-          restartGame(setGameBoard);
-        }}
-      >
-        Restart
-      </button>
-
-      {isEditMode && (
-        <>
-          <button
-            onClick={() => {
-              startGame();
-            }}
-          >
-            Start game
-          </button>
-          <button
-            onClick={() => {
-              setGameStatus((gameStatus) => ({
-                ...gameStatus,
-                editMode: {
-                  ...gameStatus.editMode,
-                  editTool: "blank",
-                },
-              }));
-            }}
-          >
-            Blanks
-          </button>
-          <button
-            onClick={() => {
-              setGameStatus((gameStatus) => ({
-                ...gameStatus,
-                editMode: {
-                  ...gameStatus.editMode,
-                  editTool: "obstacle",
-                },
-              }));
-            }}
-          >
-            Obstacles
-          </button>
-        </>
-      )}
-      <Field initialBoard={gameBoard} />
+      <FieldContainer WrappedField={FieldEditor} />;
     </>
   );
 };
