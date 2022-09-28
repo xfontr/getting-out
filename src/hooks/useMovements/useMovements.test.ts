@@ -1,14 +1,14 @@
 import { renderHook } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Board, Position } from "../types/gameBoard";
-import generateBoard from "../utils/generateBoard/generateBoard";
+import { Board, Position } from "../../types/gameBoard";
+import generateBoard from "../../utils/generateBoard/generateBoard";
 import {
   getPosition,
   positionOf,
-} from "../utils/handlePosition/handlePosition";
-import useDirections from "./useDirections";
+} from "../../utils/handlePosition/handlePosition";
+import useMovements from "./useMovements";
 
-describe("Given a useDirections function", () => {
+describe("Given a useMovements function", () => {
   const mockSetCurrentBoard = jest.fn() as React.Dispatch<
     React.SetStateAction<Board>
   >;
@@ -18,6 +18,21 @@ describe("Given a useDirections function", () => {
   const player: Position = "0-0";
   const board: Board = generateBoard(5);
 
+  describe("When called as edit mode", () => {
+    test("Then it should do nothing", async () => {
+      const keyboardPress = "d";
+
+      renderHook(() =>
+        useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, true)
+      );
+
+      await userEvent.keyboard(`{${keyboardPress}}`);
+
+      expect(mockSetCurrentBoard).not.toHaveBeenCalled();
+      expect(mockSetPlayer).not.toHaveBeenCalledWith();
+    });
+  });
+
   describe("When called with a board and a player setter functions, and with a board and a player", () => {
     describe("And the user presses a key down while not being at the board limit", () => {
       test("Then the setter functions should be called to move the player down", async () => {
@@ -26,7 +41,7 @@ describe("Given a useDirections function", () => {
         const newPosition = positionOf(row, column);
 
         renderHook(() =>
-          useDirections(mockSetCurrentBoard, mockSetPlayer, player, board)
+          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);
@@ -50,7 +65,7 @@ describe("Given a useDirections function", () => {
         const keyboardPress = "w";
 
         renderHook(() =>
-          useDirections(mockSetCurrentBoard, mockSetPlayer, player, board)
+          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);
@@ -67,7 +82,7 @@ describe("Given a useDirections function", () => {
         board.set("0-1", "obstacle");
 
         renderHook(() =>
-          useDirections(mockSetCurrentBoard, mockSetPlayer, player, board)
+          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);

@@ -1,18 +1,19 @@
 import { useCallback, useEffect } from "react";
-import { Board, CellTypes, Position } from "../types/gameBoard";
+import { Board, CellTypes, Position } from "../../types/gameBoard";
 import {
   checkLimits,
   checkObstacles,
   checkPlatforms,
   getPosition,
   positionOf,
-} from "../utils/handlePosition/handlePosition";
+} from "../../utils/handlePosition/handlePosition";
 
-const useDirections = (
+const useMovements = (
   setCurrentBoard: React.Dispatch<React.SetStateAction<Board>>,
   setPlayer: React.Dispatch<React.SetStateAction<Position>>,
   player: Position,
-  board: Board
+  board: Board,
+  isEditMode: boolean
 ) => {
   const setNewPositions = useCallback(
     (newPosition: Position) => {
@@ -50,12 +51,16 @@ const useDirections = (
   );
 
   useEffect(() => {
+    if (isEditMode) {
+      return;
+    }
+
     window.addEventListener("keydown", handleKeyPress);
 
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [handleKeyPress, isEditMode]);
 };
 
-export default useDirections;
+export default useMovements;

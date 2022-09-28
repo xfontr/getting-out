@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import usePlaying from "../../hooks/usePlaying";
+import usePlaying from "../../hooks/usePlaying/usePlaying";
 import {
   GameContext,
   IGameContext,

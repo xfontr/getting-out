@@ -1,4 +1,4 @@
-import useCell from "../../hooks/useCell";
+import useCell from "../../hooks/useCell/useCell";
 import { Board, CellTypes, Position } from "../../types/gameBoard";
 import { CellStyled } from "./Cell.styled";
 
