@@ -20,10 +20,9 @@ const fieldEditorUtils = ({
     const editTool = id as CellTypes;
 
     if (checkIfBoardMaximum(editTool, board)) {
-      console.log("We aint updating that, bro");
       return;
     }
-    console.log("updating edit tool to " + editTool);
+
     setCells(readBoard(board));
     setGameStatus((gameStatus) => ({
       ...gameStatus,
