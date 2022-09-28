@@ -31,9 +31,9 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         switchEditTool={switchEditTool}
       />
       <button onClick={resetBoard}>Reset board</button>
-      <button onClick={() => {}}>Submit</button>
 
       <Field
+        data-testid="field"
         onClick={() => {
           setCells(readBoard(board));
         }}
