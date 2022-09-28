@@ -18,6 +18,21 @@ describe("Given a useMovements function", () => {
   const player: Position = "0-0";
   const board: Board = generateBoard(5);
 
+  describe("When called as edit mode", () => {
+    test("Then it should do nothing", async () => {
+      const keyboardPress = "d";
+
+      renderHook(() =>
+        useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, true)
+      );
+
+      await userEvent.keyboard(`{${keyboardPress}}`);
+
+      expect(mockSetCurrentBoard).not.toHaveBeenCalled();
+      expect(mockSetPlayer).not.toHaveBeenCalledWith();
+    });
+  });
+
   describe("When called with a board and a player setter functions, and with a board and a player", () => {
     describe("And the user presses a key down while not being at the board limit", () => {
       test("Then the setter functions should be called to move the player down", async () => {
