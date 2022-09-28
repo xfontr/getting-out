@@ -1,8 +1,11 @@
 import { renderHook } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Board, Position } from "../types/gameBoard";
-import generateBoard from "../utils/generateBoard";
-import { getPosition, positionOf } from "../utils/handlePosition";
+import generateBoard from "../utils/generateBoard/generateBoard";
+import {
+  getPosition,
+  positionOf,
+} from "../utils/handlePosition/handlePosition";
 import useDirections from "./useDirections";
 
 describe("Given a useDirections function", () => {

@@ -5,7 +5,7 @@ import {
   IGameContext,
 } from "../../Store/CallStatusContext/GameContext";
 import { Board, CellTypes } from "../../types/gameBoard";
-import generateBoard from "../../utils/generateBoard";
+import generateBoard from "../../utils/generateBoard/generateBoard";
 
 export const cellsInitialState: Record<CellTypes, number> = {
   player: 1,

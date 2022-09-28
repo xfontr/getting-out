@@ -1,5 +1,5 @@
-import { Position } from "../types/gameBoard";
-import generateBoard from "./generateBoard";
+import { Position } from "../../types/gameBoard";
+import generateBoard from "../generateBoard/generateBoard";
 import neighbourCells from "./neighbourCells";
 
 describe("Given a neighbourCells function", () => {

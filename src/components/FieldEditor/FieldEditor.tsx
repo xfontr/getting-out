@@ -1,7 +1,10 @@
 import { SyntheticEvent } from "react";
 import Field from "../Field/Field";
 import { CellTypes } from "../../types/gameBoard";
-import { checkIfBoardMaximum, readBoard } from "../../utils/readBoard";
+import {
+  checkIfBoardMaximum,
+  readBoard,
+} from "../../utils/readBoard/readBoard";
 
 import EditTools from "../EditTools/EditTools";
 import limitedCells from "../../data/limitedCells";

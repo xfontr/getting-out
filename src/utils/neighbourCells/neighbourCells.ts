@@ -1,5 +1,5 @@
-import { Board, Position } from "../types/gameBoard";
-import { columnOf, rowOf } from "./handlePosition";
+import { Board, Position } from "../../types/gameBoard";
+import { columnOf, rowOf } from "../handlePosition/handlePosition";
 
 const neighbourCells = (position: Position, board: Board) => {
   const row = rowOf(position);

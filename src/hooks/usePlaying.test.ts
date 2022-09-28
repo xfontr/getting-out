@@ -10,7 +10,10 @@ jest.useFakeTimers();
 
 const mockGenerateBoard = jest.fn();
 
-jest.mock("../utils/generateBoard", () => () => mockGenerateBoard);
+jest.mock(
+  "../utils/generateBoard/generateBoard",
+  () => () => mockGenerateBoard
+);
 
 describe("Given a editMode function returned by a usePlaying function", () => {
   describe("When called", () => {

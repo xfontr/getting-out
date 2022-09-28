@@ -5,7 +5,7 @@ import {
   IGameContext,
 } from "../../Store/CallStatusContext/GameContext";
 import { Board, CellTypes, Position } from "../../types/gameBoard";
-import generateBoard from "../../utils/generateBoard";
+import generateBoard from "../../utils/generateBoard/generateBoard";
 import Cell from "./Cell";
 
 describe("Given a Cell component", () => {

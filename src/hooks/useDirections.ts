@@ -6,7 +6,7 @@ import {
   checkPlatforms,
   getPosition,
   positionOf,
-} from "../utils/handlePosition";
+} from "../utils/handlePosition/handlePosition";
 
 const useDirections = (
   setCurrentBoard: React.Dispatch<React.SetStateAction<Board>>,
