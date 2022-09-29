@@ -2,7 +2,7 @@ import { SyntheticEvent } from "react";
 import limitedCells from "../../data/limitedCells";
 import { CellTypes } from "../../types/gameBoard";
 import initialToCaps from "../../utils/initialToCaps/initialToCaps";
-import Button, { ToolButton } from "../Button/Button";
+import { ToolButton } from "../Button/Button";
 import EditToolsStyled from "./EditTools.styled";
 
 type EditToolsProps = {
