@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import "./css/Button.css";
+import ButtonStyled from "./Button.styled";
 
 interface ButtonProps<T> extends ButtonHTMLAttributes<T> {
   children: ReactNode;
@@ -8,6 +8,8 @@ interface ButtonProps<T> extends ButtonHTMLAttributes<T> {
 const Button = <T extends HTMLButtonElement>({
   children,
   ...rest
-}: ButtonProps<T>): JSX.Element => <button {...rest}>{children}</button>;
+}: ButtonProps<T>): JSX.Element => (
+  <ButtonStyled {...rest}>{children}</ButtonStyled>
+);
 
 export default Button;

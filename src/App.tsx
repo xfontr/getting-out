@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import Button from "./components/Button/Button";
 import FieldEditor from "./components/FieldEditor/FieldEditor";
 import FieldContainer from "./containers/FieldContainer/FieldContainer";
 import usePlaying from "./hooks/usePlaying/usePlaying";
@@ -22,13 +23,13 @@ const App = (): JSX.Element => {
           <p>Time left: {timeLeft}</p>
         </>
       )}
-      <button
+      <Button
         onClick={() => {
           setEditMode();
         }}
       >
         Edit mode
-      </button>
+      </Button>
       <FieldContainer WrappedField={FieldEditor} />;
     </>
   );

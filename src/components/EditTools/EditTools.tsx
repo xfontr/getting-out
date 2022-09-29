@@ -2,6 +2,7 @@ import { SyntheticEvent } from "react";
 import limitedCells from "../../data/limitedCells";
 import { CellTypes } from "../../types/gameBoard";
 import initialToCaps from "../../utils/initialToCaps/initialToCaps";
+import Button from "../Button/Button";
 
 type EditToolsProps = {
   cells: Record<CellTypes, number>;
@@ -23,9 +24,9 @@ const EditTools = ({
   return (
     <>
       {Object.entries(cells).map(([cell]) => (
-        <button onClick={handleClick} id={cell} key={`tool-${cell}`}>
+        <Button onClick={handleClick} id={cell} key={`tool-${cell}`}>
           {`${initialToCaps(cell)}`}
-        </button>
+        </Button>
       ))}
     </>
   );
