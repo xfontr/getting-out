@@ -1,24 +1,28 @@
-import { FormHTMLAttributes, ReactNode } from "react";
-import useForm from "../../hooks/useForm/useForm";
+import { FormHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
 import InputData from "../../types/InputData";
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   schema: InputData[];
+  values: Record<string, string | number>;
+  inputProps: (
+    input: InputData,
+    value: string | number
+  ) => InputHTMLAttributes<HTMLInputElement>;
   children?: ReactNode;
 }
 
-const Form = ({ schema, children, ...rest }: FormProps) => {
-  const { values, inputProps, handleChange } = useForm(schema);
-
+const Form = ({ schema, inputProps, values, children, ...rest }: FormProps) => {
   return (
     <form {...rest}>
-      {children}
       {schema.map((input) => (
         <div className="form__container" key={input.id}>
-          <label htmlFor={input.id}>{input.label}</label>
-          <input {...inputProps(input, values[input.id], handleChange)} />
+          <label htmlFor={input.id} className="form__label">
+            {input.label}
+          </label>
+          <input {...inputProps(input, values[input.id])} />
         </div>
       ))}
+      {children}
     </form>
   );
 };

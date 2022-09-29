@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import InputData from "../../types/InputData";
 
 const useForm = (schema: InputData[]) => {
@@ -26,18 +26,17 @@ const useForm = (schema: InputData[]) => {
   const inputProps = (
     inputData: InputData,
     value: string | number,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  ) => ({
+    onChange = handleChange
+  ): InputHTMLAttributes<HTMLInputElement> => ({
+    ...inputData.optionalData,
     id: inputData.id,
     type: inputData.type,
-    placeholder: inputData?.placeholder,
-    renderAs: inputData?.renderAs,
-    className: inputData?.className,
+    className: `form__input ${inputData.optionalData?.className}`,
     value,
     onChange,
   });
 
-  return { values, handleChange, inputProps };
+  return { values, inputProps };
 };
 
 export default useForm;

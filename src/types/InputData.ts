@@ -1,17 +1,21 @@
-type MandatoryInputData = {
+import { HTMLAttributes } from "react";
+
+type MandatoryAttributes = {
   label: string;
   id: string;
   type: React.HTMLInputTypeAttribute;
 };
 
-type OptionalInputData = {
+type OptionalAttributes = Omit<Partial<HTMLAttributes<HTMLInputElement>>, "id">;
+
+type CustomAttributes = Partial<{
   initialValue: string | number;
-  placeholder: string;
-  className: string;
   customGroupClass: string;
   renderAs: "textarea";
-};
+}>;
 
-interface InputData extends MandatoryInputData, Partial<OptionalInputData> {}
+interface InputData extends MandatoryAttributes, CustomAttributes {
+  optionalData?: OptionalAttributes;
+}
 
 export default InputData;

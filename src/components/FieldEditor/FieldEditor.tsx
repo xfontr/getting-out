@@ -3,7 +3,7 @@ import { readBoard } from "../../utils/readBoard/readBoard";
 import EditTools from "../EditTools/EditTools";
 import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
 import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import boards from "../../data/boards";
 import UserBoard from "../../types/UserBoard";
 import initialToCaps from "../../utils/initialToCaps/initialToCaps";
@@ -11,11 +11,7 @@ import Button from "../Button/Button";
 import FieldEditorStyled from "./FieldEditor.styled";
 import Form from "../Form/Form";
 import editFieldForm from "../../schemas/editField.form";
-
-const valuesInitialState = {
-  shoots: 3,
-  timeLeft: 10,
-};
+import useForm from "../../hooks/useForm/useForm";
 
 const FieldEditor = (props: FieldProps): JSX.Element => {
   const {
@@ -25,26 +21,18 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
     increaseSize,
     decreaseSize,
   } = fieldEditorUtils(props);
-  const { editTool, cells, board, setCells, fieldSize } = props;
 
-  const [values, setValues] =
-    useState<typeof valuesInitialState>(valuesInitialState);
-  const { timeLeft, shoots } = values;
+  const { editTool, cells, board, setCells, fieldSize } = props;
+  const { values, inputProps } = useForm(editFieldForm);
 
   useEffect(() => {
     disableTools();
   }, [cells, disableTools]);
 
-  const handleChange = ({
-    currentTarget: { id, value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [id]: value });
-  };
-
   const handleSubmit = () => {
     const newBoard: UserBoard = {
-      shoots,
-      timeLeft,
+      shoots: +values.shoots,
+      timeLeft: +values.timeLeft,
       exits: cells.exit,
       board,
     };
@@ -56,7 +44,6 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
     <FieldEditorStyled>
       <ul>
         <li>Selected tool: {initialToCaps(editTool)}</li>
-        <li>Field size: {fieldSize}</li>
       </ul>
 
       <ul>
@@ -67,7 +54,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         ))}
       </ul>
 
-      <Form schema={editFieldForm} />
+      <Form inputProps={inputProps} schema={editFieldForm} values={values} />
 
       <EditTools
         cells={cells}
