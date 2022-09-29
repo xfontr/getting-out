@@ -1,6 +1,5 @@
-import { render } from "@testing-library/react";
+import { render } from "../../test-utils/customRender/customRender";
 import FieldContainer, { FieldProps } from "./FieldContainer";
-import Wrapper from "../../test-utils/mock/Wrapper";
 
 const mockField = jest.fn() as ({
   board,
@@ -15,9 +14,7 @@ const mockField = jest.fn() as ({
 describe("Given a FieldContainer function", () => {
   describe("When instantiated with another component as props", () => {
     test("Then it should return said component with props to manage the field", () => {
-      render(<FieldContainer WrappedField={mockField} />, {
-        wrapper: Wrapper,
-      });
+      render(<FieldContainer WrappedField={mockField} />);
 
       expect(mockField).toHaveBeenCalled();
 

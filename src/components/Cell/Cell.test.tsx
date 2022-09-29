@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   GameContext,
   IGameContext,
 } from "../../Store/CallStatusContext/GameContext";
+import { render } from "../../test-utils/customRender/customRender";
 import { Board, CellTypes, Position } from "../../types/gameBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
 import Cell from "./Cell";

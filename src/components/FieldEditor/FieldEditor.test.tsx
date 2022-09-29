@@ -1,12 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
 import boards from "../../data/boards";
 import { IGameContext } from "../../Store/CallStatusContext/GameContext";
-import Wrapper from "../../test-utils/mock/Wrapper";
+import { render } from "../../test-utils/customRender/customRender";
 import { Board, CellTypes } from "../../types/gameBoard";
 import UserBoard from "../../types/UserBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
+import initialToCaps from "../../utils/initialToCaps/initialToCaps";
 import { readBoard } from "../../utils/readBoard/readBoard";
 import FieldEditor from "./FieldEditor";
 
@@ -23,6 +24,7 @@ const setCells = jest.fn() as (
   value: React.SetStateAction<Record<CellTypes, number>>
 ) => void;
 let editTool: CellTypes = "obstacle";
+const fieldSize = 10;
 
 const props: FieldProps = {
   setGameStatus,
@@ -32,16 +34,17 @@ const props: FieldProps = {
   board,
   cells,
   editTool,
-  fieldSize: 10,
+  fieldSize,
 };
 
 describe("Given a FieldEditor component", () => {
   describe("When instantiated with Field props", () => {
     test("Then it should render all the tools for editing the cells map", () => {
-      render(<FieldEditor {...props} />, { wrapper: Wrapper });
+      render(<FieldEditor {...props} />);
 
       const fieldEditor = [
-        screen.getByText(`Current tool: ${editTool}`),
+        screen.getByText(`Selected tool: ${initialToCaps(editTool)}`),
+        screen.getByText(`Field size: ${fieldSize}`),
         screen.getByRole("button", { name: "Reset board" }),
         screen.getByTestId("field"),
         screen.getByLabelText("Shoots"),
@@ -52,7 +55,7 @@ describe("Given a FieldEditor component", () => {
       ];
 
       Object.entries(cells).forEach(([type, amount]) =>
-        fieldEditor.push(screen.getByText(`${type}: ${amount}`))
+        fieldEditor.push(screen.getByText(`${initialToCaps(type)}: ${amount}`))
       );
 
       const editTools = screen.getByRole("button", { name: "Blank" });
@@ -64,7 +67,7 @@ describe("Given a FieldEditor component", () => {
 
   describe("When instantiated and clicked on the field", () => {
     test("Then it should update the cell count", async () => {
-      render(<FieldEditor {...props} />, { wrapper: Wrapper });
+      render(<FieldEditor {...props} />);
 
       const field = screen.getByTestId("field");
 
@@ -83,7 +86,7 @@ describe("Given a FieldEditor component", () => {
         timeLeft: 10,
       };
 
-      render(<FieldEditor {...props} />, { wrapper: Wrapper });
+      render(<FieldEditor {...props} />);
 
       const submitButton = screen.getByRole("button", { name: "Submit" });
 

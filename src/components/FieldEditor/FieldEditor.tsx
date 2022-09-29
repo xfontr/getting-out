@@ -51,7 +51,10 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
   return (
     <>
-      <p>Current tool: {editTool}</p>
+      <ul>
+        <li>Selected tool: {initialToCaps(editTool)}</li>
+        <li>Field size: {fieldSize}</li>
+      </ul>
 
       <ul>
         {Object.entries(cells).map(([type, amount]) => (
@@ -72,24 +75,20 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
       <Button onClick={decreaseSize}>Decrease size</Button>
 
       <form>
-        <label htmlFor="timer">
-          Time limit
-          <input
-            type="number"
-            id="timeLeft"
-            onChange={handleChange}
-            value={timeLeft}
-          />
-        </label>
-        <label htmlFor="shoots">
-          Shoots
-          <input
-            type="number"
-            id="shoots"
-            onChange={handleChange}
-            value={shoots}
-          />
-        </label>
+        <label htmlFor="timeLeft">Time limit</label>
+        <input
+          type="number"
+          id="timeLeft"
+          onChange={handleChange}
+          value={timeLeft}
+        />
+        <label htmlFor="shoots">Shoots</label>
+        <input
+          type="number"
+          id="shoots"
+          onChange={handleChange}
+          value={shoots}
+        />
       </form>
 
       <Field

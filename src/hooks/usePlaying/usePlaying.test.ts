@@ -1,8 +1,7 @@
-import { renderHook } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
+import { renderHook } from "../../test-utils/customRender/customRender";
 import { mockSetGameStatus } from "../../test-utils/mock/mockContextProvider";
-import Wrapper from "../../test-utils/mock/Wrapper";
 import { Board } from "../../types/gameBoard";
 import usePlaying from "./usePlaying";
 
@@ -22,7 +21,7 @@ describe("Given a editMode function returned by a usePlaying function", () => {
         result: {
           current: { editMode },
         },
-      } = renderHook(usePlaying, { wrapper: Wrapper });
+      } = renderHook(usePlaying);
 
       act(() => {
         editMode();
@@ -42,7 +41,7 @@ describe("Given a editMode function returned by a usePlaying function", () => {
         result: {
           current: { editMode },
         },
-      } = renderHook(usePlaying, { wrapper: Wrapper });
+      } = renderHook(usePlaying);
 
       act(() => {
         editMode();
@@ -60,7 +59,7 @@ describe("Given a startGame function returned by a usePlaying function", () => {
         result: {
           current: { startGame },
         },
-      } = renderHook(usePlaying, { wrapper: Wrapper });
+      } = renderHook(usePlaying);
 
       act(() => {
         startGame();
@@ -80,7 +79,7 @@ describe("Given a startGame function returned by a usePlaying function", () => {
         result: {
           current: { startGame },
         },
-      } = renderHook(usePlaying, { wrapper: Wrapper });
+      } = renderHook(usePlaying);
 
       act(() => {
         startGame();
@@ -97,7 +96,7 @@ describe("Given a startGame function returned by a usePlaying function", () => {
         result: {
           current: { startGame },
         },
-      } = renderHook(usePlaying, { wrapper: Wrapper });
+      } = renderHook(usePlaying);
 
       act(() => {
         startGame();
@@ -121,7 +120,7 @@ describe("Given a resetGame function returned by a usePlaying function", () => {
         result: {
           current: { restartGame },
         },
-      } = renderHook(usePlaying, { wrapper: Wrapper });
+      } = renderHook(usePlaying);
 
       act(() => {
         restartGame(mockSetGameBoard);
@@ -138,7 +137,7 @@ describe("Given a resetGame function returned by a usePlaying function", () => {
         result: {
           current: { restartGame },
         },
-      } = renderHook(usePlaying, { wrapper: Wrapper });
+      } = renderHook(usePlaying);
 
       act(() => {
         restartGame(mockSetGameBoard);

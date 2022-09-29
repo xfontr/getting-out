@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { render } from "../../test-utils/customRender/customRender";
 import Button from "./Button";
 
 describe("Given a Button component", () => {
