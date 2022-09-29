@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import boards from "../../data/boards";
 import UserBoard from "../../types/UserBoard";
 import initialToCaps from "../../utils/initialToCaps/initialToCaps";
+import Button from "../Button/Button";
 
 const valuesInitialState = {
   shoots: 3,
@@ -66,16 +67,16 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         switchEditTool={switchEditTool}
       />
 
-      <button onClick={resetBoard}>Reset board</button>
-      <button onClick={increaseSize}>Increase size</button>
-      <button onClick={decreaseSize}>Decrease size</button>
+      <Button onClick={resetBoard}>Reset board</Button>
+      <Button onClick={increaseSize}>Increase size</Button>
+      <Button onClick={decreaseSize}>Decrease size</Button>
 
       <form>
         <label htmlFor="timer">
           Time limit
           <input
             type="number"
-            id="timer"
+            id="timeLeft"
             onChange={handleChange}
             value={timeLeft}
           />
@@ -101,9 +102,9 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         fieldSize={fieldSize}
       />
 
-      <button onClick={handleSubmit} type="submit">
+      <Button onClick={handleSubmit} type="submit">
         Submit
-      </button>
+      </Button>
     </>
   );
 };
