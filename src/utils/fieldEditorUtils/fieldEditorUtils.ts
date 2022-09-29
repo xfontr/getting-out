@@ -74,14 +74,14 @@ const fieldEditorUtils = ({
     });
 
     new Array(fieldSize + 1).fill("").forEach((_, index) => {
-      newBoard.set(positionOf(fieldSize + 1, index), "blank");
+      newBoard.set(positionOf(fieldSize, index), "blank");
     });
 
     setBoard(newBoard);
   };
 
   const decreaseSize = () => {
-    if (fieldSize <= 10) {
+    if (fieldSize <= minFieldSize) {
       return;
     }
 

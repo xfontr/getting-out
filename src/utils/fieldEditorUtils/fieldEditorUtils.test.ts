@@ -34,7 +34,7 @@ const props: FieldProps = {
   fieldSize: 10,
 };
 
-describe("Given a switchEditTool returned by a fieldEditorUtils function", () => {
+describe("Given a switchEditTool function returned by a fieldEditorUtils function", () => {
   const { switchEditTool } = fieldEditorUtils(props);
 
   describe("When called with a button even which id is a cell type 'blank'", () => {
@@ -68,7 +68,7 @@ describe("Given a switchEditTool returned by a fieldEditorUtils function", () =>
   });
 });
 
-describe("Given a resetBoard returned by a fieldEditorUtils function", () => {
+describe("Given a resetBoard function returned by a fieldEditorUtils function", () => {
   const { resetBoard } = fieldEditorUtils(props);
 
   describe("When called", () => {
@@ -81,7 +81,7 @@ describe("Given a resetBoard returned by a fieldEditorUtils function", () => {
   });
 });
 
-describe("Given a disableTools returned by a fieldEditorUtils function", () => {
+describe("Given a disableTools function returned by a fieldEditorUtils function", () => {
   describe("When called and the current edit tool is a limited cell that has not reached its max amount", () => {
     test("Then it should do nothing", () => {
       editTool = "exit";
@@ -101,6 +101,57 @@ describe("Given a disableTools returned by a fieldEditorUtils function", () => {
       disableTools();
 
       expect(setGameStatus).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a increaseSize function returned by a fieldEditorUtils function", () => {
+  describe("When called with a board of size 10", () => {
+    test("Then it should update the board size", () => {
+      const bigBoard = new Map(generateBoard(10));
+      const { increaseSize } = fieldEditorUtils({ ...props, board: bigBoard });
+
+      increaseSize();
+
+      expect(setGameStatus).toHaveBeenCalled();
+    });
+    test("Then it should add an entire extra column and row to the field", () => {
+      const bigBoard = new Map(generateBoard(10));
+      const { increaseSize } = fieldEditorUtils({ ...props, board: bigBoard });
+
+      increaseSize();
+
+      expect(setBoard).toHaveBeenCalled();
+
+      const calledWith: Board = (setBoard as jest.Mock).mock.calls[0][0];
+
+      const newColumn = new Array(10)
+        .fill("")
+        .map((_, index) => calledWith.get(`${index}-10`));
+
+      const newRow = new Array(10)
+        .fill("")
+        .map((_, index) => calledWith.get(`10-${index}`));
+
+      expect(newColumn.includes(undefined)).toBe(false);
+      expect(newRow.includes(undefined)).toBe(false);
+    });
+  });
+
+  describe("When called with a board of size superior than than 22", () => {
+    test("Then it should do nothing", () => {
+      const size = 23;
+      const bigBoard = new Map(generateBoard(size));
+      const { increaseSize } = fieldEditorUtils({
+        ...props,
+        board: bigBoard,
+        fieldSize: size,
+      });
+
+      increaseSize();
+
+      expect(setGameStatus).not.toHaveBeenCalled();
+      expect(setBoard).not.toHaveBeenCalled();
     });
   });
 });
