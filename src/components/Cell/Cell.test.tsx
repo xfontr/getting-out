@@ -22,6 +22,8 @@ describe("Given a Cell component", () => {
       editTool,
     },
     game: {
+      fieldSize: 10,
+      exits: 1,
       timeLeft: 0,
       score: 0,
       shootsLeft: 3,

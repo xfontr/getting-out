@@ -8,6 +8,8 @@ export interface IGameContext {
     editTool: CellTypes;
   };
   game: {
+    fieldSize: number;
+    exits: number;
     shootsLeft: number;
     score: number;
     timeLeft: number;

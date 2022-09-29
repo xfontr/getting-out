@@ -4,14 +4,20 @@ import { Board, Position } from "../../types/gameBoard";
 import Cell from "../Cell/Cell";
 import FieldStyled from "./Field.styled";
 
+export type FieldStypedProps = {
+  fieldSize: number;
+};
+
 type FieldProps = {
   initialBoard: Board;
   isEditMode?: boolean;
+  fieldSize?: number;
   onClick?: () => void;
 };
 
 const Field = ({
   initialBoard,
+  fieldSize = 10,
   isEditMode = false,
   ...rest
 }: FieldProps): JSX.Element => {
@@ -41,7 +47,7 @@ const Field = ({
 
   return (
     <div {...rest}>
-      <FieldStyled>{renderBoard}</FieldStyled>
+      <FieldStyled fieldSize={fieldSize!}>{renderBoard}</FieldStyled>
     </div>
   );
 };

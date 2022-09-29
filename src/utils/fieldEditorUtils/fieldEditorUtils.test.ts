@@ -31,6 +31,7 @@ const props: FieldProps = {
   board,
   cells,
   editTool,
+  fieldSize: 10,
 };
 
 describe("Given a switchEditTool returned by a fieldEditorUtils function", () => {

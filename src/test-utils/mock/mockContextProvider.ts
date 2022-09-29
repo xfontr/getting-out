@@ -11,6 +11,8 @@ const mockContextProvider: IGameContext = {
     editTool: "obstacle",
   },
   game: {
+    fieldSize: 10,
+    exits: 1,
     timeLeft: 3000,
     score: 0,
     shootsLeft: 3,
