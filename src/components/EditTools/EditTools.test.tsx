@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SyntheticEvent } from "react";
+import { render } from "../../test-utils/customRender/customRender";
 import { CellTypes } from "../../types/gameBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
 import { readBoard } from "../../utils/readBoard/readBoard";

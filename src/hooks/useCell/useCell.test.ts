@@ -1,5 +1,4 @@
-import { renderHook } from "@testing-library/react";
-import Wrapper from "../../test-utils/mock/Wrapper";
+import { renderHook } from "../../test-utils/customRender/customRender";
 import { Board, CellTypes, Position } from "../../types/gameBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
 import useCell from "./useCell";
@@ -27,9 +26,8 @@ describe("Given a useCell function", () => {
         result: {
           current: { attributes },
         },
-      } = renderHook(
-        () => useCell({ cellType, position, player, board, setBoard }),
-        { wrapper: Wrapper }
+      } = renderHook(() =>
+        useCell({ cellType, position, player, board, setBoard })
       );
 
       expect(JSON.stringify(attributes)).toBe(
