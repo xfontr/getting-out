@@ -8,6 +8,7 @@ import boards from "../../data/boards";
 import UserBoard from "../../types/UserBoard";
 import initialToCaps from "../../utils/initialToCaps/initialToCaps";
 import Button from "../Button/Button";
+import FieldEditorStyled from "./FieldEditor.styled";
 
 const valuesInitialState = {
   shoots: 3,
@@ -50,7 +51,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
   };
 
   return (
-    <>
+    <FieldEditorStyled>
       <ul>
         <li>Selected tool: {initialToCaps(editTool)}</li>
         <li>Field size: {fieldSize}</li>
@@ -63,16 +64,6 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
           </li>
         ))}
       </ul>
-
-      <EditTools
-        cells={cells}
-        editTool={editTool}
-        switchEditTool={switchEditTool}
-      />
-
-      <Button onClick={resetBoard}>Reset board</Button>
-      <Button onClick={increaseSize}>Increase size</Button>
-      <Button onClick={decreaseSize}>Decrease size</Button>
 
       <form>
         <label htmlFor="timeLeft">Time limit</label>
@@ -91,6 +82,18 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         />
       </form>
 
+      <EditTools
+        cells={cells}
+        editTool={editTool}
+        switchEditTool={switchEditTool}
+      />
+
+      <div className="edit__options">
+        <Button onClick={resetBoard}>Reset board</Button>
+        <Button onClick={increaseSize}>Increase size</Button>
+        <Button onClick={decreaseSize}>Decrease size</Button>
+      </div>
+
       <Field
         data-testid="field"
         onClick={() => {
@@ -104,7 +107,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
       <Button onClick={handleSubmit} type="submit">
         Submit
       </Button>
-    </>
+    </FieldEditorStyled>
   );
 };
 

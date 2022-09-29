@@ -28,7 +28,7 @@ const mainTheme = {
   },
 
   spacing: {
-    gapSmall: "1.7rem",
+    gapSmall: "0.7rem",
     gap: "1.2rem",
     gapBig: "2.5rem",
   },
