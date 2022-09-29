@@ -101,7 +101,7 @@ const fieldEditorUtils = ({
     });
 
     new Array(fieldSize).fill("").forEach((_, index) => {
-      newBoard.delete(positionOf(fieldSize, index));
+      newBoard.delete(positionOf(fieldSize - 1, index));
     });
 
     setBoard(newBoard);

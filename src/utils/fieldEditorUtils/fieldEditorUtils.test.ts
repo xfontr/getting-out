@@ -107,7 +107,7 @@ describe("Given a disableTools function returned by a fieldEditorUtils function"
 
 describe("Given a increaseSize function returned by a fieldEditorUtils function", () => {
   describe("When called with a board of size 10", () => {
-    test("Then it should update the board size", () => {
+    test("Then it should update the board size, increasing it", () => {
       const bigBoard = new Map(generateBoard(10));
       const { increaseSize } = fieldEditorUtils({ ...props, board: bigBoard });
 
@@ -149,6 +149,65 @@ describe("Given a increaseSize function returned by a fieldEditorUtils function"
       });
 
       increaseSize();
+
+      expect(setGameStatus).not.toHaveBeenCalled();
+      expect(setBoard).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a decreaseSize function returned by a fieldEditorUtils function", () => {
+  describe("When called with a board of size 11", () => {
+    test("Then it should update the board size, decreasing it", () => {
+      const bigBoard = new Map(generateBoard(11));
+      const { decreaseSize } = fieldEditorUtils({
+        ...props,
+        board: bigBoard,
+        fieldSize: 11,
+      });
+
+      decreaseSize();
+
+      expect(setGameStatus).toHaveBeenCalled();
+    });
+    test("Then it should add an entire extra column and row to the field", () => {
+      const bigBoard = new Map(generateBoard(11));
+      const { decreaseSize } = fieldEditorUtils({
+        ...props,
+        board: bigBoard,
+        fieldSize: 11,
+      });
+
+      decreaseSize();
+
+      expect(setBoard).toHaveBeenCalled();
+
+      const calledWith: Board = (setBoard as jest.Mock).mock.calls[0][0];
+
+      const newColumn = new Array(11)
+        .fill("")
+        .map((_, index) => calledWith.get(`${index}-10`));
+
+      const newRow = new Array(11)
+        .fill("")
+        .map((_, index) => calledWith.get(`10-${index}`));
+
+      newColumn.forEach((cell) => expect(cell).toBeUndefined());
+      newRow.forEach((cell) => expect(cell).toBeUndefined());
+    });
+  });
+
+  describe("When called with a board of size inferior than 10", () => {
+    test("Then it should do nothing", () => {
+      const size = 9;
+      const bigBoard = new Map(generateBoard(size));
+      const { decreaseSize } = fieldEditorUtils({
+        ...props,
+        board: bigBoard,
+        fieldSize: size,
+      });
+
+      decreaseSize();
 
       expect(setGameStatus).not.toHaveBeenCalled();
       expect(setBoard).not.toHaveBeenCalled();
