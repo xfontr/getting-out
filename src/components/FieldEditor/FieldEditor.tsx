@@ -36,6 +36,17 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
     setValues({ ...values, [id]: value });
   };
 
+  const handleSubmit = () => {
+    const newBoard: UserBoard = {
+      shoots: +shoots,
+      timeLeft: +timeLeft,
+      exits: cells.exit,
+      board,
+    };
+
+    boards.push(newBoard);
+  };
+
   return (
     <>
       <p>Current tool: {editTool}</p>
