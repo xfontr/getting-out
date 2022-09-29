@@ -9,6 +9,8 @@ import UserBoard from "../../types/UserBoard";
 import initialToCaps from "../../utils/initialToCaps/initialToCaps";
 import Button from "../Button/Button";
 import FieldEditorStyled from "./FieldEditor.styled";
+import Form from "../Form/Form";
+import editFieldForm from "../../schemas/editField.form";
 
 const valuesInitialState = {
   shoots: 3,
@@ -65,7 +67,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         ))}
       </ul>
 
-      <form>
+      <Form schema={editFieldForm}>
         <label htmlFor="timeLeft">Time limit</label>
         <input
           type="number"
@@ -80,7 +82,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
           onChange={handleChange}
           value={shoots}
         />
-      </form>
+      </Form>
 
       <EditTools
         cells={cells}
