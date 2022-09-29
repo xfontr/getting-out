@@ -6,6 +6,7 @@ import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
 import { useEffect, useState } from "react";
 import boards from "../../data/boards";
 import UserBoard from "../../types/UserBoard";
+import initialToCaps from "../../utils/initialToCaps/initialToCaps";
 
 const valuesInitialState = {
   shoots: 3,
@@ -54,7 +55,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
       <ul>
         {Object.entries(cells).map(([type, amount]) => (
           <li key={type}>
-            {type}: {amount}
+            {`${initialToCaps(type)}`}: {amount}
           </li>
         ))}
       </ul>

@@ -22,7 +22,11 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     outline: none;
   }
-  
+
+  button {
+    cursor: pointer;
+  }
+
   a{
     text-decoration: none;
     color: inherit;
