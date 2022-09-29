@@ -2,7 +2,8 @@ import { SyntheticEvent } from "react";
 import limitedCells from "../../data/limitedCells";
 import { CellTypes } from "../../types/gameBoard";
 import initialToCaps from "../../utils/initialToCaps/initialToCaps";
-import Button from "../Button/Button";
+import Button, { ToolButton } from "../Button/Button";
+import EditToolsStyled from "./EditTools.styled";
 
 type EditToolsProps = {
   cells: Record<CellTypes, number>;
@@ -22,13 +23,14 @@ const EditTools = ({
   };
 
   return (
-    <>
+    <EditToolsStyled>
       {Object.entries(cells).map(([cell]) => (
-        <Button onClick={handleClick} id={cell} key={`tool-${cell}`}>
+        <ToolButton onClick={handleClick} id={cell} key={`tool-${cell}`}>
+          <img src="/img/cube.png" alt="Cube" height={50} width={50} />
           {`${initialToCaps(cell)}`}
-        </Button>
+        </ToolButton>
       ))}
-    </>
+    </EditToolsStyled>
   );
 };
 
