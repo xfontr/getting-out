@@ -8,6 +8,9 @@ import { Board, CellTypes } from "../../types/gameBoard";
 import { columnOf, positionOf, rowOf } from "../handlePosition/handlePosition";
 import { checkIfBoardMaximum, readBoard } from "../readBoard/readBoard";
 
+const maxFieldSize = 22;
+const minFieldSize = 10;
+
 const fieldEditorUtils = ({
   board,
   cells,
@@ -51,6 +54,10 @@ const fieldEditorUtils = ({
   };
 
   const increaseSize = () => {
+    if (fieldSize >= maxFieldSize) {
+      return;
+    }
+
     setGameStatus((gameStatus) => ({
       ...gameStatus,
       game: { ...gameStatus.game, fieldSize: fieldSize + 1 },
@@ -73,7 +80,40 @@ const fieldEditorUtils = ({
     setBoard(newBoard);
   };
 
-  return { switchEditTool, resetBoard, disableTools, increaseSize };
+  const decreaseSize = () => {
+    if (fieldSize <= 10) {
+      return;
+    }
+
+    setGameStatus((gameStatus) => ({
+      ...gameStatus,
+      game: { ...gameStatus.game, fieldSize: fieldSize - 1 },
+    }));
+
+    let newBoard: Board = new Map();
+
+    board.forEach((cell, position) => {
+      newBoard.set(position, cell);
+
+      if (fieldSize - 1 === columnOf(position)) {
+        newBoard.delete(position);
+      }
+    });
+
+    new Array(fieldSize).fill("").forEach((_, index) => {
+      newBoard.delete(positionOf(fieldSize, index));
+    });
+
+    setBoard(newBoard);
+  };
+
+  return {
+    switchEditTool,
+    resetBoard,
+    disableTools,
+    increaseSize,
+    decreaseSize,
+  };
 };
 
 export default fieldEditorUtils;
