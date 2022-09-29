@@ -8,8 +8,8 @@ import boards from "../../data/boards";
 import UserBoard from "../../types/UserBoard";
 
 const valuesInitialState = {
-  shoots: "",
-  timeLeft: "",
+  shoots: 3,
+  timeLeft: 10,
 };
 
 const FieldEditor = (props: FieldProps): JSX.Element => {
@@ -38,8 +38,8 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
   const handleSubmit = () => {
     const newBoard: UserBoard = {
-      shoots: +shoots,
-      timeLeft: +timeLeft,
+      shoots,
+      timeLeft,
       exits: cells.exit,
       board,
     };
@@ -71,16 +71,18 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
       <form>
         <label htmlFor="timer">
+          Time limit
           <input
-            type="text"
+            type="number"
             id="timer"
             onChange={handleChange}
             value={timeLeft}
           />
         </label>
         <label htmlFor="shoots">
+          Shoots
           <input
-            type="text"
+            type="number"
             id="shoots"
             onChange={handleChange}
             value={shoots}
@@ -98,7 +100,9 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         fieldSize={fieldSize}
       />
 
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit} type="submit">
+        Submit
+      </button>
     </>
   );
 };
