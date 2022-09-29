@@ -1,9 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
+import boards from "../../data/boards";
 import { IGameContext } from "../../Store/CallStatusContext/GameContext";
 import Wrapper from "../../test-utils/mock/Wrapper";
 import { Board, CellTypes } from "../../types/gameBoard";
+import UserBoard from "../../types/UserBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
 import { readBoard } from "../../utils/readBoard/readBoard";
 import FieldEditor from "./FieldEditor";
@@ -42,6 +44,11 @@ describe("Given a FieldEditor component", () => {
         screen.getByText(`Current tool: ${editTool}`),
         screen.getByRole("button", { name: "Reset board" }),
         screen.getByTestId("field"),
+        screen.getByLabelText("Shoots"),
+        screen.getByLabelText("Time limit"),
+        screen.getByRole("button", { name: "Submit" }),
+        screen.getByRole("button", { name: "Increase size" }),
+        screen.getByRole("button", { name: "Decrease size" }),
       ];
 
       Object.entries(cells).forEach(([type, amount]) =>
@@ -64,6 +71,25 @@ describe("Given a FieldEditor component", () => {
       await userEvent.click(field);
 
       expect(setCells).toHaveBeenCalledWith(readBoard(board));
+    });
+  });
+
+  describe("When instantiated and clicked the submit button", () => {
+    test("Then it should send the board data with the field values to the global list of boards", async () => {
+      const expectedBoardData: UserBoard = {
+        board,
+        exits: 0,
+        shoots: 3,
+        timeLeft: 10,
+      };
+
+      render(<FieldEditor {...props} />, { wrapper: Wrapper });
+
+      const submitButton = screen.getByRole("button", { name: "Submit" });
+
+      await userEvent.click(submitButton);
+
+      expect(boards[0]).toStrictEqual(expectedBoardData);
     });
   });
 });
