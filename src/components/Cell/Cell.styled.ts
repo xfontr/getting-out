@@ -4,6 +4,8 @@ export const CellStyled = styled.div`
   width: 3rem;
   height: 3rem;
 
+  cursor: crosshair;
+
   &.blank {
     background-color: pink;
   }

@@ -6,8 +6,14 @@ import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
 import { useEffect } from "react";
 
 const FieldEditor = (props: FieldProps): JSX.Element => {
-  const { switchEditTool, resetBoard, disableTools } = fieldEditorUtils(props);
-  const { editTool, cells, board, setCells } = props;
+  const {
+    switchEditTool,
+    resetBoard,
+    disableTools,
+    increaseSize,
+    decreaseSize,
+  } = fieldEditorUtils(props);
+  const { editTool, cells, board, setCells, fieldSize } = props;
 
   useEffect(() => {
     disableTools();
@@ -31,6 +37,8 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         switchEditTool={switchEditTool}
       />
       <button onClick={resetBoard}>Reset board</button>
+      <button onClick={() => increaseSize()}>Increase size</button>
+      <button onClick={() => decreaseSize()}>Decrease size</button>
 
       <Field
         data-testid="field"
@@ -39,6 +47,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         }}
         initialBoard={board}
         isEditMode={true}
+        fieldSize={fieldSize}
       />
     </>
   );

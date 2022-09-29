@@ -8,6 +8,8 @@ export const gameInitialState: IGameContext = {
     editTool: "obstacle",
   },
   game: {
+    fieldSize: 10,
+    exits: 1,
     score: 0,
     shootsLeft: 3,
     timeLeft: 30000,

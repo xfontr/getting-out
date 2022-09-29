@@ -28,12 +28,14 @@ export interface FieldProps {
   board: Board;
   cells: Record<CellTypes, number>;
   editTool: CellTypes;
+  fieldSize: number;
 }
 
 const FieldContainer = ({ WrappedField }: FieldContainerProps<FieldProps>) => {
   const {
     setGameStatus,
     editMode: { editTool },
+    game: { fieldSize },
   } = useContext(GameContext);
   const { restartGame } = usePlaying();
   const [board, setBoard] = useState<Board>(generateBoard(10));
@@ -48,6 +50,7 @@ const FieldContainer = ({ WrappedField }: FieldContainerProps<FieldProps>) => {
     restartGame,
     setBoard,
     setCells,
+    fieldSize,
   };
 
   return <WrappedField {...props} />;

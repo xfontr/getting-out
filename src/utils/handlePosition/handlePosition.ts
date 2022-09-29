@@ -25,8 +25,8 @@ const keyValue = {
 export const positionOf = (row: number, column: number): Position =>
   `${row}-${column}`;
 
-export const rowOf = (position: Position) => +Array.from(position)[0];
-export const columnOf = (position: Position) => +Array.from(position)[2];
+export const rowOf = (position: Position) => +position.split("-")[0];
+export const columnOf = (position: Position) => +position.split("-")[1];
 
 export const checkLimits = (
   row: number,
