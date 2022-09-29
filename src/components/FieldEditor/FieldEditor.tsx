@@ -67,22 +67,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         ))}
       </ul>
 
-      <Form schema={editFieldForm}>
-        <label htmlFor="timeLeft">Time limit</label>
-        <input
-          type="number"
-          id="timeLeft"
-          onChange={handleChange}
-          value={timeLeft}
-        />
-        <label htmlFor="shoots">Shoots</label>
-        <input
-          type="number"
-          id="shoots"
-          onChange={handleChange}
-          value={shoots}
-        />
-      </Form>
+      <Form schema={editFieldForm} />
 
       <EditTools
         cells={cells}

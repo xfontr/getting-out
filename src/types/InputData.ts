@@ -1,12 +1,13 @@
 type MandatoryInputData = {
   label: string;
-  name: string;
+  id: string;
+  type: React.HTMLInputTypeAttribute;
 };
 
 type OptionalInputData = {
-  type: React.HTMLInputTypeAttribute;
+  initialValue: string | number;
   placeholder: string;
-  customClass: string;
+  className: string;
   customGroupClass: string;
   renderAs: "textarea";
 };

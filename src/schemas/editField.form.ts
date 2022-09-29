@@ -3,13 +3,15 @@ import InputData from "../types/InputData";
 const editFieldForm: InputData[] = [
   {
     label: "Time limit",
-    name: "timeLeft",
+    id: "timeLeft",
     type: "number",
+    initialValue: 10,
   },
   {
     label: "Shoots",
-    name: "shoots",
+    id: "shoots",
     type: "number",
+    initialValue: 3,
   },
 ];
 
