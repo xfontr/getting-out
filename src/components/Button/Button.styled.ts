@@ -23,6 +23,29 @@ const ButtonStyled = styled.button`
   &:active {
     transform: scale(0.95);
   }
+
+  &.button {
+    &--outline {
+      background-color: transparent;
+      color: ${({ theme }) => theme.colors.secondary};
+      border: 1px solid ${({ theme }) => theme.colors.secondary};
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.secondary};
+        color: ${({ theme }) => theme.colors.primary};
+        border: 1px solid transparent;
+      }
+    }
+
+    &--tool {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 `;
 
 export default ButtonStyled;
