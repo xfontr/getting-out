@@ -75,7 +75,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
           Time limit
           <input
             type="number"
-            id="timer"
+            id="timeLeft"
             onChange={handleChange}
             value={timeLeft}
           />
