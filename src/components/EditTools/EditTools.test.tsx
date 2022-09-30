@@ -25,7 +25,7 @@ describe("Given a EditTools component", () => {
 
       const editTools = Object.keys(cells).map((cell) =>
         screen.getByRole("button", {
-          name: `${cell.charAt(0).toUpperCase()}${cell.slice(1)}`,
+          name: `Cube ${cell.charAt(0).toUpperCase()}${cell.slice(1)}`,
         })
       );
 
@@ -38,7 +38,7 @@ describe("Given a EditTools component", () => {
 
         render(<EditTools {...{ ...props, editTool }} />);
 
-        const exitCell = screen.getByRole("button", { name: "Exit" });
+        const exitCell = screen.getByRole("button", { name: "Cube Exit" });
 
         await userEvent.click(exitCell);
 
@@ -50,7 +50,7 @@ describe("Given a EditTools component", () => {
 
         render(<EditTools {...{ ...props, editTool }} />);
 
-        const playerCell = screen.getByRole("button", { name: "Player" });
+        const playerCell = screen.getByRole("button", { name: "Cube Player" });
 
         await userEvent.click(playerCell);
 

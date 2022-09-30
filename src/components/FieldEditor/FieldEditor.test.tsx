@@ -1,7 +1,8 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
 import boards from "../../data/boards";
+import editFieldForm from "../../schemas/editField.form";
 import { IGameContext } from "../../Store/CallStatusContext/GameContext";
 import { render } from "../../test-utils/customRender/customRender";
 import { Board, CellTypes } from "../../types/gameBoard";
@@ -58,7 +59,7 @@ describe("Given a FieldEditor component", () => {
         fieldEditor.push(screen.getByText(`${initialToCaps(type)}: ${amount}`))
       );
 
-      const editTools = screen.getByRole("button", { name: "Blank" });
+      const editTools = screen.getByRole("button", { name: "Cube Blank" });
       fieldEditor.push(editTools);
 
       fieldEditor.forEach((node) => expect(node).toBeInTheDocument());
@@ -93,6 +94,23 @@ describe("Given a FieldEditor component", () => {
       await userEvent.click(submitButton);
 
       expect(boards[0]).toStrictEqual(expectedBoardData);
+    });
+  });
+
+  describe("When instantiated and typed on the number inputs", () => {
+    test("Then it should update their values", () => {
+      const inputValue = "1234";
+
+      render(<FieldEditor {...props} />);
+
+      const firstInput = screen.getByLabelText(editFieldForm[0].label);
+      const secondInput = screen.getByLabelText(editFieldForm[1].label);
+
+      fireEvent.change(firstInput, { target: { value: inputValue } });
+      fireEvent.change(secondInput, { target: { value: inputValue } });
+
+      expect(firstInput).toHaveValue(+inputValue);
+      expect(secondInput).toHaveValue(+inputValue);
     });
   });
 });

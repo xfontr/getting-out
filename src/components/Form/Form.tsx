@@ -11,20 +11,18 @@ interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   children?: ReactNode;
 }
 
-const Form = ({ schema, inputProps, values, children, ...rest }: FormProps) => {
-  return (
-    <form {...rest}>
-      {schema.map((input) => (
-        <div className="form__container" key={input.id}>
-          <label htmlFor={input.id} className="form__label">
-            {input.label}
-          </label>
-          <input {...inputProps(input, values[input.id])} />
-        </div>
-      ))}
-      {children}
-    </form>
-  );
-};
+const Form = ({ schema, inputProps, values, children, ...rest }: FormProps) => (
+  <form {...rest}>
+    {schema.map((input) => (
+      <div className="form__container" key={input.id}>
+        <label htmlFor={input.id} className="form__label">
+          {input.label}
+        </label>
+        <input {...inputProps(input, values[input.id])} />
+      </div>
+    ))}
+    {children}
+  </form>
+);
 
 export default Form;
