@@ -1,5 +1,6 @@
 import { FormHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
 import InputData from "../../types/InputData";
+import FormStyled from "./Form.styled";
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   schema: InputData[];
@@ -12,7 +13,7 @@ interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 const Form = ({ schema, inputProps, values, children, ...rest }: FormProps) => (
-  <form {...rest}>
+  <FormStyled {...rest}>
     {schema.map((input) => (
       <div className="form__container" key={input.id}>
         <label htmlFor={input.id} className="form__label">
@@ -22,7 +23,7 @@ const Form = ({ schema, inputProps, values, children, ...rest }: FormProps) => (
       </div>
     ))}
     {children}
-  </form>
+  </FormStyled>
 );
 
 export default Form;
