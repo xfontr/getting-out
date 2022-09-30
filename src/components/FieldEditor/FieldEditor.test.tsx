@@ -8,7 +8,6 @@ import { render } from "../../test-utils/customRender/customRender";
 import { Board, CellTypes } from "../../types/gameBoard";
 import UserBoard from "../../types/UserBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
-import initialToCaps from "../../utils/initialToCaps/initialToCaps";
 import { readBoard } from "../../utils/readBoard/readBoard";
 import FieldEditor from "./FieldEditor";
 
@@ -44,7 +43,6 @@ describe("Given a FieldEditor component", () => {
       render(<FieldEditor {...props} />);
 
       const fieldEditor = [
-        screen.getByText(`Selected tool: ${initialToCaps(editTool)}`),
         screen.getByText(`Field size: ${fieldSize}`),
         screen.getByRole("button", { name: "Reset board" }),
         screen.getByTestId("field"),

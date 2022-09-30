@@ -44,6 +44,20 @@ describe("Given a EditTools component", () => {
       placedCells.forEach((tool) => expect(tool).toBeInTheDocument());
     });
 
+    describe("And clicking any button", () => {
+      test("Then it should change the button style to show the current tool", async () => {
+        editTool = "exit";
+
+        render(<EditTools {...{ ...props, editTool }} />);
+
+        const exitCell = screen.getByRole("button", { name: "Cube Exit" });
+
+        await userEvent.click(exitCell);
+
+        expect(exitCell).toHaveStyle("border-width: 2px");
+      });
+    });
+
     describe("And clicking a button with a 'limited' cell", () => {
       test("Then it should update the edit tool to said cell", async () => {
         editTool = "exit";

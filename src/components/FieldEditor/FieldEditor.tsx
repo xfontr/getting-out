@@ -6,7 +6,6 @@ import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
 import { useEffect } from "react";
 import boards from "../../data/boards";
 import UserBoard from "../../types/UserBoard";
-import initialToCaps from "../../utils/initialToCaps/initialToCaps";
 import Button from "../Button/Button";
 import FieldEditorStyled from "./FieldEditor.styled";
 import Form from "../Form/Form";
@@ -42,10 +41,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
   return (
     <FieldEditorStyled>
-      <ul>
-        <li>Selected tool: {initialToCaps(editTool)}</li>
-        <li>Field size: {fieldSize}</li>
-      </ul>
+      <span>Field size: {fieldSize}</span>
 
       <Form inputProps={inputProps} schema={editFieldForm} values={values} />
 

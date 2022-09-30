@@ -45,6 +45,10 @@ const ButtonStyled = styled.button`
       justify-content: center;
       align-items: center;
     }
+
+    &--active {
+      border-width: 2px;
+    }
   }
 `;
 
