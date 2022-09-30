@@ -7,7 +7,7 @@ const useForm = (schema: InputData[]) => {
     schema.forEach(
       ({ id, initialValue }) => (state[id] = initialValue ? initialValue : "")
     );
-    debugger;
+
     return state;
   };
 
@@ -18,7 +18,6 @@ const useForm = (schema: InputData[]) => {
   const handleChange = ({
     currentTarget: { id, value },
   }: React.ChangeEvent<HTMLInputElement>): void => {
-    debugger;
     setValues({ ...values, [id]: value });
   };
 
@@ -36,7 +35,7 @@ const useForm = (schema: InputData[]) => {
     value,
     onChange,
   });
-  debugger;
+
   return { values, inputProps };
 };
 
