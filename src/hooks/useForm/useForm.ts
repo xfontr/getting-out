@@ -2,9 +2,7 @@ import { InputHTMLAttributes, useState } from "react";
 import InputData from "../../types/InputData";
 
 const useForm = (schema: InputData[]) => {
-  const initialState = (
-    schema: InputData[]
-  ): Record<string, string | number> => {
+  const initialState = (): Record<string, string | number> => {
     const state: Record<string, string | number> = {};
     schema.forEach(
       ({ id, initialValue }) => (state[id] = initialValue ? initialValue : "")
@@ -14,7 +12,7 @@ const useForm = (schema: InputData[]) => {
   };
 
   const [values, setValues] = useState<Record<string, string | number>>(
-    initialState(schema)
+    initialState()
   );
 
   const handleChange = ({
@@ -31,7 +29,9 @@ const useForm = (schema: InputData[]) => {
     ...inputData.optionalData,
     id: inputData.id,
     type: inputData.type,
-    className: `form__input ${inputData.optionalData?.className}`,
+    className: `form__input ${
+      inputData.optionalData?.className ? inputData.optionalData.className : ""
+    }`,
     value,
     onChange,
   });

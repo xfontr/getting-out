@@ -44,6 +44,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
     <FieldEditorStyled>
       <ul>
         <li>Selected tool: {initialToCaps(editTool)}</li>
+        <li>Field size: {fieldSize}</li>
       </ul>
 
       <ul>
