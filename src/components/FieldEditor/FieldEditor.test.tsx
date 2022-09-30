@@ -55,10 +55,6 @@ describe("Given a FieldEditor component", () => {
         screen.getByRole("button", { name: "Decrease size" }),
       ];
 
-      Object.entries(cells).forEach(([type, amount]) =>
-        fieldEditor.push(screen.getByText(`${initialToCaps(type)}: ${amount}`))
-      );
-
       const editTools = screen.getByRole("button", { name: "Cube Blank" });
       fieldEditor.push(editTools);
 

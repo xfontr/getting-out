@@ -47,14 +47,6 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         <li>Field size: {fieldSize}</li>
       </ul>
 
-      <ul>
-        {Object.entries(cells).map(([type, amount]) => (
-          <li key={type}>
-            {`${initialToCaps(type)}`}: {amount}
-          </li>
-        ))}
-      </ul>
-
       <Form inputProps={inputProps} schema={editFieldForm} values={values} />
 
       <EditTools
