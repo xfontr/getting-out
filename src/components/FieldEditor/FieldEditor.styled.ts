@@ -12,6 +12,22 @@ const FieldEditorStyled = styled.section`
       gap: ${({ theme: { spacing } }) => spacing.gap};
     }
   }
+
+  .options {
+    &__field-size {
+      display: flex;
+      flex-wrap: wrap;
+      gap: ${({ theme: { spacing } }) => spacing.gapSmall};
+
+      padding: ${({ theme }) => theme.shapes.rectangularContainer};
+      border-radius: ${({ theme }) => theme.shapes.radiusSmall};
+      border: 1px solid ${({ theme }) => theme.colors.primaryDark};
+    }
+    &__heading {
+      display: block;
+      width: 100%;
+    }
+  }
 `;
 
 export default FieldEditorStyled;

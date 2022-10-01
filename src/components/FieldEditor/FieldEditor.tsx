@@ -6,11 +6,12 @@ import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
 import { useEffect } from "react";
 import boards from "../../data/boards";
 import UserBoard from "../../types/UserBoard";
-import Button from "../Button/Button";
+import Button, { IconButton } from "../Button/Button";
 import FieldEditorStyled from "./FieldEditor.styled";
 import Form from "../Form/Form";
 import editFieldForm from "../../schemas/editField.form";
 import useForm from "../../hooks/useForm/useForm";
+import { HiOutlinePlus, HiOutlineMinus } from "react-icons/hi";
 
 const FieldEditor = (props: FieldProps): JSX.Element => {
   const {
@@ -41,8 +42,6 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
   return (
     <FieldEditorStyled>
-      <span>Field size: {fieldSize}</span>
-
       <Form inputProps={inputProps} schema={editFieldForm} values={values} />
 
       <EditTools
@@ -53,8 +52,18 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
       <div className="edit__options">
         <Button onClick={resetBoard}>Reset board</Button>
-        <Button onClick={increaseSize}>Increase size</Button>
-        <Button onClick={decreaseSize}>Decrease size</Button>
+        <div className="options__container">
+          <span className="options__heading">Field size</span>
+          <div className="options__field-size">
+            <span className="options__heading">Size: {fieldSize}</span>
+            <IconButton onClick={decreaseSize}>
+              <HiOutlineMinus />
+            </IconButton>
+            <IconButton onClick={increaseSize}>
+              <HiOutlinePlus />
+            </IconButton>
+          </div>
+        </div>
       </div>
 
       <Field

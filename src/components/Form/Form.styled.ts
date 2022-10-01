@@ -32,12 +32,10 @@ const FormStyled = styled.form`
     }
 
     &__label {
-      font-size: 1.1rem;
       margin-bottom: 0.3rem;
     }
 
     &__input {
-      font-size: 1.1rem;
       padding: ${({ theme }) => theme.shapes.rectangularContainer};
       padding-left: 0.8rem;
       border-radius: ${({ theme }) => theme.shapes.radiusSmall};

@@ -13,6 +13,24 @@ const Button = <T extends HTMLButtonElement>({
   <ButtonStyled {...rest}>{children}</ButtonStyled>
 );
 
+export const OutlineButton = <T extends HTMLButtonElement>({
+  children,
+  ...rest
+}: ButtonProps<T>): JSX.Element => (
+  <Button className="button--outline" {...rest}>
+    {children}
+  </Button>
+);
+
+export const IconButton = <T extends HTMLButtonElement>({
+  children,
+  ...rest
+}: ButtonProps<T>): JSX.Element => (
+  <Button className="button--icon" {...rest}>
+    {children}
+  </Button>
+);
+
 export const ToolButton = <T extends HTMLButtonElement>({
   children,
   isActive,
