@@ -20,16 +20,42 @@ const props = {
 
 describe("Given a EditTools component", () => {
   describe("When instantiated with a group of cells, a type of edit tool and a function to switch the tool", () => {
-    test("Then it should show a button for each type of cell", () => {
-      render(<EditTools {...props} />);
+    test("Then it should show a button for each type of cell, and the cell count", () => {
+      const customCells: Record<CellTypes, number> = {
+        player: 1,
+        exit: 0,
+        blank: 97,
+        obstacle: 2,
+      };
 
-      const editTools = Object.keys(cells).map((cell) =>
+      render(<EditTools {...{ ...props, cells: customCells }} />);
+
+      const editTools = Object.keys(customCells).map((cell) =>
         screen.getByRole("button", {
           name: `Cube ${cell.charAt(0).toUpperCase()}${cell.slice(1)}`,
         })
       );
 
+      const placedCells = Object.entries(customCells).map(([type, amount]) =>
+        screen.getByText(`Placed: ${amount}`)
+      );
+
       editTools.forEach((tool) => expect(tool).toBeInTheDocument());
+      placedCells.forEach((tool) => expect(tool).toBeInTheDocument());
+    });
+
+    describe("And clicking any button", () => {
+      test("Then it should change the button style to show the current tool", async () => {
+        editTool = "exit";
+
+        render(<EditTools {...{ ...props, editTool }} />);
+
+        const exitCell = screen.getByRole("button", { name: "Cube Exit" });
+
+        await userEvent.click(exitCell);
+
+        expect(exitCell).toHaveStyle("border-width: 2px");
+      });
     });
 
     describe("And clicking a button with a 'limited' cell", () => {

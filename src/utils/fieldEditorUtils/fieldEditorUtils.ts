@@ -69,7 +69,7 @@ const fieldEditorUtils = ({
       newBoard.set(position, cell);
 
       if (fieldSize - columnOf(position) === 1) {
-        newBoard.set(positionOf(rowOf(position), fieldSize), cell);
+        newBoard.set(positionOf(rowOf(position), fieldSize), "blank");
       }
     });
 

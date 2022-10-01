@@ -24,11 +24,19 @@ const EditTools = ({
 
   return (
     <EditToolsStyled>
-      {Object.entries(cells).map(([cell]) => (
-        <ToolButton onClick={handleClick} id={cell} key={`tool-${cell}`}>
-          <img src="/img/cube.png" alt="Cube" height={50} width={50} />
-          {`${initialToCaps(cell)}`}
-        </ToolButton>
+      {Object.entries(cells).map(([cell, amount]) => (
+        <div className="tools__group">
+          <span>Placed: {amount}</span>
+          <ToolButton
+            onClick={handleClick}
+            id={cell}
+            isActive={editTool === cell}
+            key={`tool-${cell}`}
+          >
+            <img src="/img/cube.png" alt="Cube" height={50} width={50} />
+            {`${initialToCaps(cell)}`}
+          </ToolButton>
+        </div>
       ))}
     </EditToolsStyled>
   );

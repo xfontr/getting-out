@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./components/App/App";
 import GameContextProvider from "./Store/CallStatusContext/GameContextProvider";
 import "@fontsource/manrope/400.css";
 import "@fontsource/manrope/600.css";
