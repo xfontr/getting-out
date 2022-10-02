@@ -1,10 +1,11 @@
 import { Board } from "./gameBoard";
 
-type UserBoard = {
+export type UserBoard = {
+  fieldSize: number;
   shoots: number;
   timeLeft: number;
   exits: number;
   board: Board;
 };
 
-export default UserBoard;
+export type UserBoards = UserBoard[];

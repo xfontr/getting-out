@@ -68,9 +68,11 @@ const ButtonStyled = styled.button`
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
+      transition: 0s;
     }
 
     &--active {
+      transition: 0;
       border-width: 2px;
     }
 

@@ -24,14 +24,16 @@ const setCells = jest.fn() as (
 let editTool: CellTypes = "obstacle";
 
 const props: FieldProps = {
-  setGameStatus,
   setBoard,
   restartGame,
   setCells,
   board,
   cells,
-  editTool,
-  fieldSize: 10,
+  gameStatus: {
+    editMode: { editTool },
+    game: { fieldSize: 10 },
+    setGameStatus,
+  } as IGameContext,
 };
 
 describe("Given a switchEditTool function returned by a fieldEditorUtils function", () => {
@@ -86,7 +88,10 @@ describe("Given a disableTools function returned by a fieldEditorUtils function"
     test("Then it should do nothing", () => {
       editTool = "exit";
 
-      const { disableTools } = fieldEditorUtils({ ...props, editTool });
+      const { disableTools } = fieldEditorUtils({
+        ...props,
+        gameStatus: { ...props.gameStatus, editMode: { editTool } },
+      });
       disableTools();
 
       expect(setGameStatus).not.toHaveBeenCalled();
@@ -97,7 +102,10 @@ describe("Given a disableTools function returned by a fieldEditorUtils function"
     test("Then it should change the edit tool to 'blank'", () => {
       editTool = "player";
 
-      const { disableTools } = fieldEditorUtils({ ...props, editTool });
+      const { disableTools } = fieldEditorUtils({
+        ...props,
+        gameStatus: { ...props.gameStatus, editMode: { editTool } },
+      });
       disableTools();
 
       expect(setGameStatus).toHaveBeenCalled();
@@ -145,7 +153,10 @@ describe("Given a increaseSize function returned by a fieldEditorUtils function"
       const { increaseSize } = fieldEditorUtils({
         ...props,
         board: bigBoard,
-        fieldSize: size,
+        gameStatus: {
+          ...props.gameStatus,
+          game: { ...props.gameStatus.game, fieldSize: size },
+        },
       });
 
       increaseSize();
@@ -163,7 +174,10 @@ describe("Given a decreaseSize function returned by a fieldEditorUtils function"
       const { decreaseSize } = fieldEditorUtils({
         ...props,
         board: bigBoard,
-        fieldSize: 11,
+        gameStatus: {
+          ...props.gameStatus,
+          game: { ...props.gameStatus.game, fieldSize: 11 },
+        },
       });
 
       decreaseSize();
@@ -175,7 +189,10 @@ describe("Given a decreaseSize function returned by a fieldEditorUtils function"
       const { decreaseSize } = fieldEditorUtils({
         ...props,
         board: bigBoard,
-        fieldSize: 11,
+        gameStatus: {
+          ...props.gameStatus,
+          game: { ...props.gameStatus.game, fieldSize: 11 },
+        },
       });
 
       decreaseSize();
@@ -204,7 +221,10 @@ describe("Given a decreaseSize function returned by a fieldEditorUtils function"
       const { decreaseSize } = fieldEditorUtils({
         ...props,
         board: bigBoard,
-        fieldSize: size,
+        gameStatus: {
+          ...props.gameStatus,
+          game: { ...props.gameStatus.game, fieldSize: size },
+        },
       });
 
       decreaseSize();

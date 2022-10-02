@@ -3,15 +3,16 @@ import { readBoard } from "../../utils/readBoard/readBoard";
 import EditTools from "../EditTools/EditTools";
 import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
 import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
-import { useEffect } from "react";
+import { SyntheticEvent, useEffect } from "react";
 import boards from "../../data/boards";
-import UserBoard from "../../types/UserBoard";
+import { UserBoard } from "../../types/UserBoard";
 import Button, { IconButton } from "../Button/Button";
 import FieldEditorStyled from "./FieldEditor.styled";
 import Form from "../Form/Form";
 import editFieldForm from "../../schemas/editField.form";
 import useForm from "../../hooks/useForm/useForm";
 import { HiOutlinePlus, HiOutlineMinus } from "react-icons/hi";
+import usePlaying from "../../hooks/usePlaying/usePlaying";
 
 const FieldEditor = (props: FieldProps): JSX.Element => {
   const {
@@ -22,22 +23,36 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
     decreaseSize,
   } = fieldEditorUtils(props);
 
-  const { editTool, cells, board, setCells, fieldSize } = props;
+  const {
+    cells,
+    board,
+    setCells,
+    gameStatus: {
+      editMode: { editTool },
+      game: { fieldSize },
+    },
+  } = props;
   const { values, inputProps } = useForm(editFieldForm);
+  const { startGame } = usePlaying();
 
   useEffect(() => {
     disableTools();
   }, [cells, disableTools]);
 
-  const handleSubmit = () => {
+  const handleSubmit = ({ currentTarget: { id } }: SyntheticEvent) => {
     const newBoard: UserBoard = {
       shoots: +values.shoots,
       timeLeft: +values.timeLeft,
       exits: cells.exit,
+      fieldSize,
       board,
     };
 
     boards.push(newBoard);
+
+    if (id === "play") {
+      startGame();
+    }
   };
 
   return (
@@ -56,10 +71,18 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
           <span className="options__heading">Field size</span>
           <div className="options__field-size">
             <span className="options__heading">Size: {fieldSize}</span>
-            <IconButton onClick={decreaseSize}>
+            <IconButton
+              onClick={decreaseSize}
+              aria-label="increase"
+              data-testid="increase"
+            >
               <HiOutlineMinus />
             </IconButton>
-            <IconButton onClick={increaseSize}>
+            <IconButton
+              onClick={increaseSize}
+              aria-label="decrease"
+              data-testid="decrease"
+            >
               <HiOutlinePlus />
             </IconButton>
           </div>
@@ -78,6 +101,9 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
       <Button onClick={handleSubmit} type="submit">
         Submit
+      </Button>
+      <Button onClick={handleSubmit} type="submit" id="play">
+        Submit and play
       </Button>
     </FieldEditorStyled>
   );
