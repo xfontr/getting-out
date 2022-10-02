@@ -1,13 +1,21 @@
 import boards from "../../data/boards";
 import { IGameContext } from "../../Store/CallStatusContext/GameContext";
+import { UserBoard } from "../../types/UserBoard";
 import generateBoard from "../generateBoard/generateBoard";
 import { setInitialBoard, setInitialStatus } from "./fieldPlayerUtils";
+
+const mockBoard: UserBoard = {
+  fieldSize: 0,
+  shoots: 0,
+  timeLeft: 0,
+  exits: 0,
+  board: generateBoard(10),
+};
 
 describe("Given a setInitialBoard function", () => {
   describe("When called with a board id", () => {
     test("Then it should return the cell map corresponding to that board", () => {
-      const board = generateBoard(10);
-      boards.push({ board });
+      boards.push(mockBoard);
 
       const boardId = 0;
 
@@ -19,25 +27,21 @@ describe("Given a setInitialBoard function", () => {
 
   describe("When called with a non-existant board id", () => {
     test("Then it shouild return a new empty board", () => {
-      const board = generateBoard(10);
-
       const boardId = 99;
 
       const result = setInitialBoard(boardId);
 
-      expect(result).toStrictEqual(board);
+      expect(result).toStrictEqual(mockBoard.board);
     });
   });
 
   describe("When called with 'new'", () => {
     test("Then it shouild return a new empty board", () => {
-      const board = generateBoard(10);
-
       const requestNew = "new";
 
       const result = setInitialBoard(requestNew);
 
-      expect(result).toStrictEqual(board);
+      expect(result).toStrictEqual(mockBoard.board);
     });
   });
 });
@@ -48,8 +52,7 @@ describe("Given a setInitialStatus function", () => {
   >;
   describe("When called with a game context status setter and a board id", () => {
     test("Then it should call the setter with the game data", () => {
-      const board = generateBoard(10);
-      boards.push({ board });
+      boards.push(mockBoard);
 
       const boardId = 0;
 
