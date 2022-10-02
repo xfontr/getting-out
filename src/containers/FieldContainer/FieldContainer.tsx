@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import boards from "../../data/boards";
 import usePlaying from "../../hooks/usePlaying/usePlaying";
 import {
@@ -31,11 +31,29 @@ export interface FieldProps {
   gameStatus: IGameContext;
 }
 
-const setInitialBoard = (board: number | "new") => {
+const setInitialBoard = (board: number | "new"): Board => {
   if (board === "new") {
     return generateBoard(10);
   }
   return boards[board].board;
+};
+
+const setInitialStatus = (
+  setStatus: React.Dispatch<React.SetStateAction<IGameContext>>,
+  board: number | "new"
+): void => {
+  if (board === "new") {
+    return;
+  }
+
+  const shootsLeft = boards[board].shoots;
+  const exits = boards[board].exits;
+  const timeLeft = boards[board].timeLeft;
+
+  setStatus((gameStatus) => ({
+    ...gameStatus,
+    game: { ...gameStatus.game, timeLeft, shootsLeft, exits },
+  }));
 };
 
 const FieldContainer = ({
@@ -47,6 +65,10 @@ const FieldContainer = ({
   const [board, setBoard] = useState<Board>(setInitialBoard(initialBoard));
   const [cells, setCells] =
     useState<Record<CellTypes, number>>(cellsInitialState);
+
+  useEffect(() => {
+    setInitialStatus(gameStatus.setGameStatus, initialBoard);
+  }, [gameStatus.setGameStatus, initialBoard]);
 
   const props: FieldProps = {
     board,
