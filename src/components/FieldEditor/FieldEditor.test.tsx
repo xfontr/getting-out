@@ -6,7 +6,7 @@ import editFieldForm from "../../schemas/editField.form";
 import { IGameContext } from "../../Store/CallStatusContext/GameContext";
 import { render } from "../../test-utils/customRender/customRender";
 import { Board, CellTypes } from "../../types/gameBoard";
-import UserBoard from "../../types/UserBoard";
+import { UserBoard } from "../../types/UserBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
 import { readBoard } from "../../utils/readBoard/readBoard";
 import FieldEditor from "./FieldEditor";
@@ -43,14 +43,14 @@ describe("Given a FieldEditor component", () => {
       render(<FieldEditor {...props} />);
 
       const fieldEditor = [
-        screen.getByText(`Field size: ${fieldSize}`),
+        screen.getByText(`Size: ${fieldSize}`),
         screen.getByRole("button", { name: "Reset board" }),
         screen.getByTestId("field"),
         screen.getByLabelText("Shoots"),
         screen.getByLabelText("Time limit"),
         screen.getByRole("button", { name: "Submit" }),
-        screen.getByRole("button", { name: "Increase size" }),
-        screen.getByRole("button", { name: "Decrease size" }),
+        screen.getByTestId("increase"),
+        screen.getByTestId("decrease"),
       ];
 
       const editTools = screen.getByRole("button", { name: "Cube Blank" });

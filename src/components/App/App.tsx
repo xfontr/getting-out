@@ -7,21 +7,24 @@ import AppStyled from "./App.styled";
 const App = (): JSX.Element => {
   const {
     isEditMode,
+    isPlaying,
     game: { shootsLeft, timeLeft },
   } = useContext(GameContext);
 
   return (
     <AppStyled>
-      {isEditMode || (
+      {isPlaying && (
         <>
           <p>
             Shoots left: {shootsLeft} (double click neighbour cell to shoot)
           </p>
 
           <p>Time left: {timeLeft}</p>
+
+          <FieldContainer WrappedField={FieldEditor} initialBoard={0} />
         </>
       )}
-      <FieldContainer WrappedField={FieldEditor} />;
+      {isEditMode && <FieldContainer WrappedField={FieldEditor} />}
     </AppStyled>
   );
 };

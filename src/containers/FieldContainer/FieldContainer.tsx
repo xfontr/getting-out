@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import boards from "../../data/boards";
 import usePlaying from "../../hooks/usePlaying/usePlaying";
 import {
   GameContext,
@@ -16,6 +17,7 @@ export const cellsInitialState: Record<CellTypes, number> = {
 
 type FieldContainerProps<FieldProps> = {
   WrappedField: ({ ...props }: FieldProps) => JSX.Element;
+  initialBoard?: number | "new";
 };
 
 export interface FieldProps {
@@ -31,14 +33,24 @@ export interface FieldProps {
   fieldSize: number;
 }
 
-const FieldContainer = ({ WrappedField }: FieldContainerProps<FieldProps>) => {
+const setInitialBoard = (board: number | "new") => {
+  if (board === "new") {
+    return generateBoard(10);
+  }
+  return boards[board].board;
+};
+
+const FieldContainer = ({
+  WrappedField,
+  initialBoard = "new",
+}: FieldContainerProps<FieldProps>) => {
   const {
     setGameStatus,
     editMode: { editTool },
     game: { fieldSize },
   } = useContext(GameContext);
   const { restartGame } = usePlaying();
-  const [board, setBoard] = useState<Board>(generateBoard(10));
+  const [board, setBoard] = useState<Board>(setInitialBoard(initialBoard));
   const [cells, setCells] =
     useState<Record<CellTypes, number>>(cellsInitialState);
 
