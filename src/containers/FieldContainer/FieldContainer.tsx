@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import boards from "../../data/boards";
 import usePlaying from "../../hooks/usePlaying/usePlaying";
 import {
   GameContext,
   IGameContext,
 } from "../../Store/CallStatusContext/GameContext";
 import { Board, CellTypes } from "../../types/gameBoard";
-import generateBoard from "../../utils/generateBoard/generateBoard";
+import {
+  setInitialBoard,
+  setInitialStatus,
+} from "../../utils/fieldPlayerUtils/fieldPlayerUtils";
 
 export const cellsInitialState: Record<CellTypes, number> = {
   player: 1,
@@ -31,34 +33,6 @@ export interface FieldProps {
   gameStatus: IGameContext;
 }
 
-const setInitialBoard = (board: number | "new"): Board => {
-  if (board === "new") {
-    return generateBoard(10);
-  }
-  return boards[board].board;
-};
-
-const setInitialStatus = (
-  setStatus: React.Dispatch<React.SetStateAction<IGameContext>>,
-  board: number | "new"
-): void => {
-  if (board === "new") {
-    return;
-  }
-
-  const game = {
-    shootsLeft: boards[board].shoots,
-    exits: boards[board].exits,
-    timeLeft: boards[board].timeLeft,
-    fieldSize: boards[board].fieldSize,
-  };
-
-  setStatus((gameStatus) => ({
-    ...gameStatus,
-    game: { ...gameStatus.game, ...game },
-  }));
-};
-
 const FieldContainer = ({
   WrappedField,
   initialBoard = "new",
@@ -71,6 +45,7 @@ const FieldContainer = ({
 
   useEffect(() => {
     setInitialStatus(gameStatus.setGameStatus, initialBoard);
+    debugger;
   }, [gameStatus.setGameStatus, initialBoard]);
 
   const props: FieldProps = {

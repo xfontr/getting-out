@@ -1,5 +1,13 @@
+import { waitFor } from "@testing-library/react";
 import { render } from "../../test-utils/customRender/customRender";
 import FieldContainer, { FieldProps } from "./FieldContainer";
+
+const mockSetInitialStatus = jest.fn();
+
+jest.mock("../../utils/fieldPlayerUtils/fieldPlayerUtils", () => ({
+  ...jest.requireActual("../../utils/fieldPlayerUtils/fieldPlayerUtils"),
+  setInitialStatus: () => mockSetInitialStatus(),
+}));
 
 const mockField = jest.fn() as ({
   board,
@@ -25,6 +33,14 @@ describe("Given a FieldContainer function", () => {
       expect(calledWith).toHaveProperty("setBoard");
       expect(calledWith).toHaveProperty("setCells");
       expect(calledWith).toHaveProperty("gameStatus");
+    });
+
+    test.only("Then it should call the board initial state setter", async () => {
+      render(<FieldContainer WrappedField={mockField} initialBoard="new" />);
+
+      await waitFor(() => {
+        expect(mockSetInitialStatus).toHaveBeenCalled();
+      });
     });
   });
 });
