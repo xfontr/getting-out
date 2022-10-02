@@ -46,13 +46,16 @@ const setInitialStatus = (
     return;
   }
 
-  const shootsLeft = boards[board].shoots;
-  const exits = boards[board].exits;
-  const timeLeft = boards[board].timeLeft;
+  const game = {
+    shootsLeft: boards[board].shoots,
+    exits: boards[board].exits,
+    timeLeft: boards[board].timeLeft,
+    fieldSize: boards[board].fieldSize,
+  };
 
   setStatus((gameStatus) => ({
     ...gameStatus,
-    game: { ...gameStatus.game, timeLeft, shootsLeft, exits },
+    game: { ...gameStatus.game, ...game },
   }));
 };
 

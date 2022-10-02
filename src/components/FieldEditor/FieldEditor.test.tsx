@@ -85,6 +85,7 @@ describe("Given a FieldEditor component", () => {
         exits: 0,
         shoots: 3,
         timeLeft: 10,
+        fieldSize: 10,
       };
 
       render(<FieldEditor {...props} />);

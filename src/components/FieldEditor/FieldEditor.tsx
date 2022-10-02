@@ -44,6 +44,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
       shoots: +values.shoots,
       timeLeft: +values.timeLeft,
       exits: cells.exit,
+      fieldSize,
       board,
     };
 
