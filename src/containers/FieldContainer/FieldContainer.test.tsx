@@ -4,11 +4,10 @@ import FieldContainer, { FieldProps } from "./FieldContainer";
 const mockField = jest.fn() as ({
   board,
   cells,
-  editTool,
-  setGameStatus,
   restartGame,
   setBoard,
   setCells,
+  gameStatus,
 }: FieldProps) => JSX.Element;
 
 describe("Given a FieldContainer function", () => {
@@ -22,11 +21,10 @@ describe("Given a FieldContainer function", () => {
 
       expect(calledWith).toHaveProperty("board");
       expect(calledWith).toHaveProperty("cells");
-      expect(calledWith).toHaveProperty("editTool");
-      expect(calledWith).toHaveProperty("setGameStatus");
       expect(calledWith).toHaveProperty("restartGame");
       expect(calledWith).toHaveProperty("setBoard");
       expect(calledWith).toHaveProperty("setCells");
+      expect(calledWith).toHaveProperty("gameStatus");
     });
   });
 });

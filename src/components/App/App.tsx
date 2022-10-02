@@ -3,6 +3,7 @@ import FieldEditor from "../FieldEditor/FieldEditor";
 import FieldContainer from "../../containers/FieldContainer/FieldContainer";
 import { GameContext } from "../../Store/CallStatusContext/GameContext";
 import AppStyled from "./App.styled";
+import FieldPlayer from "../FieldPlayer/FieldPlayer";
 
 const App = (): JSX.Element => {
   const {
@@ -21,7 +22,7 @@ const App = (): JSX.Element => {
 
           <p>Time left: {timeLeft}</p>
 
-          <FieldContainer WrappedField={FieldEditor} initialBoard={0} />
+          <FieldContainer WrappedField={FieldPlayer} initialBoard={0} />
         </>
       )}
       {isEditMode && <FieldContainer WrappedField={FieldEditor} />}

@@ -23,7 +23,15 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
     decreaseSize,
   } = fieldEditorUtils(props);
 
-  const { editTool, cells, board, setCells, fieldSize } = props;
+  const {
+    cells,
+    board,
+    setCells,
+    gameStatus: {
+      editMode: { editTool },
+      game: { fieldSize },
+    },
+  } = props;
   const { values, inputProps } = useForm(editFieldForm);
   const { startGame } = usePlaying();
 

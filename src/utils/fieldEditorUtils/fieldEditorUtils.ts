@@ -14,13 +14,17 @@ const minFieldSize = 10;
 const fieldEditorUtils = ({
   board,
   cells,
-  editTool,
-  setGameStatus,
   restartGame,
   setBoard,
   setCells,
-  fieldSize,
+  gameStatus: currentGameStatus,
 }: FieldProps) => {
+  const {
+    setGameStatus,
+    editMode: { editTool },
+    game: { fieldSize },
+  } = currentGameStatus;
+
   const switchEditTool = ({ currentTarget: { id } }: SyntheticEvent): void => {
     const editTool = id as CellTypes;
 

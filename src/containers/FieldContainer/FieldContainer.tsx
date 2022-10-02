@@ -21,7 +21,6 @@ type FieldContainerProps<FieldProps> = {
 };
 
 export interface FieldProps {
-  setGameStatus: React.Dispatch<React.SetStateAction<IGameContext>>;
   setBoard: React.Dispatch<React.SetStateAction<Board>>;
   restartGame: (
     setGameBoard: React.Dispatch<React.SetStateAction<Board>>
@@ -29,8 +28,7 @@ export interface FieldProps {
   setCells: (value: React.SetStateAction<Record<CellTypes, number>>) => void;
   board: Board;
   cells: Record<CellTypes, number>;
-  editTool: CellTypes;
-  fieldSize: number;
+  gameStatus: IGameContext;
 }
 
 const setInitialBoard = (board: number | "new") => {
@@ -44,11 +42,7 @@ const FieldContainer = ({
   WrappedField,
   initialBoard = "new",
 }: FieldContainerProps<FieldProps>) => {
-  const {
-    setGameStatus,
-    editMode: { editTool },
-    game: { fieldSize },
-  } = useContext(GameContext);
+  const gameStatus = useContext(GameContext);
   const { restartGame } = usePlaying();
   const [board, setBoard] = useState<Board>(setInitialBoard(initialBoard));
   const [cells, setCells] =
@@ -57,12 +51,10 @@ const FieldContainer = ({
   const props: FieldProps = {
     board,
     cells,
-    editTool,
-    setGameStatus,
     restartGame,
     setBoard,
     setCells,
-    fieldSize,
+    gameStatus,
   };
 
   return <WrappedField {...props} />;

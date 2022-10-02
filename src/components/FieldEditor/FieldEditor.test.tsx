@@ -27,14 +27,20 @@ let editTool: CellTypes = "obstacle";
 const fieldSize = 10;
 
 const props: FieldProps = {
-  setGameStatus,
   setBoard,
   restartGame,
   setCells,
   board,
   cells,
-  editTool,
-  fieldSize,
+  gameStatus: {
+    setGameStatus,
+    editMode: {
+      editTool,
+    },
+    game: {
+      fieldSize,
+    },
+  } as IGameContext,
 };
 
 describe("Given a FieldEditor component", () => {
