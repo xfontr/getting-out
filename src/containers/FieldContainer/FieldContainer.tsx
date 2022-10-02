@@ -45,6 +45,7 @@ const FieldContainer = ({
 
   useEffect(() => {
     setInitialStatus(gameStatus.setGameStatus, initialBoard);
+    debugger;
   }, [gameStatus.setGameStatus, initialBoard]);
 
   const props: FieldProps = {
