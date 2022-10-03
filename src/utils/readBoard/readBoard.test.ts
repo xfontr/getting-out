@@ -9,11 +9,12 @@ describe("Given a readBoard function", () => {
     mockBoard.set("3-3", "obstacle");
     mockBoard.set("4-4", "exit");
     test("Then it should return an object counting the amount of each cell", () => {
-      const expectedResult = {
+      const expectedResult: Record<CellTypes, number> = {
         player: 1,
         exit: 1,
         blank: 22,
         obstacle: 1,
+        scoreUp: 0,
       };
 
       const result = readBoard(mockBoard);

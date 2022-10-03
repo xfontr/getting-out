@@ -102,14 +102,12 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         isEditMode={true}
         fieldSize={fieldSize}
       />
-
-      <Button onClick={handleSubmit} type="submit">
-        Submit
-      </Button>
-      <Button onClick={handleSubmit} type="submit" id="play">
-        Submit and play
-      </Button>
-      <Button onClick={resetBoard}>Reset board</Button>
+      <div className="edit__options">
+        <Button onClick={handleSubmit} type="submit" id="play">
+          Submit and play
+        </Button>
+        <Button onClick={resetBoard}>Reset board</Button>
+      </div>
     </FieldEditorStyled>
   );
 };

@@ -49,12 +49,12 @@ describe("Given a FieldEditor component", () => {
       render(<FieldEditor {...props} />);
 
       const fieldEditor = [
-        screen.getByText(`Size: ${fieldSize}`),
+        screen.getByText(fieldSize),
         screen.getByRole("button", { name: "Reset board" }),
         screen.getByTestId("field"),
         screen.getByLabelText("Shoots"),
         screen.getByLabelText("Time limit"),
-        screen.getByRole("button", { name: "Submit" }),
+        screen.getByRole("button", { name: "Submit and play" }),
         screen.getByTestId("increase"),
         screen.getByTestId("decrease"),
       ];
@@ -90,7 +90,9 @@ describe("Given a FieldEditor component", () => {
 
       render(<FieldEditor {...props} />);
 
-      const submitButton = screen.getByRole("button", { name: "Submit" });
+      const submitButton = screen.getByRole("button", {
+        name: "Submit and play",
+      });
 
       await userEvent.click(submitButton);
 

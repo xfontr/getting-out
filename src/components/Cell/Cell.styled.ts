@@ -6,8 +6,17 @@ export const CellStyled = styled.div`
 
   cursor: crosshair;
 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 3rem;
+
   &.blank {
     background-image: none;
+  }
+
+  &.scoreUp {
+    background-image: url("img/boost-up.png");
+    background-size: 2.5rem;
   }
 
   &.player {
@@ -19,14 +28,10 @@ export const CellStyled = styled.div`
 
   &.obstacle {
     background-image: url("img/wall-red.png");
-    background-position: center;
-    background-size: 3rem;
   }
 
   &.exit {
     background-image: url("img/exit-door.png");
-    background-position: center;
-    background-repeat: no-repeat;
     background-size: 2rem;
   }
 `;

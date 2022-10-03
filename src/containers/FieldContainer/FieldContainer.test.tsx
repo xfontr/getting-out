@@ -35,7 +35,7 @@ describe("Given a FieldContainer function", () => {
       expect(calledWith).toHaveProperty("gameStatus");
     });
 
-    test.only("Then it should call the board initial state setter", async () => {
+    test("Then it should call the board initial state setter", async () => {
       render(<FieldContainer WrappedField={mockField} initialBoard="new" />);
 
       await waitFor(() => {
