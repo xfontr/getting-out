@@ -7,34 +7,44 @@ let timer: NodeJS.Timer;
 const usePlaying = () => {
   const { setGameStatus } = useContext(GameContext);
 
-  const startTimer = useCallback(() => {
+  const restartGame = useCallback((): void => {
+    setGameStatus(gameInitialState);
+    clearInterval(timer);
+  }, [setGameStatus]);
+
+  const startTimer = (timeLeft: number) => {
+    let time = timeLeft;
+
     timer = setInterval(() => {
       setGameStatus((gameStatus) => ({
         ...gameStatus,
-        game: { ...gameStatus.game, timeLeft: gameStatus.game.timeLeft - 1 },
+        game: {
+          ...gameStatus.game,
+          timeLeft: gameStatus.game.timeLeft - 1,
+        },
       }));
 
       setGameStatus((gameStatus) => ({
         ...gameStatus,
         game: { ...gameStatus.game, score: gameStatus.game.score - 1 },
       }));
-    }, 1000);
-  }, [setGameStatus]);
 
-  const startGame = (): void => {
+      time -= 1;
+
+      if (time === 0) {
+        restartGame();
+      }
+    }, 1000);
+  };
+
+  const startGame = (timeLeft: number): void => {
     setGameStatus((gameStatus) => ({
       ...gameStatus,
       isEditMode: false,
       isPlaying: true,
     }));
 
-    startTimer();
-  };
-
-  const restartGame = (): void => {
-    setGameStatus(gameInitialState);
-
-    clearInterval(timer);
+    startTimer(timeLeft);
   };
 
   const editMode = (): void => {

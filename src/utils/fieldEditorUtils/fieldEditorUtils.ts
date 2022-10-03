@@ -5,6 +5,7 @@ import {
 } from "../../containers/FieldContainer/FieldContainer";
 import limitedCells from "../../data/limitedCells";
 import { Board, CellTypes } from "../../types/gameBoard";
+import generateBoard from "../generateBoard/generateBoard";
 import { columnOf, positionOf, rowOf } from "../handlePosition/handlePosition";
 import { checkIfBoardMaximum, readBoard } from "../readBoard/readBoard";
 
@@ -40,7 +41,8 @@ const fieldEditorUtils = ({
   };
 
   const resetBoard = (): void => {
-    restartGame(setBoard);
+    restartGame();
+    setBoard(generateBoard(10));
     setCells(cellsInitialState);
   };
 

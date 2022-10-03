@@ -12,7 +12,7 @@ export const gameInitialState: IGameContext = {
     exits: 1,
     score: 1000,
     shootsLeft: 3,
-    timeLeft: 30000,
+    timeLeft: 10,
   },
   setGameStatus: () => {},
 };

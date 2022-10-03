@@ -3,7 +3,6 @@ import {
   GameContext,
   IGameContext,
 } from "../../Store/CallStatusContext/GameContext";
-import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
 import { Board, CellTypes, Position } from "../../types/gameBoard";
 import {
   checkLimits,
