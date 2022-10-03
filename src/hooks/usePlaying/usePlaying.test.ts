@@ -33,22 +33,6 @@ describe("Given a editMode function returned by a usePlaying function", () => {
       expect(calledWith.isEditMode).toBe(true);
       expect(calledWith.isPlaying).toBe(false);
     });
-
-    test("Then it should clear the current interval", () => {
-      window.clearInterval = jest.fn();
-
-      const {
-        result: {
-          current: { editMode },
-        },
-      } = renderHook(usePlaying);
-
-      act(() => {
-        editMode();
-      });
-
-      expect(clearInterval).toHaveBeenCalled();
-    });
   });
 });
 

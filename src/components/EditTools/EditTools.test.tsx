@@ -24,8 +24,9 @@ describe("Given a EditTools component", () => {
       const customCells: Record<CellTypes, number> = {
         player: 1,
         exit: 0,
-        blank: 97,
+        blank: 94,
         obstacle: 2,
+        scoreUp: 3,
       };
 
       render(<EditTools {...{ ...props, cells: customCells }} />);
@@ -36,7 +37,7 @@ describe("Given a EditTools component", () => {
         })
       );
 
-      const placedCells = Object.entries(customCells).map(([type, amount]) =>
+      const placedCells = Object.entries(customCells).map(([_, amount]) =>
         screen.getByText(`Placed: ${amount}`)
       );
 

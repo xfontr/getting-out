@@ -15,6 +15,7 @@ export const cellsInitialState: Record<CellTypes, number> = {
   exit: 0,
   blank: 99,
   obstacle: 0,
+  scoreUp: 0,
 };
 
 type FieldContainerProps<FieldProps> = {
