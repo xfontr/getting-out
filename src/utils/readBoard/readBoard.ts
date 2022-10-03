@@ -1,5 +1,5 @@
 import limitedCells from "../../data/limitedCells";
-import { Board, CellTypes } from "../../types/gameBoard";
+import { Board, CellTypes, Position } from "../../types/gameBoard";
 
 export const readBoard = (board: Board): Record<CellTypes, number> => {
   const updatedCells: Record<CellTypes, number> = {
@@ -14,6 +14,21 @@ export const readBoard = (board: Board): Record<CellTypes, number> => {
   });
 
   return updatedCells;
+};
+
+export const getLastCellByType = (
+  cellType: CellTypes,
+  board: Board
+): Position => {
+  let foundCell: Position = "0-0";
+
+  board.forEach((cell, position) => {
+    if (cell === cellType) {
+      foundCell = position;
+    }
+  });
+
+  return foundCell!;
 };
 
 export const checkIfBoardMaximum = (cell: CellTypes, board: Board): boolean =>
