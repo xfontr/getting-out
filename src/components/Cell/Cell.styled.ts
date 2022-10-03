@@ -4,22 +4,29 @@ export const CellStyled = styled.div`
   width: 3rem;
   height: 3rem;
 
-  border: 1px dotted rgba(110, 48, 75, 0.1);
   cursor: crosshair;
 
   &.blank {
-    background-color: pink;
+    background-image: none;
   }
 
   &.player {
-    background-color: purple;
+    border-radius: ${({ theme: { shapes } }) => shapes.radiusSmall};
+    padding: 0.1rem;
+    border: 2px dotted ${({ theme: { colors } }) => colors.secondary};
+    box-shadow: inset 8px 8px 15px 8px rgba(253, 240, 213, 0.2);
   }
 
   &.obstacle {
-    background-color: brown;
+    background-image: url("img/wall-red.png");
+    background-position: center;
+    background-size: 3rem;
   }
 
   &.exit {
-    background-color: gray;
+    background-image: url("img/exit-door.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 2rem;
   }
 `;

@@ -5,6 +5,19 @@ const FieldEditorStyled = styled.section`
   flex-direction: column;
   gap: ${({ theme: { spacing } }) => spacing.gap};
 
+  .form--edit {
+    display: flex;
+    gap: ${({ theme: { spacing } }) => spacing.gap};
+    margin: 0;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    & .form__container {
+      min-width: 0;
+      max-width: 25%;
+    }
+  }
+
   .edit {
     &__options {
       display: flex;
@@ -15,13 +28,14 @@ const FieldEditorStyled = styled.section`
 
   .options {
     &__field-size {
+      margin-top: 5px;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: ${({ theme: { spacing } }) => spacing.gapSmall};
-
-      padding: ${({ theme }) => theme.shapes.rectangularContainer};
-      border-radius: ${({ theme }) => theme.shapes.radiusSmall};
-      border: 1px solid ${({ theme }) => theme.colors.primaryDark};
+      padding: 0.2rem 0;
+      border: 1px solid transparent;
+      font-weight: bold;
+      color: ${({ theme: { colors } }) => colors.primary};
     }
     &__heading {
       display: block;

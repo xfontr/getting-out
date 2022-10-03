@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import mainTheme from "./mainTheme";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -9,6 +10,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     min-height: 100vh;
     font-family: manrope, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: ${mainTheme.colors.secondary};
+    color: ${mainTheme.colors.tipography};
   }
 
   ul {

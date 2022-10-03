@@ -57,20 +57,10 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
   return (
     <FieldEditorStyled>
-      <Form inputProps={inputProps} schema={editFieldForm} values={values} />
-
-      <EditTools
-        cells={cells}
-        editTool={editTool}
-        switchEditTool={switchEditTool}
-      />
-
       <div className="edit__options">
-        <Button onClick={resetBoard}>Reset board</Button>
         <div className="options__container">
           <span className="options__heading">Field size</span>
           <div className="options__field-size">
-            <span className="options__heading">Size: {fieldSize}</span>
             <IconButton
               onClick={decreaseSize}
               aria-label="increase"
@@ -78,6 +68,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
             >
               <HiOutlineMinus />
             </IconButton>
+            {fieldSize}
             <IconButton
               onClick={increaseSize}
               aria-label="decrease"
@@ -87,7 +78,20 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
             </IconButton>
           </div>
         </div>
+
+        <Form
+          inputProps={inputProps}
+          schema={editFieldForm}
+          values={values}
+          className="form--edit"
+        />
       </div>
+
+      <EditTools
+        cells={cells}
+        editTool={editTool}
+        switchEditTool={switchEditTool}
+      />
 
       <Field
         data-testid="field"
@@ -105,6 +109,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
       <Button onClick={handleSubmit} type="submit" id="play">
         Submit and play
       </Button>
+      <Button onClick={resetBoard}>Reset board</Button>
     </FieldEditorStyled>
   );
 };
