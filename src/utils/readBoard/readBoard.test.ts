@@ -1,6 +1,7 @@
 import limitedCells from "../../data/limitedCells";
+import { CellTypes } from "../../types/gameBoard";
 import generateBoard from "../generateBoard/generateBoard";
-import { readBoard, checkIfBoardMaximum } from "./readBoard";
+import { readBoard, checkIfBoardMaximum, getLastCellByType } from "./readBoard";
 
 describe("Given a readBoard function", () => {
   describe("When called with a map of cells", () => {
@@ -55,6 +56,32 @@ describe("Given a checkIfBoardMaximum function", () => {
 
         expect(result).toBe(false);
       });
+    });
+  });
+});
+
+describe("Given a getLastCellByType function", () => {
+  describe("When called with a celltype 'player' and a board with one player", () => {
+    test("Then it should return the position of the player", () => {
+      const mockBoard = new Map(generateBoard(5));
+      const cellType: CellTypes = "player";
+      const expectedResult = "1-1";
+
+      const result = getLastCellByType(cellType, mockBoard);
+
+      expect(result).toBe(expectedResult);
+    });
+  });
+
+  describe("When called with a celltype 'obstacle' and a board with zero obstacles", () => {
+    test("Then it should return a 0-0 position", () => {
+      const mockBoard = new Map(generateBoard(5));
+      const cellType: CellTypes = "obstacle";
+      const expectedResult = "0-0";
+
+      const result = getLastCellByType(cellType, mockBoard);
+
+      expect(result).toBe(expectedResult);
     });
   });
 });
