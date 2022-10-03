@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 const ButtonStyled = styled.button`
   padding: ${({ theme }) => theme.shapes.rectangularContainer};
-  border-radius: ${({ theme }) => theme.shapes.radiusSmall};
-  background-color: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.primary};
-  border: 1px solid transparent;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
+  border: 2px solid transparent;
   width: fit-content;
   height: fit-content;
 
@@ -20,9 +19,6 @@ const ButtonStyled = styled.button`
 
   &:hover {
     box-shadow: ${({ theme: { shapes } }) => shapes.shortShadow};
-    background-color: ${({ theme: { colors } }) => colors.primary};
-    color: ${({ theme: { colors } }) => colors.secondary};
-    border: 1px solid ${({ theme: { colors } }) => colors.secondary};
   }
 
   &:active {
@@ -32,8 +28,9 @@ const ButtonStyled = styled.button`
   &.button {
     &--outline {
       background-color: transparent;
-      color: ${({ theme: { colors } }) => colors.secondary};
-      border: 1px solid ${({ theme: { colors } }) => colors.secondary};
+      color: ${({ theme: { colors } }) => colors.primary};
+      border: 1px solid ${({ theme: { colors } }) => colors.primary};
+      font-weight: normal;
 
       svg {
         border: 1px solid ${({ theme: { colors } }) => colors.secondary};
@@ -50,7 +47,9 @@ const ButtonStyled = styled.button`
       &:hover {
         background-color: ${({ theme: { colors } }) => colors.secondary};
         color: ${({ theme: { colors } }) => colors.primary};
-        border: 1px solid transparent;
+        border: 2px solid;
+        font-weight: bold;
+        box-shadow: none;
 
         svg {
           border: 1px solid ${({ theme: { colors } }) => colors.secondary};
@@ -58,6 +57,10 @@ const ButtonStyled = styled.button`
           color: ${({ theme: { colors } }) => colors.secondary};
           transform: scale(1.3);
         }
+      }
+
+      &:active {
+        transform: none;
       }
     }
 
@@ -74,6 +77,7 @@ const ButtonStyled = styled.button`
     &--active {
       transition: 0;
       border-width: 2px;
+      font-weight: bold;
     }
 
     &--icon {
@@ -83,10 +87,21 @@ const ButtonStyled = styled.button`
       display: flex;
       justify-content: center;
       padding: 0.2rem;
+      background-color: ${({ theme }) => theme.colors.secondary};
+      border: solid 2px ${({ theme }) => theme.colors.primary};
 
       & svg {
         width: 1.8rem;
         height: 1.8rem;
+        color: ${({ theme }) => theme.colors.primary};
+      }
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.primary};
+
+        & svg {
+          color: ${({ theme }) => theme.colors.secondary};
+        }
       }
     }
   }

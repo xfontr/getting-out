@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useMovements from "../../hooks/useMovements/useMovements";
 import { Board, Position } from "../../types/gameBoard";
+import { getLastCellByType } from "../../utils/readBoard/readBoard";
 import Cell from "../Cell/Cell";
 import FieldStyled from "./Field.styled";
 
@@ -21,12 +22,13 @@ const Field = ({
   isEditMode = false,
   ...rest
 }: FieldProps): JSX.Element => {
-  const [player, setPlayer] = useState<Position>("1-1");
   const [currentBoard, setCurrentBoard] = useState<Board>(initialBoard);
+  const [player, setPlayer] = useState<Position>("4-4");
 
   useEffect(() => {
     setCurrentBoard(initialBoard);
-  }, [initialBoard]);
+    setPlayer(getLastCellByType("player", currentBoard));
+  }, [initialBoard, currentBoard]);
 
   useMovements(setCurrentBoard, setPlayer, player, currentBoard, isEditMode);
 

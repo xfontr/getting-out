@@ -7,7 +7,10 @@ import generateBoard from "../../utils/generateBoard/generateBoard";
 let timer: NodeJS.Timer;
 
 const usePlaying = () => {
-  const { setGameStatus } = useContext(GameContext);
+  const {
+    setGameStatus,
+    game: { timeLeft },
+  } = useContext(GameContext);
 
   const startTimer = useCallback(() => {
     timer = setInterval(() => {
@@ -15,8 +18,11 @@ const usePlaying = () => {
         ...gameStatus,
         game: { ...gameStatus.game, timeLeft: gameStatus.game.timeLeft - 1 },
       }));
+
+      if (timeLeft === 0) {
+      }
     }, 1000);
-  }, [setGameStatus]);
+  }, [setGameStatus, timeLeft]);
 
   const startGame = (): void => {
     setGameStatus((gameStatus) => ({
@@ -43,8 +49,6 @@ const usePlaying = () => {
       isEditMode: true,
       isPlaying: false,
     }));
-
-    clearInterval(timer);
   };
 
   return { editMode, startGame, restartGame };

@@ -5,9 +5,6 @@ const FormStyled = styled.form`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.gapSmall};
   padding: ${({ theme }) => theme.spacing.paddingBig};
-  border-radius: ${({ theme }) => theme.shapes.radiusSmall};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.secondary};
   max-width: 33rem;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.large}) {
@@ -38,10 +35,9 @@ const FormStyled = styled.form`
     &__input {
       padding: ${({ theme }) => theme.shapes.rectangularContainer};
       padding-left: 0.8rem;
-      border-radius: ${({ theme }) => theme.shapes.radiusSmall};
-      background-color: ${({ theme }) => theme.colors.primary};
-      color: ${({ theme }) => theme.colors.secondary};
-      border: 1px solid ${({ theme }) => theme.colors.primaryDark};
+      background-color: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.primary};
+      border: 1px solid ${({ theme }) => theme.colors.primary};
       width: 100%;
       transition: 0.2s;
 
