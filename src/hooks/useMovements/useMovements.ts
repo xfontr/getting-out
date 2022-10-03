@@ -1,4 +1,9 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
+import {
+  GameContext,
+  IGameContext,
+} from "../../Store/CallStatusContext/GameContext";
+import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
 import { Board, CellTypes, Position } from "../../types/gameBoard";
 import {
   checkLimits,
@@ -7,6 +12,7 @@ import {
   getPosition,
   positionOf,
 } from "../../utils/handlePosition/handlePosition";
+import usePlaying from "../usePlaying/usePlaying";
 
 const useMovements = (
   setCurrentBoard: React.Dispatch<React.SetStateAction<Board>>,
@@ -15,6 +21,9 @@ const useMovements = (
   board: Board,
   isEditMode: boolean
 ) => {
+  const { setGameStatus } = useContext<IGameContext>(GameContext);
+  const { restartGame } = usePlaying();
+
   const setNewPositions = useCallback(
     (newPosition: Position) => {
       setCurrentBoard((board) => board.set(player, "blank"));
@@ -24,9 +33,23 @@ const useMovements = (
     [player, setCurrentBoard, setPlayer]
   );
 
-  const handlePlatform = (expectedCell: CellTypes) => {
-    console.log("Win");
-  };
+  const handlePlatform = useCallback(
+    (cell: CellTypes) => {
+      switch (cell) {
+        case "exit":
+          restartGame();
+          break;
+
+        case "scoreUp":
+          setGameStatus((gameStatus) => ({
+            ...gameStatus,
+            game: { ...gameStatus.game, score: gameStatus.game.score + 1 },
+          }));
+          break;
+      }
+    },
+    [setGameStatus, restartGame]
+  );
 
   const handleKeyPress = useCallback(
     ({ key }: KeyboardEvent) => {
@@ -47,7 +70,7 @@ const useMovements = (
 
       setNewPositions(positionOf(row, column));
     },
-    [player, setNewPositions, board]
+    [player, setNewPositions, board, handlePlatform]
   );
 
   useEffect(() => {

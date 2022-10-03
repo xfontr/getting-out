@@ -10,7 +10,7 @@ export const gameInitialState: IGameContext = {
   game: {
     fieldSize: 10,
     exits: 1,
-    score: 0,
+    score: 1000,
     shootsLeft: 3,
     timeLeft: 30000,
   },

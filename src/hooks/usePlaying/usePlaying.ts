@@ -1,16 +1,11 @@
 import { useCallback, useContext } from "react";
 import { GameContext } from "../../Store/CallStatusContext/GameContext";
 import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
-import { Board } from "../../types/gameBoard";
-import generateBoard from "../../utils/generateBoard/generateBoard";
 
 let timer: NodeJS.Timer;
 
 const usePlaying = () => {
-  const {
-    setGameStatus,
-    game: { timeLeft },
-  } = useContext(GameContext);
+  const { setGameStatus } = useContext(GameContext);
 
   const startTimer = useCallback(() => {
     timer = setInterval(() => {
@@ -19,10 +14,12 @@ const usePlaying = () => {
         game: { ...gameStatus.game, timeLeft: gameStatus.game.timeLeft - 1 },
       }));
 
-      if (timeLeft === 0) {
-      }
+      setGameStatus((gameStatus) => ({
+        ...gameStatus,
+        game: { ...gameStatus.game, score: gameStatus.game.score - 1 },
+      }));
     }, 1000);
-  }, [setGameStatus, timeLeft]);
+  }, [setGameStatus]);
 
   const startGame = (): void => {
     setGameStatus((gameStatus) => ({
@@ -34,11 +31,8 @@ const usePlaying = () => {
     startTimer();
   };
 
-  const restartGame = (
-    setGameBoard: React.Dispatch<React.SetStateAction<Board>>
-  ): void => {
+  const restartGame = (): void => {
     setGameStatus(gameInitialState);
-    setGameBoard(generateBoard(10));
 
     clearInterval(timer);
   };
