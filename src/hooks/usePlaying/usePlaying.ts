@@ -1,6 +1,7 @@
 import { useCallback, useContext } from "react";
 import { GameContext } from "../../Store/CallStatusContext/GameContext";
 import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
+import getScoreRatio from "../../utils/getScoreRatio/getScoreRatio";
 
 let timer: NodeJS.Timer;
 
@@ -24,12 +25,15 @@ const usePlaying = () => {
         },
       }));
 
+      time -= 1;
+
       setGameStatus((gameStatus) => ({
         ...gameStatus,
-        game: { ...gameStatus.game, score: gameStatus.game.score - 1 },
+        game: {
+          ...gameStatus.game,
+          score: gameStatus.game.score - getScoreRatio(timeLeft),
+        },
       }));
-
-      time -= 1;
 
       if (time === 0) {
         restartGame();

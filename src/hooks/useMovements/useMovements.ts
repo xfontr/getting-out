@@ -4,6 +4,7 @@ import {
   IGameContext,
 } from "../../Store/CallStatusContext/GameContext";
 import { Board, CellTypes, Position } from "../../types/gameBoard";
+import getScoreRatio from "../../utils/getScoreRatio/getScoreRatio";
 import {
   checkLimits,
   checkObstacles,
@@ -21,7 +22,10 @@ const useMovements = (
   fieldSize: number,
   isEditMode: boolean
 ) => {
-  const { setGameStatus } = useContext<IGameContext>(GameContext);
+  const {
+    setGameStatus,
+    game: { timeLeft },
+  } = useContext<IGameContext>(GameContext);
   const { restartGame } = usePlaying();
 
   const setNewPositions = useCallback(
@@ -43,12 +47,15 @@ const useMovements = (
         case "scoreUp":
           setGameStatus((gameStatus) => ({
             ...gameStatus,
-            game: { ...gameStatus.game, score: gameStatus.game.score + 1 },
+            game: {
+              ...gameStatus.game,
+              score: gameStatus.game.score + getScoreRatio(timeLeft),
+            },
           }));
           break;
       }
     },
-    [setGameStatus, restartGame]
+    [setGameStatus, restartGame, timeLeft]
   );
 
   const handleKeyPress = useCallback(
