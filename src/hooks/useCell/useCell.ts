@@ -49,7 +49,7 @@ const useCell = ({
     }
 
     setCurrentCellType(editTool);
-    setBoard((board) => board.set(position, editTool));
+    setBoard(board.set(position, editTool));
   };
 
   const attributes = {

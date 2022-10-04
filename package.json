@@ -46,5 +46,13 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.tsx",
+      "src/**/*.ts",
+      "!src/index.tsx",
+      "!src/components/App/App.tsx"
+    ]
   }
 }
