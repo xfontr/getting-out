@@ -5,19 +5,24 @@ import { GameContext } from "../../Store/CallStatusContext/GameContext";
 import AppStyled from "./App.styled";
 import FieldPlayer from "../FieldPlayer/FieldPlayer";
 import boards from "../../data/boards";
+import EndGame from "../EndGame/EndGame";
 
 const App = (): JSX.Element => {
-  const { isEditMode, isPlaying } = useContext(GameContext);
+  const gameStatus = useContext(GameContext);
+  const { status } = gameStatus;
 
   return (
     <AppStyled>
-      {isPlaying && (
+      {status === "play" && (
         <FieldContainer
           WrappedField={FieldPlayer}
           initialBoard={boards.length - 1}
         />
       )}
-      {isEditMode && <FieldContainer WrappedField={FieldEditor} />}
+      {status === "edit" && <FieldContainer WrappedField={FieldEditor} />}
+      {(status === "win" || status === "fail") && (
+        <EndGame gameStatus={gameStatus} />
+      )}
     </AppStyled>
   );
 };

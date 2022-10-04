@@ -7,13 +7,6 @@ import usePlaying from "./usePlaying";
 
 jest.useFakeTimers();
 
-const mockGenerateBoard = jest.fn();
-
-jest.mock(
-  "../../utils/generateBoard/generateBoard",
-  () => () => mockGenerateBoard
-);
-
 describe("Given a editMode function returned by a usePlaying function", () => {
   describe("When called", () => {
     test("Then it should update the game status to edit mode", () => {
@@ -30,8 +23,7 @@ describe("Given a editMode function returned by a usePlaying function", () => {
       expect(mockSetGameStatus).toHaveBeenCalled();
       const calledWith = (mockSetGameStatus as jest.Mock).mock.calls[0][0]();
 
-      expect(calledWith.isEditMode).toBe(true);
-      expect(calledWith.isPlaying).toBe(false);
+      expect(calledWith.status).toBe("edit");
     });
   });
 });
@@ -52,8 +44,7 @@ describe("Given a startGame function returned by a usePlaying function", () => {
       expect(mockSetGameStatus).toHaveBeenCalled();
       const calledWith = (mockSetGameStatus as jest.Mock).mock.calls[0][0]();
 
-      expect(calledWith.isEditMode).toBe(false);
-      expect(calledWith.isPlaying).toBe(true);
+      expect(calledWith.status).toBe("play");
     });
 
     test("Then it should start a interval timer", () => {
@@ -88,18 +79,18 @@ describe("Given a startGame function returned by a usePlaying function", () => {
 
       jest.advanceTimersByTime(timeToAdvance);
 
-      expect(mockSetGameStatus).toHaveBeenCalledTimes(3);
+      expect(mockSetGameStatus).toHaveBeenCalledTimes(5);
     });
   });
 });
 
-describe("Given a resetGame function returned by a usePlaying function", () => {
+describe("Given a restartGame function returned by a usePlaying function", () => {
   describe("When called with a board setter function", () => {
     const mockSetGameBoard = jest.fn() as React.Dispatch<
       React.SetStateAction<Board>
     >;
 
-    test("Then it should update the game status to default and set a new game board", () => {
+    test("Then it should update the game status to default", () => {
       const {
         result: {
           current: { restartGame },
@@ -111,7 +102,6 @@ describe("Given a resetGame function returned by a usePlaying function", () => {
       });
 
       expect(mockSetGameStatus).toHaveBeenCalledWith(gameInitialState);
-      expect(mockSetGameBoard).toHaveBeenCalledWith(mockGenerateBoard);
     });
 
     test("Then it should clear the current interval", () => {

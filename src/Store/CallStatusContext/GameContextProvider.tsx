@@ -2,8 +2,7 @@ import { PropsWithChildren, useState } from "react";
 import { IGameContext, GameContext } from "./GameContext";
 
 export const gameInitialState: IGameContext = {
-  isEditMode: true,
-  isPlaying: false,
+  status: "edit",
   editMode: {
     editTool: "obstacle",
   },

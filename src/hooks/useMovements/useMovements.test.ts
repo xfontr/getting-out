@@ -1,5 +1,5 @@
-import { renderHook } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderHook } from "../../test-utils/customRender/customRender";
 import { Board, Position } from "../../types/gameBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
 import {

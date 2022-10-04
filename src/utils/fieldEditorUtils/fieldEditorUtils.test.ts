@@ -75,7 +75,7 @@ describe("Given a resetBoard function returned by a fieldEditorUtils function", 
     test("Then it should restart the cells map and restart the cell count", () => {
       resetBoard();
 
-      expect(restartGame).toHaveBeenCalledWith(setBoard);
+      expect(restartGame).toHaveBeenCalled();
       expect(setBoard).toHaveBeenCalledWith(generateBoard(10));
       expect(setCells).toHaveBeenCalledWith(cellsInitialState);
     });

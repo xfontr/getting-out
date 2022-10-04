@@ -2,8 +2,7 @@ import { createContext } from "react";
 import { CellTypes } from "../../types/gameBoard";
 
 export interface IGameContext {
-  isEditMode: boolean;
-  isPlaying: boolean;
+  status: "edit" | "play" | "fail" | "win";
   editMode: {
     editTool: CellTypes;
   };

@@ -36,7 +36,7 @@ const fieldEditorUtils = ({
     setCells(readBoard(board));
     setGameStatus((gameStatus) => ({
       ...gameStatus,
-      editMode: { ...gameStatus, editTool },
+      editMode: { ...gameStatus.editMode, editTool },
     }));
   };
 
@@ -54,7 +54,7 @@ const fieldEditorUtils = ({
     ) {
       setGameStatus((gameStatus) => ({
         ...gameStatus,
-        editMode: { ...gameStatus, editTool: "blank" },
+        editMode: { ...gameStatus.editMode, editTool: "blank" },
       }));
     }
   };

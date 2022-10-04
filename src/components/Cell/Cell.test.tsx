@@ -17,8 +17,7 @@ describe("Given a Cell component", () => {
 
   const setBoard = jest.fn() as React.Dispatch<React.SetStateAction<Board>>;
   const mockContextProvider: IGameContext = {
-    isEditMode: true,
-    isPlaying: false,
+    status: "edit",
     editMode: {
       editTool,
     },
@@ -149,7 +148,7 @@ describe("Given a Cell component", () => {
     test("Then it should not change the cell type on click", async () => {
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: false }}
+          value={{ ...mockContextProvider, status: "play" }}
         >
           <Cell
             cellType="blank"
@@ -175,7 +174,7 @@ describe("Given a Cell component", () => {
     test("Then it should be converted to 'blank' if it's a neighbour of the player", async () => {
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: false }}
+          value={{ ...mockContextProvider, status: "play" }}
         >
           <Cell
             cellType="obstacle"
@@ -199,7 +198,7 @@ describe("Given a Cell component", () => {
     test("Then it should do nothing if it's not a neighbour of the player", async () => {
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: false }}
+          value={{ ...mockContextProvider, status: "play" }}
         >
           <Cell
             cellType="obstacle"
@@ -223,7 +222,7 @@ describe("Given a Cell component", () => {
     test("Then it should do nothing if it's the same position as the player's", async () => {
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: false }}
+          value={{ ...mockContextProvider, status: "play" }}
         >
           <Cell
             cellType="player"
@@ -248,7 +247,7 @@ describe("Given a Cell component", () => {
         <GameContext.Provider
           value={{
             ...mockContextProvider,
-            isEditMode: false,
+            status: "play",
             game: { ...mockContextProvider.game, shootsLeft: 0 },
           }}
         >
@@ -276,7 +275,7 @@ describe("Given a Cell component", () => {
     test("Then it should be converted to 'blank'", async () => {
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: true }}
+          value={{ ...mockContextProvider, status: "edit" }}
         >
           <Cell
             cellType="obstacle"
@@ -302,7 +301,7 @@ describe("Given a Cell component", () => {
 
       render(
         <GameContext.Provider
-          value={{ ...mockContextProvider, isEditMode: true }}
+          value={{ ...mockContextProvider, status: "edit" }}
         >
           {cells.map((cell, index) => (
             <Cell

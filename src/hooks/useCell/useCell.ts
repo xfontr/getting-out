@@ -13,7 +13,7 @@ const useCell = ({
 }: CellProps) => {
   const [currentCellType, setCurrentCellType] = useState<CellTypes>(cellType);
   const {
-    isEditMode,
+    status,
     editMode: { editTool },
     game: { shootsLeft },
     setGameStatus,
@@ -27,12 +27,12 @@ const useCell = ({
     const neighbours = neighbourCells(player, board);
 
     if (
-      isEditMode ||
+      status === "edit" ||
       (neighbours.includes(position) && player !== position && shootsLeft)
     ) {
       setCurrentCellType("blank");
       setBoard((board) => board.set(position, "blank"));
-      isEditMode ||
+      status === "edit" ||
         setGameStatus((gameStatus) => ({
           ...gameStatus,
           game: {
@@ -44,12 +44,12 @@ const useCell = ({
   };
 
   const handleClick = () => {
-    if (!isEditMode) {
+    if (status !== "edit") {
       return;
     }
 
     setCurrentCellType(editTool);
-    setBoard((board) => board.set(position, editTool));
+    setBoard(board.set(position, editTool));
   };
 
   const attributes = {

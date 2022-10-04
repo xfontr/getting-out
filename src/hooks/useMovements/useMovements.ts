@@ -12,7 +12,7 @@ import {
   getPosition,
   positionOf,
 } from "../../utils/handlePosition/handlePosition";
-import usePlaying from "../usePlaying/usePlaying";
+import { endTimer } from "../usePlaying/usePlaying";
 
 const useMovements = (
   setCurrentBoard: React.Dispatch<React.SetStateAction<Board>>,
@@ -26,7 +26,6 @@ const useMovements = (
     setGameStatus,
     game: { timeLeft },
   } = useContext<IGameContext>(GameContext);
-  const { restartGame } = usePlaying();
 
   const setNewPositions = useCallback(
     (newPosition: Position) => {
@@ -41,7 +40,11 @@ const useMovements = (
     (cell: CellTypes) => {
       switch (cell) {
         case "exit":
-          restartGame();
+          setGameStatus((gameStatus) => ({
+            ...gameStatus,
+            status: "win",
+          }));
+          endTimer();
           break;
 
         case "scoreUp":
@@ -55,7 +58,7 @@ const useMovements = (
           break;
       }
     },
-    [setGameStatus, restartGame, timeLeft]
+    [setGameStatus, timeLeft]
   );
 
   const handleKeyPress = useCallback(
