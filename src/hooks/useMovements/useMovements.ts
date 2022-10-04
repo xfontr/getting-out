@@ -56,6 +56,13 @@ const useMovements = (
             },
           }));
           break;
+
+        case "death":
+          setGameStatus((gameStatus) => ({
+            ...gameStatus,
+            status: "fail",
+          }));
+          break;
       }
     },
     [setGameStatus, timeLeft]

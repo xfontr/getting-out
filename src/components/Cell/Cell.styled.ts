@@ -15,7 +15,7 @@ export const CellStyled = styled.div`
   }
 
   &.scoreUp {
-    background-image: url("img/boost-up.png");
+    background-image: url("img/scoreUp.png");
     background-size: 2.5rem;
   }
 
@@ -27,11 +27,16 @@ export const CellStyled = styled.div`
   }
 
   &.obstacle {
-    background-image: url("img/wall-red.png");
+    background-image: url("img/obstacle.png");
   }
 
   &.exit {
-    background-image: url("img/exit-door.png");
+    background-image: url("img/exit.png");
+    background-size: 2rem;
+  }
+
+  &.death {
+    background-image: url("img/death.png");
     background-size: 2rem;
   }
 `;

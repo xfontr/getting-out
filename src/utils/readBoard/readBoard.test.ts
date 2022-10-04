@@ -15,6 +15,7 @@ describe("Given a readBoard function", () => {
         blank: 22,
         obstacle: 1,
         scoreUp: 0,
+        death: 0,
       };
 
       const result = readBoard(mockBoard);

@@ -303,7 +303,7 @@ describe("Given a Cell component", () => {
         <GameContext.Provider
           value={{ ...mockContextProvider, status: "edit" }}
         >
-          {cells.map((cell, index) => (
+          {cells.map((_, index) => (
             <Cell
               cellType="obstacle"
               position={`4-${index}`}
