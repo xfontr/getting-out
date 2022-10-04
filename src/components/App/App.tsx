@@ -7,17 +7,17 @@ import FieldPlayer from "../FieldPlayer/FieldPlayer";
 import boards from "../../data/boards";
 
 const App = (): JSX.Element => {
-  const { isEditMode, isPlaying } = useContext(GameContext);
+  const { status } = useContext(GameContext);
 
   return (
     <AppStyled>
-      {isPlaying && (
+      {status === "play" && (
         <FieldContainer
           WrappedField={FieldPlayer}
           initialBoard={boards.length - 1}
         />
       )}
-      {isEditMode && <FieldContainer WrappedField={FieldEditor} />}
+      {status === "edit" && <FieldContainer WrappedField={FieldEditor} />}
     </AppStyled>
   );
 };

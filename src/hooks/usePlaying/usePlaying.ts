@@ -44,8 +44,7 @@ const usePlaying = () => {
   const startGame = (timeLeft: number): void => {
     setGameStatus((gameStatus) => ({
       ...gameStatus,
-      isEditMode: false,
-      isPlaying: true,
+      status: "play",
     }));
 
     startTimer(timeLeft);
@@ -54,8 +53,7 @@ const usePlaying = () => {
   const editMode = (): void => {
     setGameStatus((gameStatus) => ({
       ...gameStatus,
-      isEditMode: true,
-      isPlaying: false,
+      status: "edit",
     }));
   };
 
