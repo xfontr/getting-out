@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
 import { render } from "../../test-utils/customRender/customRender";
-import mockContextProvider from "../../test-utils/mock/mockContextProvider";
+import mockGameContext from "../../test-utils/mock/mockContextProvider";
 import { Board, CellTypes } from "../../types/gameBoard";
 import generateBoard from "../../utils/generateBoard/generateBoard";
 import { readBoard } from "../../utils/readBoard/readBoard";
@@ -22,7 +22,7 @@ describe("Given a FieldPlayer component", () => {
     setCells,
     board,
     cells,
-    gameStatus: mockContextProvider,
+    gameStatus: mockGameContext,
   };
 
   describe("When instantiated with the field container props", () => {
@@ -31,9 +31,9 @@ describe("Given a FieldPlayer component", () => {
 
       const fieldPlayer = [
         screen.getByText(
-          `Shoots left: ${mockContextProvider.game.shootsLeft} (double click neighbour cell to shoot)`
+          `Shoots left: ${mockGameContext.game.shootsLeft} (double click neighbour cell to shoot)`
         ),
-        screen.getByText(`Time left: ${mockContextProvider.game.timeLeft}`),
+        screen.getByText(`Time left: ${mockGameContext.game.timeLeft}`),
         screen.getByTestId("field"),
       ];
 
