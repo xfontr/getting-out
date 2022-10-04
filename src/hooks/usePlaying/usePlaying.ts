@@ -5,12 +5,14 @@ import getScoreRatio from "../../utils/getScoreRatio/getScoreRatio";
 
 let timer: NodeJS.Timer;
 
+export const endTimer = () => clearInterval(timer);
+
 const usePlaying = () => {
   const { setGameStatus } = useContext(GameContext);
 
   const restartGame = useCallback((): void => {
     setGameStatus(gameInitialState);
-    clearInterval(timer);
+    endTimer();
   }, [setGameStatus]);
 
   const startTimer = (timeLeft: number) => {
@@ -36,7 +38,11 @@ const usePlaying = () => {
       }));
 
       if (time === 0) {
-        restartGame();
+        setGameStatus((gameStatus) => ({
+          ...gameStatus,
+          status: "fail",
+        }));
+        endTimer();
       }
     }, 1000);
   };
