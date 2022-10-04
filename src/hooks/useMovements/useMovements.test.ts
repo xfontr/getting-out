@@ -17,13 +17,21 @@ describe("Given a useMovements function", () => {
   >;
   const player: Position = "0-0";
   const board: Board = generateBoard(5);
+  const fieldSize = 5;
 
   describe("When called as edit mode", () => {
     test("Then it should do nothing", async () => {
       const keyboardPress = "d";
 
       renderHook(() =>
-        useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, true)
+        useMovements(
+          mockSetCurrentBoard,
+          mockSetPlayer,
+          player,
+          board,
+          fieldSize,
+          true
+        )
       );
 
       await userEvent.keyboard(`{${keyboardPress}}`);
@@ -41,7 +49,14 @@ describe("Given a useMovements function", () => {
         const newPosition = positionOf(row, column);
 
         renderHook(() =>
-          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
+          useMovements(
+            mockSetCurrentBoard,
+            mockSetPlayer,
+            player,
+            board,
+            fieldSize,
+            false
+          )
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);
@@ -65,7 +80,14 @@ describe("Given a useMovements function", () => {
         const keyboardPress = "w";
 
         renderHook(() =>
-          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
+          useMovements(
+            mockSetCurrentBoard,
+            mockSetPlayer,
+            player,
+            board,
+            fieldSize,
+            false
+          )
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);
@@ -82,7 +104,14 @@ describe("Given a useMovements function", () => {
         board.set("0-1", "obstacle");
 
         renderHook(() =>
-          useMovements(mockSetCurrentBoard, mockSetPlayer, player, board, false)
+          useMovements(
+            mockSetCurrentBoard,
+            mockSetPlayer,
+            player,
+            board,
+            fieldSize,
+            false
+          )
         );
 
         await userEvent.keyboard(`{${keyboardPress}}`);

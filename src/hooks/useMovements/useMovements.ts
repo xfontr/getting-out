@@ -18,6 +18,7 @@ const useMovements = (
   setPlayer: React.Dispatch<React.SetStateAction<Position>>,
   player: Position,
   board: Board,
+  fieldSize: number,
   isEditMode: boolean
 ) => {
   const { setGameStatus } = useContext<IGameContext>(GameContext);
@@ -55,7 +56,7 @@ const useMovements = (
       const { row, column } = getPosition(player, key);
 
       if (
-        checkLimits(row, column, board.size / 10) ||
+        checkLimits(row, column, fieldSize) ||
         checkObstacles(positionOf(row, column), board)
       ) {
         return;
@@ -69,7 +70,7 @@ const useMovements = (
 
       setNewPositions(positionOf(row, column));
     },
-    [player, setNewPositions, board, handlePlatform]
+    [player, setNewPositions, board, handlePlatform, fieldSize]
   );
 
   useEffect(() => {
