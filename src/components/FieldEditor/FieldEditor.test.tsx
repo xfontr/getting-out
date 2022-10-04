@@ -17,9 +17,7 @@ const setGameStatus = jest.fn() as React.Dispatch<
   React.SetStateAction<IGameContext>
 >;
 const setBoard = jest.fn() as React.Dispatch<React.SetStateAction<Board>>;
-const restartGame = jest.fn() as (
-  setGameBoard: React.Dispatch<React.SetStateAction<Board>>
-) => void;
+const restartGame = jest.fn() as () => void;
 const setCells = jest.fn() as (
   value: React.SetStateAction<Record<CellTypes, number>>
 ) => void;

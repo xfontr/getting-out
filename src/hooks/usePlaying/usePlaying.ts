@@ -1,46 +1,50 @@
 import { useCallback, useContext } from "react";
 import { GameContext } from "../../Store/CallStatusContext/GameContext";
 import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
-import { Board } from "../../types/gameBoard";
-import generateBoard from "../../utils/generateBoard/generateBoard";
 
 let timer: NodeJS.Timer;
 
 const usePlaying = () => {
-  const {
-    setGameStatus,
-    game: { timeLeft },
-  } = useContext(GameContext);
+  const { setGameStatus } = useContext(GameContext);
 
-  const startTimer = useCallback(() => {
+  const restartGame = useCallback((): void => {
+    setGameStatus(gameInitialState);
+    clearInterval(timer);
+  }, [setGameStatus]);
+
+  const startTimer = (timeLeft: number) => {
+    let time = timeLeft;
+
     timer = setInterval(() => {
       setGameStatus((gameStatus) => ({
         ...gameStatus,
-        game: { ...gameStatus.game, timeLeft: gameStatus.game.timeLeft - 1 },
+        game: {
+          ...gameStatus.game,
+          timeLeft: gameStatus.game.timeLeft - 1,
+        },
       }));
 
-      if (timeLeft === 0) {
+      setGameStatus((gameStatus) => ({
+        ...gameStatus,
+        game: { ...gameStatus.game, score: gameStatus.game.score - 1 },
+      }));
+
+      time -= 1;
+
+      if (time === 0) {
+        restartGame();
       }
     }, 1000);
-  }, [setGameStatus, timeLeft]);
+  };
 
-  const startGame = (): void => {
+  const startGame = (timeLeft: number): void => {
     setGameStatus((gameStatus) => ({
       ...gameStatus,
       isEditMode: false,
       isPlaying: true,
     }));
 
-    startTimer();
-  };
-
-  const restartGame = (
-    setGameBoard: React.Dispatch<React.SetStateAction<Board>>
-  ): void => {
-    setGameStatus(gameInitialState);
-    setGameBoard(generateBoard(10));
-
-    clearInterval(timer);
+    startTimer(timeLeft);
   };
 
   const editMode = (): void => {

@@ -30,7 +30,14 @@ const Field = ({
     setPlayer(getLastCellByType("player", currentBoard));
   }, [initialBoard, currentBoard]);
 
-  useMovements(setCurrentBoard, setPlayer, player, currentBoard, isEditMode);
+  useMovements(
+    setCurrentBoard,
+    setPlayer,
+    player,
+    currentBoard,
+    fieldSize,
+    isEditMode
+  );
 
   const renderBoard: JSX.Element[] = [];
 

@@ -25,9 +25,7 @@ type FieldContainerProps<FieldProps> = {
 
 export interface FieldProps {
   setBoard: React.Dispatch<React.SetStateAction<Board>>;
-  restartGame: (
-    setGameBoard: React.Dispatch<React.SetStateAction<Board>>
-  ) => void;
+  restartGame: () => void;
   setCells: (value: React.SetStateAction<Record<CellTypes, number>>) => void;
   board: Board;
   cells: Record<CellTypes, number>;

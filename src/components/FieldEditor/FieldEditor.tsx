@@ -51,7 +51,7 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
     boards.push(newBoard);
 
     if (id === "play") {
-      startGame();
+      startGame(+values.timeLeft);
     }
   };
 
@@ -103,10 +103,10 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         fieldSize={fieldSize}
       />
       <div className="edit__options">
+        <Button onClick={resetBoard}>Reset board</Button>
         <Button onClick={handleSubmit} type="submit" id="play">
           Submit and play
         </Button>
-        <Button onClick={resetBoard}>Reset board</Button>
       </div>
     </FieldEditorStyled>
   );
