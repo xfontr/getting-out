@@ -8,6 +8,7 @@ export const readBoard = (board: Board): Record<CellTypes, number> => {
     blank: 0,
     obstacle: 0,
     scoreUp: 0,
+    death: 0,
   };
 
   board.forEach((cell) => {

@@ -24,9 +24,10 @@ describe("Given a EditTools component", () => {
       const customCells: Record<CellTypes, number> = {
         player: 1,
         exit: 0,
-        blank: 94,
+        blank: 90,
         obstacle: 2,
         scoreUp: 3,
+        death: 4,
       };
 
       render(<EditTools {...{ ...props, cells: customCells }} />);

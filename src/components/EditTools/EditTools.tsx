@@ -33,7 +33,7 @@ const EditTools = ({
             isActive={editTool === cell}
             key={`tool-${cell}`}
           >
-            <img src="/img/cube.png" alt="Cube" height={50} width={50} />
+            <img src={`/img/${cell}.png`} alt="Cube" height={45} width={45} />
             {`${initialToCaps(cell)}`}
           </ToolButton>
         </div>

@@ -52,7 +52,8 @@
       "src/**/*.tsx",
       "src/**/*.ts",
       "!src/index.tsx",
-      "!src/components/App/App.tsx"
+      "!src/components/App/*.tsx",
+      "!src/components/App/*.ts"
     ]
   }
 }
