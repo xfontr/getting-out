@@ -1,4 +1,6 @@
 import { IGameContext } from "../../Store/CallStatusContext/GameContext";
+import { gameInitialState } from "../../Store/CallStatusContext/GameContextProvider";
+import Button from "../Button/Button";
 
 type EndGameProps = {
   gameStatus: IGameContext;
@@ -8,6 +10,7 @@ const EndGame = ({
   gameStatus: {
     status,
     game: { timeLeft, score },
+    setGameStatus,
   },
 }: EndGameProps): JSX.Element => (
   <>
@@ -20,6 +23,28 @@ const EndGame = ({
         </p>
       </>
     )}
+
+    <Button
+      onClick={() => {
+        setGameStatus({
+          ...gameInitialState,
+          status: "play",
+        });
+      }}
+    >
+      Play again
+    </Button>
+
+    <Button
+      onClick={() => {
+        setGameStatus({
+          ...gameInitialState,
+          status: "edit",
+        });
+      }}
+    >
+      Go back to edit mode
+    </Button>
   </>
 );
 
