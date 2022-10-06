@@ -7,7 +7,7 @@ export const setInitialBoard = (board: number | "new"): Board => {
   if (board === "new" || boards[board] === undefined) {
     return generateBoard(10);
   }
-  return boards[board].board;
+  return new Map(boards[board].board);
 };
 
 export const setInitialStatus = (

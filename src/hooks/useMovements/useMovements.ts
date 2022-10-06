@@ -40,11 +40,11 @@ const useMovements = (
     (cell: CellTypes) => {
       switch (cell) {
         case "exit":
+          endTimer();
           setGameStatus((gameStatus) => ({
             ...gameStatus,
             status: "win",
           }));
-          endTimer();
           break;
 
         case "scoreUp":
@@ -58,6 +58,7 @@ const useMovements = (
           break;
 
         case "death":
+          endTimer();
           setGameStatus((gameStatus) => ({
             ...gameStatus,
             status: "fail",
