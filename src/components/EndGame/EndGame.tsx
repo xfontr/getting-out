@@ -40,6 +40,7 @@ const EndGame = ({
         isEditMode={true}
         className="read-only"
         fieldSize={fieldSize}
+        data-testid="field"
       />
 
       <div className="options">
@@ -58,7 +59,7 @@ const EndGame = ({
             editMode();
           }}
         >
-          Go back to edit mode
+          Edit mode
         </Button>
       </div>
     </EndGameStyled>
