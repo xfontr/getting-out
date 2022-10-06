@@ -79,7 +79,7 @@ describe("Given a startGame function returned by a usePlaying function", () => {
 
       jest.advanceTimersByTime(timeToAdvance);
 
-      expect(mockSetGameStatus).toHaveBeenCalledTimes(5);
+      expect(mockSetGameStatus).toHaveBeenCalledTimes(3);
     });
   });
 });

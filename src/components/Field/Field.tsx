@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { HTMLAttributes, useEffect, useState } from "react";
 import useMovements from "../../hooks/useMovements/useMovements";
 import { Board, Position } from "../../types/gameBoard";
 import { getLastCellByType } from "../../utils/readBoard/readBoard";
@@ -9,12 +9,11 @@ export type FieldStypedProps = {
   fieldSize: number;
 };
 
-type FieldProps = {
+interface FieldProps extends HTMLAttributes<HTMLDivElement> {
   initialBoard: Board;
   isEditMode?: boolean;
   fieldSize?: number;
-  onClick?: () => void;
-};
+}
 
 const Field = ({
   initialBoard,

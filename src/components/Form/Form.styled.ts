@@ -25,6 +25,7 @@ const FormStyled = styled.form`
     &__container {
       & * {
         display: block;
+        width: 100%;
       }
     }
 

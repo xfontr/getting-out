@@ -14,7 +14,11 @@ const FieldEditorStyled = styled.section`
 
     & .form__container {
       min-width: 0;
-      max-width: 25%;
+      max-width: 100%;
+
+      @media (min-width: ${({ theme: { breakpoints } }) => breakpoints.large}) {
+        max-width: 25%;
+      }
     }
   }
 
