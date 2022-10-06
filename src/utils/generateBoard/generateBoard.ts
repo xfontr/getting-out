@@ -5,7 +5,7 @@ const generateBoard = (size: number): Map<Position, CellTypes> => {
 
   new Array(size)
     .fill(null)
-    .map((_, indexX) =>
+    .forEach((_, indexX) =>
       new Array(size)
         .fill(null)
         .forEach((_, indexY) => cells.set(`${indexX}-${indexY}`, "blank"))

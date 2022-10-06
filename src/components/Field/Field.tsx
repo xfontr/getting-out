@@ -55,7 +55,7 @@ const Field = ({
 
   return (
     <div {...rest}>
-      <FieldStyled fieldSize={fieldSize!}>{renderBoard}</FieldStyled>
+      <FieldStyled fieldSize={fieldSize}>{renderBoard}</FieldStyled>
     </div>
   );
 };
