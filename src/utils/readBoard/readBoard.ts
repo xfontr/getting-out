@@ -30,7 +30,7 @@ export const getLastCellByType = (
     }
   });
 
-  return foundCell!;
+  return foundCell;
 };
 
 export const checkIfBoardMaximum = (cell: CellTypes, board: Board): boolean =>
