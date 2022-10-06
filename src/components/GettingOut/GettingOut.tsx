@@ -5,13 +5,15 @@ import { GameContext } from "../../Store/CallStatusContext/GameContext";
 import FieldPlayer from "../FieldPlayer/FieldPlayer";
 import boards from "../../data/boards";
 import EndGame from "../EndGame/EndGame";
+import GettingOutStyled from "./GettingOut.styled";
 
 const GettingOut = (): JSX.Element => {
   const gameStatus = useContext(GameContext);
   const { status } = gameStatus;
 
   return (
-    <>
+    <GettingOutStyled>
+      <h1>Getting out</h1>
       {status === "play" && (
         <FieldContainer
           WrappedField={FieldPlayer}
@@ -22,7 +24,7 @@ const GettingOut = (): JSX.Element => {
       {(status === "win" || status === "fail") && (
         <EndGame gameStatus={gameStatus} />
       )}
-    </>
+    </GettingOutStyled>
   );
 };
 
