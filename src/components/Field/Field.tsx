@@ -3,7 +3,7 @@ import useMovements from "../../hooks/useMovements/useMovements";
 import { Board, Position } from "../../types/gameBoard";
 import { getLastCellByType } from "../../utils/readBoard/readBoard";
 import Cell from "../Cell/Cell";
-import FieldStyled from "./Field.styled";
+import FieldStyled, { FieldContainer } from "./Field.styled";
 
 export type FieldStypedProps = {
   fieldSize: number;
@@ -55,7 +55,9 @@ const Field = ({
 
   return (
     <div {...rest}>
-      <FieldStyled fieldSize={fieldSize}>{renderBoard}</FieldStyled>
+      <FieldContainer>
+        <FieldStyled fieldSize={fieldSize}>{renderBoard}</FieldStyled>
+      </FieldContainer>
     </div>
   );
 };
