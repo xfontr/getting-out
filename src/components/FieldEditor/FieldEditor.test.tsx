@@ -42,6 +42,9 @@ const props: FieldProps = {
 };
 
 describe("Given a FieldEditor component", () => {
+  afterEach(() => {
+    boards[0] && boards.pop();
+  });
   describe("When instantiated with Field props", () => {
     test("Then it should render all the tools for editing the cells map", () => {
       render(<FieldEditor {...props} />);
