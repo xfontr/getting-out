@@ -47,7 +47,7 @@ const EndGame = ({
         <Button
           onClick={() => {
             restartGame();
-            startGame(boards[0].timeLeft);
+            startGame(boards[boards.length - 1].timeLeft);
           }}
         >
           Play again
