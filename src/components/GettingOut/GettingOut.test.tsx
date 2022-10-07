@@ -14,7 +14,7 @@ describe("Given a GettingOut component", () => {
       render(<GettingOut />);
 
       const fieldEditor = screen.getByRole("button", {
-        name: "Submit and play",
+        name: "Play",
       });
 
       expect(fieldEditor).toBeInTheDocument();

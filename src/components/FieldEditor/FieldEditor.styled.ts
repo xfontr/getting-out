@@ -1,9 +1,15 @@
 import styled from "styled-components";
 
 const FieldEditorStyled = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme: { spacing } }) => spacing.gap};
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: ${({ theme: { spacing } }) => spacing.gap};
+    padding: ${({ theme: { spacing } }) => spacing.gapBig};
+
+    background-color: ${({ theme: { colors } }) => colors.contrast};
+    color: ${({ theme: { colors } }) => colors.secondary};
+  }
 
   .form--edit {
     display: flex;
@@ -25,7 +31,7 @@ const FieldEditorStyled = styled.section`
   .edit {
     &__options {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       gap: ${({ theme: { spacing } }) => spacing.gap};
     }
   }
@@ -39,11 +45,26 @@ const FieldEditorStyled = styled.section`
       padding: 0.2rem 0;
       border: 1px solid transparent;
       font-weight: bold;
-      color: ${({ theme: { colors } }) => colors.primary};
+
+      .field-size__current {
+        width: 2rem;
+        text-align: center;
+      }
     }
     &__heading {
       display: block;
       width: 100%;
+    }
+  }
+
+  .options__buttons {
+    margin-top: auto;
+    gap: ${({ theme: { spacing } }) => spacing.gap};
+    display: flex;
+
+    button {
+      color: ${({ theme: { colors } }) => colors.secondary};
+      border-color: ${({ theme: { colors } }) => colors.secondary};
     }
   }
 `;

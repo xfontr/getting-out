@@ -1,5 +1,6 @@
 import { FieldProps } from "../../containers/FieldContainer/FieldContainer";
 import Field from "../Field/Field";
+import FieldPlayerStyled from "./FieldPlayer.styled";
 
 const FieldPlayer = (props: FieldProps): JSX.Element => {
   const {
@@ -10,10 +11,16 @@ const FieldPlayer = (props: FieldProps): JSX.Element => {
   } = props;
 
   return (
-    <>
-      <p>Shoots left: {shootsLeft} (double click neighbour cell to shoot)</p>
-      <p>Score: {score}</p>
-      <p>Time left: {timeLeft}</p>
+    <FieldPlayerStyled>
+      <header className="header">
+        <ul>
+          <li>
+            Shoots left: {shootsLeft} (double click neighbour cell to shoot)
+          </li>
+          <li>Score: {score}</li>
+          <li>Time left: {timeLeft}</li>
+        </ul>
+      </header>
 
       <Field
         data-testid="field"
@@ -21,7 +28,7 @@ const FieldPlayer = (props: FieldProps): JSX.Element => {
         isEditMode={false}
         fieldSize={fieldSize}
       />
-    </>
+    </FieldPlayerStyled>
   );
 };
 

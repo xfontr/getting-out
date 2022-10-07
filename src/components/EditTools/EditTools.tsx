@@ -26,14 +26,14 @@ const EditTools = ({
     <EditToolsStyled>
       {Object.entries(cells).map(([cell, amount]) => (
         <div className="tools__group">
-          <span>Placed: {amount}</span>
+          <span className="tools__placed">Placed: {amount}</span>
           <ToolButton
             onClick={handleClick}
             id={cell}
             isActive={editTool === cell}
             key={`tool-${cell}`}
           >
-            <img src={`/img/${cell}.png`} alt="Cube" height={45} width={45} />
+            <img src={`/img/${cell}.png`} alt="Cube" height={35} width={35} />
             {`${initialToCaps(cell)}`}
           </ToolButton>
         </div>

@@ -6,7 +6,7 @@ import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
 import { SyntheticEvent, useEffect } from "react";
 import boards from "../../data/boards";
 import { UserBoard } from "../../types/UserBoard";
-import Button, { IconButton } from "../Button/Button";
+import { IconButton, OutlineButton } from "../Button/Button";
 import FieldEditorStyled from "./FieldEditor.styled";
 import Form from "../Form/Form";
 import editFieldForm from "../../schemas/editField.form";
@@ -61,41 +61,49 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
 
   return (
     <FieldEditorStyled>
-      <div className="edit__options">
-        <div className="options__container">
-          <span className="options__heading">Field size</span>
-          <div className="options__field-size">
-            <IconButton
-              onClick={decreaseSize}
-              aria-label="increase"
-              data-testid="increase"
-            >
-              <HiOutlineMinus />
-            </IconButton>
-            {fieldSize}
-            <IconButton
-              onClick={increaseSize}
-              aria-label="decrease"
-              data-testid="decrease"
-            >
-              <HiOutlinePlus />
-            </IconButton>
+      <header className="header">
+        <EditTools
+          cells={cells}
+          editTool={editTool}
+          switchEditTool={switchEditTool}
+        />
+
+        <div className="edit__options">
+          <div className="options__container">
+            <span className="options__heading">Field size</span>
+            <div className="options__field-size">
+              <IconButton
+                onClick={decreaseSize}
+                aria-label="increase"
+                data-testid="increase"
+              >
+                <HiOutlineMinus />
+              </IconButton>
+              <span className="field-size__current">{fieldSize}</span>
+              <IconButton
+                onClick={increaseSize}
+                aria-label="decrease"
+                data-testid="decrease"
+              >
+                <HiOutlinePlus />
+              </IconButton>
+            </div>
+          </div>
+
+          <Form
+            inputProps={inputProps}
+            schema={editFieldForm}
+            values={values}
+            className="form--edit"
+          />
+          <div className="options__buttons">
+            <OutlineButton onClick={resetBoard}>Reset</OutlineButton>
+            <OutlineButton onClick={handleSubmit} type="submit" id="play">
+              Play
+            </OutlineButton>
           </div>
         </div>
-
-        <Form
-          inputProps={inputProps}
-          schema={editFieldForm}
-          values={values}
-          className="form--edit"
-        />
-      </div>
-
-      <EditTools
-        cells={cells}
-        editTool={editTool}
-        switchEditTool={switchEditTool}
-      />
+      </header>
 
       <Field
         data-testid="field"
@@ -106,12 +114,6 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
         isEditMode={true}
         fieldSize={fieldSize}
       />
-      <div className="edit__options">
-        <Button onClick={resetBoard}>Reset board</Button>
-        <Button onClick={handleSubmit} type="submit" id="play">
-          Submit and play
-        </Button>
-      </div>
     </FieldEditorStyled>
   );
 };

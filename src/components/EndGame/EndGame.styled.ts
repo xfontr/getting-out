@@ -1,9 +1,19 @@
 import styled from "styled-components";
 
-const EndGameStyled = styled.div`
+const EndGameStyled = styled.section`
+  .header {
+    padding: ${({ theme: { spacing } }) => spacing.gapBig};
+
+    background-color: ${({ theme: { colors } }) => colors.contrast};
+    color: ${({ theme: { colors } }) => colors.secondary};
+
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme: { spacing } }) => spacing.gap};
+  }
+
   .read-only {
     position: relative;
-    width: fit-content;
     margin-bottom: ${({ theme: { spacing } }) => spacing.gap};
   }
 
@@ -21,6 +31,11 @@ const EndGameStyled = styled.div`
   .options {
     display: flex;
     gap: ${({ theme: { spacing } }) => spacing.gap};
+
+    button {
+      color: ${({ theme: { colors } }) => colors.secondary};
+      border-color: ${({ theme: { colors } }) => colors.secondary};
+    }
   }
 `;
 

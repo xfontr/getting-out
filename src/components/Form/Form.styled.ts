@@ -38,7 +38,7 @@ const FormStyled = styled.form`
       padding-left: 0.8rem;
       background-color: ${({ theme }) => theme.colors.secondary};
       color: ${({ theme }) => theme.colors.primary};
-      border: 1px solid ${({ theme }) => theme.colors.primary};
+      border: 1px solid ${({ theme }) => theme.colors.contrast};
       width: 100%;
       transition: 0.2s;
 

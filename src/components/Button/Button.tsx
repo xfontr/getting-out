@@ -37,9 +37,7 @@ export const ToolButton = <T extends HTMLButtonElement>({
   ...rest
 }: ButtonProps<T>): JSX.Element => (
   <Button
-    className={`button--tool button--outline ${
-      isActive ? "button--active" : ""
-    }`}
+    className={`button--tool ${isActive ? "button--active" : ""}`}
     {...rest}
   >
     {children}

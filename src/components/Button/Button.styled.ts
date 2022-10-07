@@ -47,7 +47,7 @@ const ButtonStyled = styled.button`
       &:hover {
         background-color: ${({ theme: { colors } }) => colors.secondary};
         color: ${({ theme: { colors } }) => colors.primary};
-        border: 2px solid;
+        border: 1px solid;
         font-weight: bold;
         box-shadow: none;
 
@@ -65,19 +65,31 @@ const ButtonStyled = styled.button`
     }
 
     &--tool {
-      width: 100px;
-      height: 100px;
+      width: 6rem;
+      height: 6rem;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: 0s;
+      transition: 0.1s;
+      background-color: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme: { colors } }) => colors.contrast};
+      border: 2px solid ${({ theme }) => theme.colors.secondary};
+      font-weight: normal;
+
+      &:hover {
+        background-color: ${({ theme: { colors } }) => colors.secondary};
+        border-color: transparent;
+        font-weight: bold;
+        box-shadow: none;
+      }
     }
 
     &--active {
-      transition: 0;
+      transition: 0s;
       border-width: 2px;
       font-weight: bold;
+      box-shadow: inset 8px 8px 22px 8px rgba(0, 0, 0, 0.3);
     }
 
     &--icon {
