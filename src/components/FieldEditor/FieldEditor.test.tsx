@@ -42,6 +42,9 @@ const props: FieldProps = {
 };
 
 describe("Given a FieldEditor component", () => {
+  afterEach(() => {
+    boards[0] && boards.pop();
+  });
   describe("When instantiated with Field props", () => {
     test("Then it should render all the tools for editing the cells map", () => {
       render(<FieldEditor {...props} />);
@@ -79,14 +82,22 @@ describe("Given a FieldEditor component", () => {
   describe("When instantiated and clicked the submit button", () => {
     test("Then it should send the board data with the field values to the global list of boards", async () => {
       const expectedBoardData: UserBoard = {
-        board,
-        exits: 0,
+        board: new Map(props.board.set("3-3", "exit")),
+        exits: 1,
         shoots: 3,
         timeLeft: 10,
         fieldSize: 10,
       };
 
-      render(<FieldEditor {...props} />);
+      render(
+        <FieldEditor
+          {...{
+            ...props,
+            board: expectedBoardData.board,
+            cells: readBoard(expectedBoardData.board),
+          }}
+        />
+      );
 
       const submitButton = screen.getByRole("button", {
         name: "Submit and play",
@@ -95,6 +106,36 @@ describe("Given a FieldEditor component", () => {
       await userEvent.click(submitButton);
 
       expect(boards[0]).toStrictEqual(expectedBoardData);
+    });
+
+    test("Then it should do nothing if there are no exit cells", async () => {
+      render(<FieldEditor {...props} />);
+
+      const submitButton = screen.getByRole("button", {
+        name: "Submit and play",
+      });
+
+      await userEvent.click(submitButton);
+
+      expect(boards[0]).toBeUndefined();
+    });
+
+    test("Then it should do nothing if there are no player cells", async () => {
+      const newBoard = props.board.set("1-1", "blank");
+
+      render(
+        <FieldEditor
+          {...{ ...props, board: newBoard, cells: readBoard(newBoard) }}
+        />
+      );
+
+      const submitButton = screen.getByRole("button", {
+        name: "Submit and play",
+      });
+
+      await userEvent.click(submitButton);
+
+      expect(boards[0]).toBeUndefined();
     });
   });
 
