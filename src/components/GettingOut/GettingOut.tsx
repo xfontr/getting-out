@@ -20,7 +20,12 @@ const GettingOut = (): JSX.Element => {
           initialBoard={boards.length - 1}
         />
       )}
-      {status === "edit" && <FieldContainer WrappedField={FieldEditor} />}
+      {status === "edit" && (
+        <FieldContainer
+          WrappedField={FieldEditor}
+          initialBoard={boards.length - 1}
+        />
+      )}
       {(status === "win" || status === "fail") && (
         <EndGame gameStatus={gameStatus} />
       )}

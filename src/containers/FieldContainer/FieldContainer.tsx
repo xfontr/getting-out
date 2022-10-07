@@ -9,6 +9,7 @@ import {
   setInitialBoard,
   setInitialStatus,
 } from "../../utils/fieldPlayerUtils/fieldPlayerUtils";
+import { readBoard } from "../../utils/readBoard/readBoard";
 
 export const cellsInitialState: Record<CellTypes, number> = {
   player: 1,
@@ -40,8 +41,9 @@ const FieldContainer = ({
   const gameStatus = useContext(GameContext);
   const { restartGame } = usePlaying();
   const [board, setBoard] = useState<Board>(setInitialBoard(initialBoard));
-  const [cells, setCells] =
-    useState<Record<CellTypes, number>>(cellsInitialState);
+  const [cells, setCells] = useState<Record<CellTypes, number>>(
+    initialBoard === "new" ? cellsInitialState : readBoard(board)
+  );
 
   useEffect(() => {
     setInitialStatus(gameStatus.setGameStatus, initialBoard);
