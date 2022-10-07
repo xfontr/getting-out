@@ -6,7 +6,7 @@ import fieldEditorUtils from "../../utils/fieldEditorUtils/fieldEditorUtils";
 import { SyntheticEvent, useEffect } from "react";
 import boards from "../../data/boards";
 import { UserBoard } from "../../types/UserBoard";
-import Button, { IconButton, OutlineButton } from "../Button/Button";
+import { IconButton, OutlineButton } from "../Button/Button";
 import FieldEditorStyled from "./FieldEditor.styled";
 import Form from "../Form/Form";
 import editFieldForm from "../../schemas/editField.form";

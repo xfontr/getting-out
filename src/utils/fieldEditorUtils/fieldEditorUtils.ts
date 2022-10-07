@@ -84,6 +84,7 @@ const fieldEditorUtils = ({
     });
 
     setBoard(newBoard);
+    setCells(readBoard(newBoard));
   };
 
   const decreaseSize = () => {
@@ -111,6 +112,7 @@ const fieldEditorUtils = ({
     });
 
     setBoard(newBoard);
+    setCells(readBoard(newBoard));
   };
 
   return {

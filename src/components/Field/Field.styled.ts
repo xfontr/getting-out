@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { FieldStypedProps } from "./Field";
 
 export const FieldContainer = styled.div`
-  background: url(img/mocha-grunge.png) rgb(253, 240, 213, 0.5);
+  background: url("img/mocha-grunge.png") rgb(253, 240, 213, 0.5);
   padding: 2rem;
+  background-attachment: fixed;
 `;
 
 const FieldStyled = styled.div<FieldStypedProps>`

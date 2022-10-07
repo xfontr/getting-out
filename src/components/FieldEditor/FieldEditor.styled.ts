@@ -33,11 +33,6 @@ const FieldEditorStyled = styled.section`
       display: flex;
       flex-direction: column;
       gap: ${({ theme: { spacing } }) => spacing.gap};
-
-      button {
-        color: ${({ theme: { colors } }) => colors.secondary};
-        border-color: ${({ theme: { colors } }) => colors.secondary};
-      }
     }
   }
 
@@ -66,6 +61,11 @@ const FieldEditorStyled = styled.section`
     margin-top: auto;
     gap: ${({ theme: { spacing } }) => spacing.gap};
     display: flex;
+
+    button {
+      color: ${({ theme: { colors } }) => colors.secondary};
+      border-color: ${({ theme: { colors } }) => colors.secondary};
+    }
   }
 `;
 
