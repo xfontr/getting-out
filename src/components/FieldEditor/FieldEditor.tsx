@@ -40,6 +40,10 @@ const FieldEditor = (props: FieldProps): JSX.Element => {
   }, [cells, disableTools]);
 
   const handleSubmit = ({ currentTarget: { id } }: SyntheticEvent) => {
+    if (cells.player < 1 || cells.exit < 1) {
+      return;
+    }
+
     const newBoard: UserBoard = {
       shoots: +values.shoots,
       timeLeft: +values.timeLeft,
