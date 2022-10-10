@@ -13,7 +13,11 @@ const GettingOut = (): JSX.Element => {
 
   return (
     <GettingOutStyled>
-      <h1>Getting out</h1>
+      <h1 className="game__heading">Getting out</h1>
+      <p className="game__subheading">
+        You have to reach the exit cell before running out of time. You can
+        double click neighbour cells to destroy them.
+      </p>
       {status === "play" && (
         <FieldContainer
           WrappedField={FieldPlayer}

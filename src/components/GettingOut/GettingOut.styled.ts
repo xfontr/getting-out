@@ -3,8 +3,13 @@ import styled from "styled-components";
 const GettingOutStyled = styled.div`
   padding: ${({ theme: { spacing } }) => spacing.gapBig};
 
-  h1 {
-    margin-bottom: 2rem;
+  .game {
+    &__heading {
+      margin-bottom: 0rem;
+    }
+    &__subheading {
+      margin-bottom: 2rem;
+    }
   }
 `;
 
